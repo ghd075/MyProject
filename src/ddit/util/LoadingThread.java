@@ -18,7 +18,7 @@ public class LoadingThread extends Thread{
 
     public void run(){ // run 메서드는 수행 흐름이 하나 더 생겼을 때의 메서드이다. 
     	
-    	for(int i = 0; i <17; i ++){
+    	for(int i = 0; i <22; i ++){
         	
         	System.out.print(str);
             try {

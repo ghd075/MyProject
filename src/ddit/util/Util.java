@@ -1,13 +1,21 @@
 package ddit.util;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import ddit.dao.MemberDAO;
 
 /**
  * 공통모듈 클래스
  * */
 public class Util {
-
+	// 한국 주소 유효성 검사를 위한 정규표현식
+	private static final String KOREAN_ADDRESS_PATTERN =
+            "^(?:[가-힣0-9a-zA-Z\\s\\-,]+시)\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+구)\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+[읍면동])\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+[리])?\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+)$";
+	
+    // 이름 유효성 검사를 위한 정규표현식
+    private static final String KOREAN_NAME_PATTERN = "^[가-힣]+$";
 	public static Scanner sc = new Scanner(System.in);
 	private static MemberDAO mDao = MemberDAO.getInstance();
 	
@@ -38,7 +46,37 @@ public class Util {
         }catch(Exception e){
             System.out.println(e);
         }
-    }	
+    }
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 *이름 유효성 검사 페이지입니다. 한글을 입력해야 다음 단계로 이동합니다.
+	 * 
+	 * 
+	 */
+	public static String nameCheck() {
+		String name = "";
+		
+		boolean loop = true;
+		while (loop) {
+
+			System.out.print("\t이름 : ");
+			name = sc.nextLine();
+
+			if (!isValidKoreanName(name)) {
+				System.out.println("\t이름이 유효하지 않습니다. 한글로 입력해주세요.");
+				System.out.println();
+			} else {
+				loop = false;
+			}
+
+		}
+		return name;
+	}
+	
+	
 	/**
 	 * 
 	 * 
@@ -59,6 +97,7 @@ public class Util {
 
 			if (memberPhone.length() != 13) {
 				System.out.println("\t'-'을 포함하여 다시 입력해주세요.");
+				System.out.println();
 			} else {
 				loop = false;
 			}
@@ -76,16 +115,42 @@ public class Util {
 	 * 
 	 */
 	public static String Address() {
-
 		String memberAddress = "";
 		
-		System.out.print("\t주소 : ");
-		memberAddress = sc.nextLine();
-		System.out.println();
-		
+		boolean loop = true;
+		while (loop) {
+			System.out.print("\t주소 : ");
+			memberAddress = sc.nextLine();
+			if (!isValidKoreanAddress(memberAddress)) {
+				System.out.println("\t주소가 유효하지 않습니다. 올바른 주소를 입력해주세요.");
+				System.out.println("\tex)서울특별시 강남구 역삼동 123-45 형태로 입력해주세요.");
+				System.out.println();
+			} else {
+				loop = false;
+			}
+
+		}
+
 		return memberAddress;
 		
 	}//Address
+	
+	/***
+	 * 정규표현식을 활용한 집주소 유효성 검사
+	 */
+    public static boolean isValidKoreanAddress(String address) {
+        Pattern pattern = Pattern.compile(KOREAN_ADDRESS_PATTERN);
+        Matcher matcher = pattern.matcher(address);
+        return matcher.matches();
+    }
+	/***
+	 * 정규표현식을 활용한 이름 유효성 검사
+	 */
+    public static boolean isValidKoreanName(String name) {
+        Pattern pattern = Pattern.compile(KOREAN_NAME_PATTERN);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
+    }
 	
 	 /** 
 	 * 
@@ -128,6 +193,7 @@ public class Util {
 			//영문자와 숫자를 혼용해서 입력할 수 있도록
 			}else if(cnt1==0 || cnt2==0) {
 				System.out.println("\t아이디는 영문자와 숫자를 혼용해서 만들어주세요.");
+				System.out.println();
 			}else {
 				loop = false;
 			}
@@ -136,34 +202,6 @@ public class Util {
 		return memberID;
 
 	} // createid
-	
-	private static String nextLine(String input) {
-		return nextLine(input, false);
-	}
-	
-	private static String  nextLine(String input, boolean korean) {
-		System.out.print(input);
-		String str = sc.nextLine();
-		if (korean) {
-			for (int i = 0 ; i < str.length() ; i++) {
-				if (str.charAt(i) < '가' || str.charAt(i) > '힣') {
-					throw new RuntimeException("한글로 입력해주세요.");
-				}
-			}
-		}
-		return str;
-	}
-
-	public static int nextInt(String input) {
-		return nextInt(input, 0, 100);
-	}
-	
-	public static int nextInt(String input, int start, int end) {
-		int result = Integer.parseInt(nextLine(input));
-		if (start > result || end < result)
-			throw new RangeException(start, end);
-			return result;
-	}
 	
 	// 전각문자 개수를 세주는 메서드
 	private static int getKorCnt(String kor) {

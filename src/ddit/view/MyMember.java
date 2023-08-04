@@ -70,7 +70,7 @@ public class MyMember {
 				List<Store> list = null;
 				//System.out.println(address);
 				System.out.println("\n\n");
-				System.out.println("\t[1.한식]\t [2.중식]\t [3.일식]\t[4.치킨]\t[5.피자]");
+				System.out.println("\t[1.한식]\t [2.중식]\t [3.일식]\t[4.패스트푸드]\t[5.피자]");
 				System.out.println("\n\n");
 				// 리스트 가져오기
 		

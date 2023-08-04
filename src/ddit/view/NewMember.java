@@ -39,10 +39,12 @@ public class NewMember {
 			System.out.println("\t회원가입을 위해 정보를 입력해주세요!\n\n\n");
 
 
-			System.out.print("\t이름 : ");
-			String memberName = Util.sc.nextLine();
-			memberdata.setmName(memberName);
-			System.out.println();
+//			System.out.print("\t이름 : ");
+//			String memberName = Util.sc.nextLine();
+//			memberdata.setmName(memberName);
+//			System.out.println();
+			
+			memberdata.setmName(Util.nameCheck());
 
 			memberdata.setmId(Util.createid());;
 
