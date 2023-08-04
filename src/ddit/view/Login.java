@@ -121,7 +121,6 @@ public class Login {
 			mu.order();
 			
 			String input = Util.sc.nextLine();
-			Util.clearScreen();
 			System.out.println("\n\n");
 			
 			if (input.equals("0")) {

@@ -1,6 +1,7 @@
 package ddit.view;
 
 import ddit.dto.Member;
+import ddit.dto.Store;
 import ddit.util.Util;
 
 /**
@@ -33,7 +34,6 @@ public class MemberUI {
 	 * 
 	 */
 	public void order() {
-		Util.clearScreen();
 		System.out.println("\n\n");
 		System.out.println("\t1. 주문페이지 ");
 		System.out.println();
@@ -54,7 +54,7 @@ public class MemberUI {
 	 * 
 	 */
 	public void title(int n) {
-		Util.clearScreen();
+		System.out.println("\n\n");
 		if (n == MemberUI.ORDER) {
 			System.out.println("\t\t[주문 페이지]");
 		} else if (n == MemberUI.INFO) {
@@ -94,9 +94,8 @@ public class MemberUI {
 	 * 
 	 * 
 	 */
-	public void choose(Member member, String meCode) {
+	public void choose(Member member, String meCode, Store store) {
 		boolean result = true;
-		
 		while(result) {
 			Util.clearScreen();
 			System.out.println("\n\n");
@@ -115,9 +114,9 @@ public class MemberUI {
 			if (input == 1) {
 				System.out.println("\n\n\n\n\n\n\n");
 				mm.accumlateList(member, meCode);
-				dor.dorProcess();
+				dor.dorProcess(store);
 			} else if (input == 2) {
-	//			dor.dorProcess();
+	//			dor.dorProcess(store);
 			} else if (input == 0) {
 				result = false;
 			}else {

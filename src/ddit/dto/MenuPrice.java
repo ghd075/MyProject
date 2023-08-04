@@ -6,9 +6,17 @@ public class MenuPrice {
 	private int price;  
 	private int proCnt;              
 	private String meCode;
-	private String stoNo;  
+	private String stoNo; 
+	private String stoOrder; 
 	
 	public MenuPrice() { }
+	
+	public MenuPrice(String stoNo, String stoOrder, String memeNu, int price) {
+		this.stoNo = stoNo;
+		this.stoOrder = stoOrder;
+		this.memeNu = memeNu;
+		this.price = price;
+	}
 
 	public MenuPrice(String memeNu, int price, int proCnt, String meCode, String stoNo) {
 		this.memeNu = memeNu;
@@ -66,6 +74,16 @@ public class MenuPrice {
 	/**해당 가게고유번호를 설정하는 메소드*/
 	public void setStoNo(String stoNo) {
 		this.stoNo = stoNo;
+	}
+
+	/**해당 가게 누적 주문수를 불러오는 메소드*/
+	public String getStoOrder() {
+		return stoOrder;
+	}
+
+	/**해당 가게 누적 주문수를 설정하는 메소드*/
+	public void setStoOrder(String stoOrder) {
+		this.stoOrder = stoOrder;
 	}
 
 	@Override

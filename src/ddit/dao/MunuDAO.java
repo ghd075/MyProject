@@ -2,6 +2,7 @@ package ddit.dao;
 
 import java.util.List;
 
+import ddit.dto.MenuPrice;
 import ddit.dto.Store;
 
 import java.sql.Connection;
@@ -190,6 +191,43 @@ public class MunuDAO {
 			DAO.close(conn);
 
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	// 메뉴정보 조회
+	public List<MenuPrice> meunSelect(String sto) {
+		List<MenuPrice> list = new ArrayList<>(); //반환할 리스트를 위해 list 객체 생성
+		try {
+			conn = DAO.getConnection();
+			String sql = " SELECT S.STONO AS STONO " + 
+					" ,   S.STOORDER  AS STOORDER " + 
+					" ,   MP.MEMENU AS MEMENU " + 
+					" ,   MP.PRICE AS PRICE " + 
+					" FROM STORE S " + 
+					" ,   MENUPRICE MP " + 
+					" WHERE S.STONO = MP.STONO " + 
+					" AND S.STONO = ? ";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, sto);
+			rs = pstm.executeQuery();		//SELECT 문과 같이 여러 개의 행로 결과가 반환될 때 사용
+			
+			while(rs.next()) {			//읽을 행이 있을 때
+				String stoNo = rs.getString(1);
+				String stoOrder = rs.getString(2);
+				String memeNu = rs.getString(3);
+				int price = rs.getInt(4);
+				MenuPrice menuPrice = new MenuPrice(stoNo, stoOrder, memeNu, price);
+				list.add(menuPrice);
+			}
+			
+			// 연결과 역순으로 해제
+			DAO.close(rs);
+			DAO.close(pstm);
+			DAO.close(conn);
+			
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
