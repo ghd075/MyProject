@@ -33,6 +33,7 @@ public class MemberUI {
 	 * 
 	 */
 	public void order() {
+		Util.clearScreen();
 		System.out.println("\n\n");
 		System.out.println("\t1. 주문페이지 ");
 		System.out.println();
@@ -97,6 +98,7 @@ public class MemberUI {
 		boolean result = true;
 		
 		while(result) {
+			Util.clearScreen();
 			System.out.println("\n\n");
 			System.out.println("\t\t\t\t== 정렬선택 ==");
 			System.out.println("\n");

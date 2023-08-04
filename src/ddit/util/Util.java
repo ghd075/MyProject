@@ -1,7 +1,6 @@
 package ddit.util;
 
 import java.util.Scanner;
-
 import ddit.dao.MemberDAO;
 
 /**
@@ -137,4 +136,55 @@ public class Util {
 		return memberID;
 
 	} // createid
+	
+	private static String nextLine(String input) {
+		return nextLine(input, false);
+	}
+	
+	private static String  nextLine(String input, boolean korean) {
+		System.out.print(input);
+		String str = sc.nextLine();
+		if (korean) {
+			for (int i = 0 ; i < str.length() ; i++) {
+				if (str.charAt(i) < '가' || str.charAt(i) > '힣') {
+					throw new RuntimeException("한글로 입력해주세요.");
+				}
+			}
+		}
+		return str;
+	}
+
+	public static int nextInt(String input) {
+		return nextInt(input, 0, 100);
+	}
+	
+	public static int nextInt(String input, int start, int end) {
+		int result = Integer.parseInt(nextLine(input));
+		if (start > result || end < result)
+			throw new RangeException(start, end);
+			return result;
+	}
+	
+	// 전각문자 개수를 세주는 메서드
+	private static int getKorCnt(String kor) {
+		int cnt = 0;
+		for (int i = 0 ; i < kor.length() ; i++) {
+			if (kor.charAt(i) >= '가' && kor.charAt(i) <= '힣') {
+				cnt++;
+			}
+		} return cnt;
+	}
+	
+	//전각문자의 개수만큼 문자열을 조정해주는 메서드
+	public static String convert(String word, int size) {
+		int korCnt = getKorCnt(word);
+		int spaceCount = size - korCnt - word.length(); // 공백의 개수 계산
+		if(spaceCount >= 0) {
+	        String formatter = String.format("%%-%ds", size - korCnt);
+	        return String.format(formatter, word);			
+		} else {
+			// 처리할 수 없는 경우에 대한 예외 처리 또는 기본값 반환 등을 고려해보세요.
+			return word; // 일단은 원래 단어 그대로 반환하는 예시입니다.
+		}
+	}
 }

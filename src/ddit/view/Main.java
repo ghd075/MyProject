@@ -1,5 +1,9 @@
 package ddit.view;
 
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+
+import ddit.util.FormattedWriter;
 import ddit.util.LoadingThread;
 import ddit.util.Util;
 
@@ -8,9 +12,15 @@ public class Main {
 	
 	/**프로그램의 시작을 담당하는 Main클래스의 main메소드*/
 	public static void main(String[] args) throws Exception {
+		 FormattedWriter out = new FormattedWriter(
+                 new BufferedWriter(
+                     new OutputStreamWriter(System.out)), true, 90,//90만큼공간을 준다
+                            FormattedWriter.CENTER_JUSTIFIED);
 		
-		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 대 덕 인 재 개 발 원 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■"); // main 흐름
-		System.out.println("\n\n");
+		out.println();
+		out.print("■■■■■■■■■■■■■■■■■■■■■■ 대 덕 인 재 개 발 원 ■■■■■■■■■■■■■■■■■■■■■■■■■"); // main 흐름
+		out.flush();
+		out.println();
 		 //로그로딩
 	    String delivery[] = { // 타이핑 쓰레드 - 익명 클래스
 	    		   "\t\t                   sQBRr                \r\n" + 
@@ -42,10 +52,9 @@ public class Main {
 		      // 메세지를 출력한다
 		      System.out.println(delivery[i]);
 		}
-		
 	    System.out.println("                         Loading...");
 	    
-		LoadingThread LoadingThread = new LoadingThread("■■■■■");
+		LoadingThread LoadingThread = new LoadingThread("■■■");
 		LoadingThread.start(); // 로딩바
 		LoadingThread.join();
 	    
@@ -78,13 +87,13 @@ public class Main {
 			} else if (selNum.equals("0")) {
 				Util.clearScreen();
 				System.out.println("\n\n\t\t\t  종료");
-				Util.clearScreen();
+				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				loop = false;
 			//잘못입력시
 			} else {
 				Util.clearScreen();
 				System.out.println("\t\t올바르지 않은 접근입니다.");
-				Util.clearScreen();
+				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				System.out.println("\t   계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
 			}

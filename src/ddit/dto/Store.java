@@ -8,20 +8,27 @@ public class Store {
 	private String stoAddCity;
 	private String stoAddDistrict;
 	private String stoAddEtc;
-	private int stoOrder;             
+	private String stoOrder;             
 	private String mId;
-	private int sNo;
+	private String sNo;
 	
 	public Store() { }
 	
-	public Store(String stoNo, String stoName, int stoOrder) {
+	public Store(String stoNo, String stoName, String stoOrder) {
+		this.stoNo = stoNo;
+		this.stoName = stoName;
+		this.stoOrder = stoOrder;
+	}
+	
+	public Store(String sNo, String stoNo, String stoName, String stoOrder) {
+		this.sNo = sNo;
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoOrder = stoOrder;
 	}
 
 	public Store(String stoNo, String stoName, String stoPhone, String stoAddCity, String stoAddDistrict,
-			String stoAddEtc, int stoOrder) {
+			String stoAddEtc, String stoOrder) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoPhone = stoPhone;
@@ -32,7 +39,7 @@ public class Store {
 	}
 
 	public Store(String stoNo, String stoName, String stoPhone, String stoAddCity, String stoAddDistrict,
-			String stoAddEtc, int stoOrder, String mId) {
+			String stoAddEtc, String stoOrder, String mId) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoPhone = stoPhone;
@@ -106,12 +113,12 @@ public class Store {
 
 
 	/**해당 가게 누적 주문수를 불러오는 메소드*/
-	public int getStoOrder() {
+	public String getStoOrder() {
 		return stoOrder;
 	}
 
 	/**해당 가게 누적 주문수를 설정하는 메소드*/
-	public void setStoOrder(int stoOrder) {
+	public void setStoOrder(String stoOrder) {
 		this.stoOrder = stoOrder;
 	}
 	
@@ -126,12 +133,12 @@ public class Store {
 	}
 
 	/**순번을 설정하는 메소드*/
-	public int getsNo() {
+	public String getsNo() {
 		return sNo;
 	}
 	
 	/**순번을 설정하는 메소드*/
-	public void setsNo(int sNo) {
+	public void setsNo(String sNo) {
 		this.sNo = sNo;
 	}
 

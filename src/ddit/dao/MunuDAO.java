@@ -80,7 +80,7 @@ public class MunuDAO {
 				String stoAddCity = rs.getString(4);
 				String stoAddDistrict = rs.getString(5);
 				String stoAddEtc = rs.getString(6);
-				int stoOrder = rs.getInt(7);
+				String stoOrder = rs.getString(7);
 				Store store = new Store(stoNo, stoName, stoPhone, stoAddCity, stoAddDistrict, stoAddEtc, stoOrder);
 				list.add(store);
 			}
@@ -142,7 +142,7 @@ public class MunuDAO {
 			while(rs.next()) {			//읽을 행이 있을 때
 				String stoNo = rs.getString(1);
 				String stoName = rs.getString(2);
-				int stoOrder = rs.getInt(3);
+				String stoOrder = rs.getString(3);
 				Store store = new Store(stoNo, stoName, stoOrder);
 				list.add(store);
 			}
@@ -176,10 +176,11 @@ public class MunuDAO {
 			rs = pstm.executeQuery();
 
 			while(rs.next()) {			//읽을 행이 있을 때
-				String stoNo = rs.getString(1);
-				String stoName = rs.getString(2);
-				int stoOrder = rs.getInt(3);
-				Store store = new Store(stoNo, stoName, stoOrder);
+				String sNo = rs.getString(1);
+				String stoNo = rs.getString(2);
+				String stoName = rs.getString(3);
+				String stoOrder = rs.getString(4);
+				Store store = new Store(sNo, stoNo, stoName, stoOrder);
 				list.add(store);
 			}
 			

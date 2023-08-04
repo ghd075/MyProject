@@ -52,7 +52,6 @@ public class MyMember {
 	public void orderchoice(Member firstMember) {
 		
 		boolean result = true;
-		Util.clearScreen();
 		mu.title(MemberUI.ORDER);
 		String myAddress = firstMember.getmAddress();
 		System.out.println("\n");
@@ -81,26 +80,32 @@ public class MyMember {
 				String content = Util.sc.nextLine();
 				
 				System.out.println("\n");
+				System.out.println(String.format("\t\t\t\t%s  %s"
+						, Util.convert("점포고유번호", 10)
+						, Util.convert("점포명", 25)));
 
+				System.out.printf("=====================================================================%n");
 				if (content.equals("1")) {
 					meCode = "Sa";
 					if (muDao.checkStono(meCode, address)) {
 						list = muDao.storeOneSelect(meCode, address);
 						for(Store store : list) {
-							System.out.println(
-									"\t\t\t\t   " + store.getStoNo() + "  " + store.getStoName());
+							System.out.printf("\t\t\t\t   " + Util.convert(store.getStoNo(),10));
+							System.out.printf(Util.convert(store.getStoName(),25));
+							System.out.println();
 						}
 						mu.choose(firstMember, meCode);
 					}else {
-						System.out.println("\n\n\t\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
+						System.out.println("\n\n\t\t\t\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
 					}
 				} else if (content.equals("2")) {
 					meCode = "Sb";
 					if (muDao.checkStono(meCode, address)) {
 						list = muDao.storeOneSelect(meCode, address);
 						for(Store store : list) {
-							System.out.println(
-									"\t\t\t\t   " + store.getStoNo() + "  " + store.getStoName());
+							System.out.printf("\t\t\t\t   " + Util.convert(store.getStoNo(),10));
+							System.out.printf(Util.convert(store.getStoName(),25));
+							System.out.println();
 						}
 						mu.choose(firstMember, meCode);
 					}else {
@@ -111,8 +116,9 @@ public class MyMember {
 					if (muDao.checkStono(meCode, address)) {
 						list = muDao.storeOneSelect(meCode, address);
 						for(Store store : list) {
-							System.out.println(
-									"\t\t\t\t   " + store.getStoNo() + "  " + store.getStoName());
+							System.out.printf("\t\t\t\t   " + Util.convert(store.getStoNo(),10));
+							System.out.printf(Util.convert(store.getStoName(),25));
+							System.out.println();
 						}
 						mu.choose(firstMember, meCode);
 					}else {
@@ -123,8 +129,9 @@ public class MyMember {
 					if (muDao.checkStono(meCode, address)) {
 						list = muDao.storeOneSelect(meCode, address);
 						for(Store store : list) {
-							System.out.println(
-									"\t\t\t\t   " + store.getStoNo() + "  " + store.getStoName());
+							System.out.printf("\t\t\t\t   " + Util.convert(store.getStoNo(),10));
+							System.out.printf(Util.convert(store.getStoName(),25));
+							System.out.println();
 						}
 						mu.choose(firstMember, meCode);
 					}else {
@@ -135,8 +142,9 @@ public class MyMember {
 					if (muDao.checkStono(meCode, address)) {
 						list = muDao.storeOneSelect(meCode, address);
 						for(Store store : list) {
-							System.out.println(
-									"\t\t\t\t   " + store.getStoNo() + "  " + store.getStoName());
+							System.out.printf("\t\t\t\t   " + Util.convert(store.getStoNo(),10));
+							System.out.printf(Util.convert(store.getStoName(),25));
+							System.out.println();
 						}
 						mu.choose(firstMember, meCode);
 					}else {
@@ -163,10 +171,21 @@ public class MyMember {
 	 */
 	public void accumlateList(Member firstMember, String meCode) {
 		String address = muDao.addressSelect(firstMember.getmAddress());
-		List<Store> list = muDao.storeOneSelect(meCode, address);
+		List<Store> list = muDao.storeRankSelect(meCode, address);
+//		System.out.println(list);
+		Util.clearScreen();
+		System.out.println(String.format("\t%s\t%s\t%s%s"
+				, Util.convert("순번", 5)
+				, Util.convert("점포고유번호", 10)
+				, Util.convert("점포명", 25)
+				, Util.convert("누적주문수", 5)));
+		System.out.printf("=====================================================================%n");
 		for(Store store : list) {
-			System.out.println(
-					"\t\t   " + store.getsNo() + "  " + store.getStoNo() + "  " + store.getStoName() + "  " + store.getStoOrder());
+			System.out.printf("\t" + Util.convert(store.getsNo(), 5));
+			System.out.printf("\t" + Util.convert(store.getStoNo(),10));
+			System.out.printf("\t" + Util.convert(store.getStoName(),25));
+			System.out.printf(Util.convert(store.getStoOrder(),5));
+			System.out.println();
 		}
 	}// 메소드
 }

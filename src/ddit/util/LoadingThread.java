@@ -1,8 +1,16 @@
 package ddit.util;
 
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+
 public class LoadingThread extends Thread{
 
     String str; 
+    
+    FormattedWriter out = new FormattedWriter(
+            new BufferedWriter(
+                new OutputStreamWriter(System.out)), true, 90,//50만큼공간을 준다
+                       FormattedWriter.CENTER_JUSTIFIED);
 
     public LoadingThread(String str){ // 생성자
         this.str = str;
@@ -10,7 +18,7 @@ public class LoadingThread extends Thread{
 
     public void run(){ // run 메서드는 수행 흐름이 하나 더 생겼을 때의 메서드이다. 
     	
-    	for(int i = 0; i <18; i ++){
+    	for(int i = 0; i <17; i ++){
         	
         	System.out.print(str);
             try {
@@ -24,19 +32,45 @@ public class LoadingThread extends Thread{
     	
     	Util.clearScreen();
     	
-		System.out.println("\n\n");
-		System.out.println("┌--------------------------------------------------------------------------------┐");
-		System.out.println("│                                                                                │");
-		System.out.println("│                   대덕의 민족                                                  │");               
-		System.out.println("│                                     Created By 대덕 on 2023.08.10              │");
-		System.out.println("└--------------------------------------------------------------------------------┘");
-		
-		System.out.println("\n\n\n\t\t\t배 달\n\n");
-		
-		System.out.println("\r\n\n\n\t\t어서와.. 배달은 처음이지..?\n\n");
-		System.out.println("\n\n\t   계속하시려면 엔터를 입력해주세요)");
-		Util.sc.nextLine();
-		System.out.println("\t        PRESS ENTER TO CONTUNUE...");
+    	out.println();
+    	out.println();
+    	 String[] strings = {
+    			 "┌--------------------------------------------------------------------------------┐"
+    			 ,	"│                                                                                │"
+    			 ,	"│                   대덕의 민족                                                  │"
+    			 ,	"│                                     Created By 대덕 on 2023.08.10              │"
+    			 ,	"└--------------------------------------------------------------------------------┘"
+    			 ,	"\n\n\n\t\t\t배 달\n\n"
+    			 ,	"\r\n\n\n\t\t어서와.. 배달은 처음이지..?\n\n"
+    	 };
+			/*
+			 * System.out.println(
+			 * "┌--------------------------------------------------------------------------------┐"
+			 * ); System.out.
+			 * println("│                                                                                │"
+			 * ); System.out.
+			 * println("│                   대덕의 민족                                                  │"
+			 * ); System.out.
+			 * println("│                                     Created By 대덕 on 2023.08.10              │"
+			 * ); System.out.println(
+			 * "└--------------------------------------------------------------------------------┘"
+			 * );
+			 */
+	   for (int i = 0; i < strings.length; i++) {
+		   out.println();
+		   out.print(strings[i]);
+	    }
+	   out.flush();
+		/*
+		 * System.out.println("\n\n\n\t\t\t배 달\n\n");
+		 * 
+		 * System.out.println("\r\n\n\n\t\t어서와.. 배달은 처음이지..?\n\n");
+		 */
+	   	out.println("\n\n\t   계속하시려면 엔터를 입력해주세요)");
+	   	out.flush();
+	   	Util.sc.nextLine();
+		out.println("\t        PRESS ENTER TO CONTUNUE...");
+		out.flush();
 		Util.sc.nextLine();
     }
 	
