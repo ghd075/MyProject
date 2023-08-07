@@ -72,10 +72,24 @@ public class DirectOrder {
 					, 	Util.convert(store.getStoOrder(),3)		
 					));
 			System.out.println();
-			System.out.println(String.format("\t %s %s"
+			System.out.println(String.format("\t%s \t%s\t%s"
+					,	Util.convert("[ NO ]", 5)		
 					,	Util.convert("[ MENU ]", 25)		
 					, 	Util.convert("[ PRICE ]",6)		
 					));
+			list = muDao.meunSelect(sto);
+			for(MenuPrice menuPrice : list) {
+				System.out.println(String.format("\t  %s\t%s\t%s"
+						, Util.convert(menuPrice.getmNo()+"", 5)
+						, Util.convert(menuPrice.getMemeNu(), 25)
+						, Util.convert(menuPrice.getPrice()+"", 6)));
+				System.out.println();
+			}
+			
+//			boolean result = true;
+//			while (result) {
+//				System.out.print("\t메뉴를 선택해주세요: ");
+//			}
 		}
 	}
 }

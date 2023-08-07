@@ -7,13 +7,13 @@ public class MenuPrice {
 	private int proCnt;              
 	private String meCode;
 	private String stoNo; 
-	private String stoOrder; 
+	private String stoOrder;
+	private int mNo;
 	
 	public MenuPrice() { }
 	
-	public MenuPrice(String stoNo, String stoOrder, String memeNu, int price) {
-		this.stoNo = stoNo;
-		this.stoOrder = stoOrder;
+	public MenuPrice(int mNo, String memeNu, int price) {
+		this.mNo = mNo;
 		this.memeNu = memeNu;
 		this.price = price;
 	}
@@ -86,9 +86,20 @@ public class MenuPrice {
 		this.stoOrder = stoOrder;
 	}
 
+	
+	/**메뉴 순번을 불러오는 메소드*/
+	public int getmNo() {
+		return mNo;
+	}
+
+	/**메뉴 순번을 설정하는 메소드*/
+	public void setmNo(int mNo) {
+		this.mNo = mNo;
+	}
+
 	@Override
 	public String toString() {
 		return "MenuPrice [memeNu=" + memeNu + ", price=" + price + ", proCnt=" + proCnt + ", meCode=" + meCode
-				+ ", stoNo=" + stoNo + "]";
+				+ ", stoNo=" + stoNo + ", stoOrder=" + stoOrder + ", mNo=" + mNo + "]";
 	}
 }

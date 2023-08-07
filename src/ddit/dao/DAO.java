@@ -80,7 +80,8 @@ public class DAO {
             }
 
 			result = pstm.executeUpdate();
-			conn.commit();
+			if(result > 0)
+				conn.commit();
 			
 			DAO.close(pstm);
 			DAO.close(conn);
