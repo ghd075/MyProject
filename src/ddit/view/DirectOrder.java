@@ -3,6 +3,7 @@ package ddit.view;
 import java.util.List;
 
 import ddit.dao.MunuDAO;
+import ddit.dto.Member;
 import ddit.dto.MenuPrice;
 import ddit.dto.Store;
 import ddit.util.Util;
@@ -25,7 +26,7 @@ public class DirectOrder {
 	  * 
 	  * 
 	  */
-	public void dorProcess(Store store) {
+	public void dorProcess(Store store, Member member) {
 
 		boolean result = true;
 		while(result) {	
@@ -40,7 +41,7 @@ public class DirectOrder {
 				Util.sc.nextLine();
 				result = false;
 			} else {
-				OrderStart(store);
+				OrderStart(store, member);
 			}
 			
 		}
@@ -54,7 +55,7 @@ public class DirectOrder {
 	 *
 	 *
 	 */
-	public void OrderStart(Store store) {
+	public void OrderStart(Store store, Member member) {
 		String sto = store.getStoNo();
 		List<MenuPrice> list = null;
 		if (muDao.meunSelect(sto) != null && !muDao.meunSelect(sto).equals("") ) {
@@ -66,6 +67,15 @@ public class DirectOrder {
 			System.out.println();
 			System.out.println("\t 최소주문금액 : 15000원");
 			System.out.println();
+			System.out.println(String.format("\t %s %s"
+					,	Util.convert("누적주문수 :", 3)		
+					, 	Util.convert(store.getStoOrder(),3)		
+					));
+			System.out.println();
+			System.out.println(String.format("\t %s %s"
+					,	Util.convert("[ MENU ]", 25)		
+					, 	Util.convert("[ PRICE ]",6)		
+					));
 		}
 	}
 }

@@ -38,12 +38,6 @@ public class NewMember {
 			Util.clearScreen();
 			System.out.println("\t회원가입을 위해 정보를 입력해주세요!\n\n\n");
 
-
-//			System.out.print("\t이름 : ");
-//			String memberName = Util.sc.nextLine();
-//			memberdata.setmName(memberName);
-//			System.out.println();
-			
 			memberdata.setmName(Util.nameCheck());
 
 			memberdata.setmId(Util.createid());;
@@ -51,10 +45,12 @@ public class NewMember {
 			System.out.println("\t사용가능한 아이디 입니다.");
 			System.out.println();
 
-			System.out.print("\t비밀 번호 : ");
-			String memberPW = Util.sc.nextLine();
-			memberdata.setmPw(memberPW);;
-			System.out.println();
+//			System.out.print("\t비밀 번호 : ");
+//			String memberPW = Util.sc.nextLine();
+//			memberdata.setmPw(memberPW);;
+//			System.out.println();
+			
+			memberdata.setmPw(Util.pwCheck());
 
 			memberdata.setmPhone(Util.phonenumber());
 

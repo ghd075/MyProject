@@ -114,7 +114,7 @@ public class MemberUI {
 			if (input == 1) {
 				System.out.println("\n\n\n\n\n\n\n");
 				mm.accumlateList(member, meCode);
-				dor.dorProcess(store);
+				dor.dorProcess(store, member);
 			} else if (input == 2) {
 	//			dor.dorProcess(store);
 			} else if (input == 0) {

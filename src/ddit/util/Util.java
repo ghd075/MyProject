@@ -16,6 +16,8 @@ public class Util {
 	
     // 이름 유효성 검사를 위한 정규표현식
     private static final String KOREAN_NAME_PATTERN = "^[가-힣]+$";
+    // 휴대전화 번호 형식을 나타내는 정규표현식
+    private static final String PHONE_PATTERN = "^(01[016789])-(\\d{3,4})-(\\d{4})$";
 	public static Scanner sc = new Scanner(System.in);
 	private static MemberDAO mDao = MemberDAO.getInstance();
 	
@@ -52,6 +54,51 @@ public class Util {
 	 * 
 	 * 
 	 * 
+	 *비밀번호 유효성 검사 페이지입니다. 조건에 맞는 아이디를 생성하지 않으면 다시 돌아갑니다.
+	 * 
+	 * 
+	 */
+	public static String pwCheck() {
+		String memberPW = "";
+		
+		boolean loop = true;
+		while (loop) {
+
+			System.out.print("\t비밀 번호 : ");
+			memberPW = Util.sc.nextLine();
+
+			int cnt1=0;
+			int cnt2=0;
+			
+			//영문자 대소문자, 숫자 체크
+			for(int i=0;i< memberPW.length();i++){
+				char ch = memberPW.charAt(i);
+				if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z')) {
+					cnt1++;
+				}else if(ch>='0' && ch<='9') {
+					cnt2++;
+				}
+			}
+			
+			//PW 길이가 4 ~ 15자 이내의 아이디만 입력할 수 있도록
+			if(memberPW.length() < 4 || memberPW.length() > 15) {
+				System.out.println("\t4~15자 이내의 아이디만 가능합니다");
+			//영문자와 숫자를 혼용해서 입력할 수 있도록
+			}else if(cnt1==0 || cnt2==0) {
+				System.out.println("\t비밀번호은 영문자와 숫자를 혼용해서 만들어주세요.");
+				System.out.println();
+			}else {
+				loop = false;
+			}
+			
+		}
+		return memberPW;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * 
 	 *이름 유효성 검사 페이지입니다. 한글을 입력해야 다음 단계로 이동합니다.
 	 * 
 	 * 
@@ -69,7 +116,7 @@ public class Util {
 				System.out.println("\t이름이 유효하지 않습니다. 한글로 입력해주세요.");
 				System.out.println();
 			} else {
-				loop = false;
+			loop = false;
 			}
 
 		}
@@ -92,16 +139,16 @@ public class Util {
 		boolean loop = true;
 		while (loop) {
 
-			System.out.print("\t전화번호 ('-' 포함) \n\t ex)000-0000-0000형태로 입력 : ");
+			System.out.print("\t전화번호 ('-' 포함) : ");
 			memberPhone = sc.nextLine();
 
-			if (memberPhone.length() != 13) {
-				System.out.println("\t'-'을 포함하여 다시 입력해주세요.");
+			if (!isValidMobilePhoneNumber(memberPhone)) {
+				System.out.println("\t전화번호가 유효하지 않습니다. 올바른 전화번호를 입력해주세요.");
+				System.out.println("\tex)010-0000-0000형태로 입력해주세요.");
 				System.out.println();
 			} else {
 				loop = false;
 			}
-
 		}
 		return memberPhone;
 
@@ -135,7 +182,7 @@ public class Util {
 		
 	}//Address
 	
-	/***
+	/**
 	 * 정규표현식을 활용한 집주소 유효성 검사
 	 */
     public static boolean isValidKoreanAddress(String address) {
@@ -143,12 +190,23 @@ public class Util {
         Matcher matcher = pattern.matcher(address);
         return matcher.matches();
     }
-	/***
+    
+	/**
 	 * 정규표현식을 활용한 이름 유효성 검사
 	 */
     public static boolean isValidKoreanName(String name) {
         Pattern pattern = Pattern.compile(KOREAN_NAME_PATTERN);
         Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
+    }
+    
+	/**
+	 * 정규표현식을 활용한 전화번호 유효성 검사
+	 */
+    public static boolean isValidMobilePhoneNumber(String phoneNumber) {
+        Pattern pattern = Pattern.compile(PHONE_PATTERN);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        
         return matcher.matches();
     }
 	

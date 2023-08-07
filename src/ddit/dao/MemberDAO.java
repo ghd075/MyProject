@@ -7,7 +7,6 @@ import ddit.dto.Member;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -60,34 +59,11 @@ public class MemberDAO {
 		CREATE SEQUENCE [시퀀스명]; 을 통하여 자동으로 중복이 되지 않는 시퀀스를 만들어 줍니다.
 		사용은 [시퀀스명].NEXTVAL 로 사용하면 됩니다.
 		*/
-		String query = "INSERT INTO MEMBER (NNO, MID, MPW, MNAME, MPHONE, MADDRESS, MPOINT) "
+		String sql = "INSERT INTO MEMBER (NNO, MID, MPW, MNAME, MPHONE, MADDRESS, MPOINT) "
 				+ "VALUES(MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
-		try {
-			conn = DAO.getConnection();
-			pstm = conn.prepareStatement(query);
-
-			pstm.setString(1, user.getmId());
-			pstm.setString(2, user.getmPw());
-			pstm.setString(3, user.getmName());
-			pstm.setString(4, user.getmPhone());
-			pstm.setString(5, user.getmAddress());
-			pstm.setInt(6, user.getmPoint());
-
-			result = pstm.executeUpdate();
-			conn.commit();
-			
-			DAO.close(pstm);
-			DAO.close(conn);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-	          if(conn!=null) {
-	              try{
-	                  conn.rollback();
-	                  System.out.println("rollback");
-	              }catch(SQLException sqle) { }
-	          }
-		}
+		
+		result = DAO.update(sql, user.getmId(), user.getmPw(), user.getmName(), user.getmPhone(), user.getmAddress(), user.getmPoint());
+		
 		return result;
 	}
 

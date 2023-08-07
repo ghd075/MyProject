@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  * DB 연결 클래스
  * */
@@ -12,6 +13,9 @@ public class DAO {
 	private final static String db_id = "ddit";			//유저ID
 	private final static String db_pw = "java";			//유저PW
 	private final static String db_drv = "oracle.jdbc.driver.OracleDriver";
+	
+	private static Connection conn = null; // 자바와 오라클에 대한 연결 설정
+	private static PreparedStatement pstm = null; // SQL문을 담는 객체 // sql문을 수행하기 위한 객체
 	
 	//싱글톤패턴
 	public static Connection getConnection() {
@@ -59,4 +63,36 @@ public class DAO {
             e.printStackTrace();
         }
     }	
+    
+	public static int update(String sql, Object... param) {
+		// sql => "DELETE FROM JAVA_BOARD WHERE BOARD_NUMBER=?"
+		// sql => "UPDATE JAVA_BOARD SET TITLE='하하' WHERE BOARD_NUMBER=?"
+		// sql => "INSERT MY_MEMBER (MEM_ID, MEM_PASS, MEM_NAME) VALUES (?, ?, ?)"
+		int result = 0;
+		try {
+			conn = DAO.getConnection();
+			pstm = conn.prepareStatement(sql);
+
+			conn.setAutoCommit(false); // 수동 커밋 설정
+			
+			for (int i = 0; i < param.length; i++) {
+				pstm.setObject(i + 1, param[i]);
+            }
+
+			result = pstm.executeUpdate();
+			conn.commit();
+			
+			DAO.close(pstm);
+			DAO.close(conn);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+	          if(conn!=null) {
+	              try{
+	                  conn.rollback();
+	              }catch(SQLException sqle) { }
+	          }
+		}
+		return result;
+	} 
 }
