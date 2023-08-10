@@ -5,11 +5,8 @@ public class Store {
 	private String stoNo;    
 	private String stoName;  
 	private String stoPhone;  
-	private String stoAddCity;
-	private String stoAddDistrict;
-	private String stoAddEtc;
+	private String stoAddress;
 	private String stoOrder;             
-	private String mId;
 	private String sNo;
 	
 	public Store() { }
@@ -27,28 +24,14 @@ public class Store {
 		this.stoOrder = stoOrder;
 	}
 
-	public Store(String stoNo, String stoName, String stoPhone, String stoAddCity, String stoAddDistrict,
-			String stoAddEtc, String stoOrder) {
+	public Store(String stoNo, String stoName, String stoPhone, String stoAddress, String stoOrder) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoPhone = stoPhone;
-		this.stoAddCity = stoAddCity;
-		this.stoAddDistrict = stoAddDistrict;
-		this.stoAddEtc = stoAddEtc;
+		this.stoAddress = stoAddress;
 		this.stoOrder = stoOrder;
 	}
 
-	public Store(String stoNo, String stoName, String stoPhone, String stoAddCity, String stoAddDistrict,
-			String stoAddEtc, String stoOrder, String mId) {
-		this.stoNo = stoNo;
-		this.stoName = stoName;
-		this.stoPhone = stoPhone;
-		this.stoAddCity = stoAddCity;
-		this.stoAddDistrict = stoAddDistrict;
-		this.stoAddEtc = stoAddEtc;
-		this.stoOrder = stoOrder;
-		this.mId = mId;
-	}
 
 	/**해당 가게고유번호를 불러오는 메소드*/
 	public String getStoNo() {
@@ -80,36 +63,16 @@ public class Store {
 		this.stoPhone = stoPhone;
 	}
 
-	/**해당 가게 주소 시를 불러오는 메소드*/
-	public String getStoAddCity() {
-		return stoAddCity;
+	/**해당 가게 주소를 불러오는 메소드*/
+	public String getStoAddress() {
+		return stoAddress;
 	}
 
 	/**해당 가게 주소 시를 설정하는 메소드*/
-	public void setStoAddCity(String stoAddCity) {
-		this.stoAddCity = stoAddCity;
+	public void setStoAddress(String stoAddress) {
+		this.stoAddress = stoAddress;
 	}
 
-
-	/**해당 가게 주소 구를 불러오는 메소드*/
-	public String getStoAddDistrict() {
-		return stoAddDistrict;
-	}
-
-	/**해당 가게 주소 구를 설정하는 메소드*/
-	public void setStoAddDistrict(String stoAddDistrict) {
-		this.stoAddDistrict = stoAddDistrict;
-	}
-
-	/**해당 가게 나머지 주소를 불러오는 메소드*/
-	public String getStoAddEtc() {
-		return stoAddEtc;
-	}
-
-	/**해당 가게 나머지 주소를 설정하는 메소드*/
-	public void setStoAddEtc(String stoAddEtc) {
-		this.stoAddEtc = stoAddEtc;
-	}
 
 
 	/**해당 가게 누적 주문수를 불러오는 메소드*/
@@ -122,16 +85,6 @@ public class Store {
 		this.stoOrder = stoOrder;
 	}
 	
-	/**해당 회원ID를 불러오는 메소드*/
-	public String getmId() {
-		return mId;
-	}
-
-	/**해당 회원ID를 설정하는 메소드*/
-	public void 불러오는(String mId) {
-		this.mId = mId;
-	}
-
 	/**순번을 설정하는 메소드*/
 	public String getsNo() {
 		return sNo;
@@ -144,8 +97,8 @@ public class Store {
 
 	@Override
 	public String toString() {
-		return "Store [stoNo=" + stoNo + ", stoName=" + stoName + ", stoPhone=" + stoPhone + ", stoAddCity="
-				+ stoAddCity + ", stoAddDistrict=" + stoAddDistrict + ", stoAddEtc=" + stoAddEtc + ", stoOrder="
-				+ stoOrder + ", mId=" + mId + "]";
+		return "Store [stoNo=" + stoNo + ", stoName=" + stoName + ", stoPhone=" + stoPhone + ", stoAddress="
+				+ stoAddress + ", stoOrder=" + stoOrder + ", sNo=" + sNo + "]";
 	}
+
 }

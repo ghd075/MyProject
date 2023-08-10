@@ -30,10 +30,10 @@ public class MunuDAO {
     
 	// 주소 매칭
 	public String addressSelect(String address) {
-		String sql = "SELECT REGEXP_SUBSTR(MADDRESS, '[가-힣A-Za-z]+(동)') AS mAddress " 
-					+ "FROM MEMBER " 
-					+ "WHERE REGEXP_SUBSTR(MADDRESS, '[가-힣A-Za-z]+(동)') IS NOT NULL " 
-					+ "AND MADDRESS LIKE ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
+		String sql = "SELECT REGEXP_SUBSTR(ADDRESS, '[가-힣A-Za-z]+(동)') AS ADDRESS " 
+					+ "FROM CUSTOMER " 
+					+ "WHERE REGEXP_SUBSTR(ADDRESS, '[가-힣A-Za-z]+(동)') IS NOT NULL " 
+					+ "AND ADDRESS LIKE ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
 		try {
 			conn = DAO.getConnection();;
 			pstm = conn.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class MunuDAO {
 			rs = pstm.executeQuery(); // 어떠한 결과를 받아오는 ResultSet 타입의 rs 변수에 쿼리문을 실행한 결과를 넣어줌 
 			String mAddress = null;
 			if(rs.next()) {
-				mAddress = rs.getString("mAddress");
+				mAddress = rs.getString("ADDRESS");
 			}
 			// 연결과 역순으로 해제
 			DAO.close(rs);
@@ -61,15 +61,14 @@ public class MunuDAO {
 		List<Store> list = new ArrayList<>(); //반환할 리스트를 위해 list 객체 생성
 		try {
 			conn = DAO.getConnection();
-			String sql = "SELECT STONO "
-					 +  ",   STONAME "
-					 +  ",   STOADD_CITY "
-					 +  ",   STOADD_DISTRICT "
-					 +  ",   STOADD_ETC " 
-					 +  ",   STOPHONE "
-					 +  ",   STOORDER "  
-					 +	"FROM STORE "  
-					 +	"WHERE stoadd_etc LIKE ?";
+			String sql = "SELECT STONO " + 
+					" ,   STONAME " + 
+					" ,   STOPHONE " + 
+					" ,   STOADDRESS " + 
+					" ,   STOORDER " + 
+					" FROM STORE " + 
+					" WHERE 1 = 1 " + 
+					" AND STOADDRESS LIKE ? ";
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, "%" + etc + "%");
 			rs = pstm.executeQuery();		//SELECT 문과 같이 여러 개의 행로 결과가 반환될 때 사용
@@ -78,11 +77,9 @@ public class MunuDAO {
 				String stoNo = rs.getString(1);
 				String stoName = rs.getString(2);
 				String stoPhone = rs.getString(3);
-				String stoAddCity = rs.getString(4);
-				String stoAddDistrict = rs.getString(5);
-				String stoAddEtc = rs.getString(6);
-				String stoOrder = rs.getString(7);
-				Store store = new Store(stoNo, stoName, stoPhone, stoAddCity, stoAddDistrict, stoAddEtc, stoOrder);
+				String stoAddress = rs.getString(4);
+				String stoOrder = rs.getString(5);
+				Store store = new Store(stoNo, stoName, stoPhone, stoAddress, stoOrder);
 				list.add(store);
 			}
 			
@@ -100,7 +97,7 @@ public class MunuDAO {
 	// 가게 분류 체크
 	public boolean checkStono(String stono, String address) {
 		boolean flag = false;
-		String query = "SELECT COUNT(STONO) FROM STORE WHERE STONO LIKE ? AND STOADD_ETC LIKE ? ";
+		String query = "SELECT COUNT(STONO) FROM STORE WHERE STONO LIKE ? AND STOADDRESS LIKE ? ";
 		try {
 			conn = DAO.getConnection();
 			pstm = conn.prepareStatement(query);
@@ -132,7 +129,7 @@ public class MunuDAO {
 					+ ",   STOORDER "
 					+ "FROM STORE " 
 					+ "WHERE STONO LIKE ? "
-					+ "AND STOADD_ETC LIKE ? ";
+					+ "AND STOADDRESS LIKE ? ";
 		try {
 			conn = DAO.getConnection();
 			pstm = conn.prepareStatement(query);
@@ -168,7 +165,7 @@ public class MunuDAO {
 				 	+ ",   STOORDER " 
 					+ "FROM STORE " 
 					+ "WHERE STONO LIKE ? "
-					+ "AND STOADD_ETC LIKE ? ";
+					+ "AND STOADDRESS LIKE ? ";
 		try {
 			conn = DAO.getConnection();
 			pstm = conn.prepareStatement(query);
