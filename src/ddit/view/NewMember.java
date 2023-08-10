@@ -38,7 +38,7 @@ public class NewMember {
 			Util.clearScreen();
 			System.out.println("\t회원가입을 위해 정보를 입력해주세요!\n\n\n");
 
-			memberdata.setmName(Util.nameCheck());
+			memberdata.setName(Util.nameCheck());
 
 			memberdata.setmId(Util.createid());;
 
@@ -52,9 +52,9 @@ public class NewMember {
 			
 			memberdata.setmPw(Util.pwCheck());
 
-			memberdata.setmPhone(Util.phonenumber());
+			memberdata.setPhone(Util.phonenumber());
 
-			memberdata.setmAddress(Util.Address());
+			memberdata.setAddress(Util.Address());
 			
 			memberdata.setmPoint(500);
 

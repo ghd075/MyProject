@@ -68,7 +68,7 @@ public class Login {
 			List<Member> list = mDao.memberSelect(inputid);
 			
 			for(Member member : list) {
-				loginname = member.getmName();	//회원 이름 가져오기
+				loginname = member.getName();	//회원 이름 가져오기
 			}
 			
 			// Member 객체의 값을 가져옴

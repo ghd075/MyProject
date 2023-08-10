@@ -86,10 +86,26 @@ public class DirectOrder {
 				System.out.println();
 			}
 			
-//			boolean result = true;
-//			while (result) {
-//				System.out.print("\t메뉴를 선택해주세요: ");
-//			}
+			boolean result = true;
+			while (result) {
+				System.out.print("\t메뉴를 선택해주세요: ");
+				String input3 = Util.sc.nextLine();
+				System.out.println();
+				System.out.print("\t수량을 선택해주세요: ");
+				Integer input4 = Util.sc.nextInt();
+				System.out.println();
+				System.out.println(String.format("\t %s %s"
+						,	Util.convert("사용 가능한 포인트 : ", 3)		
+						, 	Util.convert(member.getmPoint()+"",3)		
+						));
+				System.out.println();
+				System.out.println(String.format("\t%s \t%s\t%s"
+						,	Util.convert("[ MENU ]", 25)		
+						,	Util.convert("[ QTY ]", 6)		
+						, 	Util.convert("[ PRICE ]",6)			
+						));
+				System.out.println();
+			}
 		}
 	}
 }

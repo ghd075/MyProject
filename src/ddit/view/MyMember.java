@@ -37,7 +37,7 @@ public class MyMember {
 		System.out.println("\n\n");
 		System.out.println("\t\t [회원님의 정보입니다]");
 		System.out.println("\n\n");
-		System.out.printf("\t\t 이름: %s \r\n\r\n \t\t 주소: %s \r\n\r\n \t\t 번호: %s \r\n\r\n \t\t 포인트: %s \r\n\r\n", firstMember.getmName(), firstMember.getmAddress(), firstMember.getmPhone(), firstMember.getmPoint());
+		System.out.printf("\t\t 이름: %s \r\n\r\n \t\t 주소: %s \r\n\r\n \t\t 번호: %s \r\n\r\n \t\t 포인트: %s \r\n\r\n", firstMember.getName(), firstMember.getAddress(), firstMember.getPhone(), firstMember.getmPoint());
 
 		mu.pause(MemberUI.INFO);
 		Util.clearScreen();
@@ -58,7 +58,7 @@ public class MyMember {
 		while(result) {
 			Util.clearScreen();
 			mu.title(MemberUI.ORDER);
-			String myAddress = firstMember.getmAddress();
+			String myAddress = firstMember.getAddress();
 			System.out.println("\n");
 			System.out.printf("\t[나의 주소: %s]", myAddress);
 			System.out.println("\n\n");
@@ -77,7 +77,7 @@ public class MyMember {
 				System.out.println(String.format("\t%s%s%s%s\t\t%s"
 						,	Util.convert("[1.한식]", 15)		
 						,	Util.convert("[2.중식]", 15)		
-						,	Util.convert("[3.일식]", 15)		
+						,	Util.convert("[3.일식/양식]", 15)		
 						,	Util.convert("[4.패스트푸드]", 15)		
 						,	Util.convert("[5.분식]", 15)		
 						));
@@ -205,7 +205,7 @@ public class MyMember {
 	 * 
 	 */
 	public void accumlateList(Member firstMember, String meCode) {
-		String address = muDao.addressSelect(firstMember.getmAddress());
+		String address = muDao.addressSelect(firstMember.getAddress());
 		List<Store> list = muDao.storeRankSelect(meCode, address);
 //		System.out.println(list);
 		Util.clearScreen();

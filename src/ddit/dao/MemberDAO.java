@@ -41,13 +41,13 @@ public class MemberDAO {
 				return true;
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			// 연결과 역순으로 해제
 			DAO.close(rs);
 			DAO.close(pstm);
 			DAO.close(conn);
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
@@ -59,17 +59,24 @@ public class MemberDAO {
 		CREATE SEQUENCE [시퀀스명]; 을 통하여 자동으로 중복이 되지 않는 시퀀스를 만들어 줍니다.
 		사용은 [시퀀스명].NEXTVAL 로 사용하면 됩니다.
 		*/
-		String sql = "INSERT INTO MEMBER (NNO, MID, MPW, MNAME, MPHONE, MADDRESS, MPOINT) "
-				+ "VALUES(MEMBER_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO CUSTOMER (CSTCLS, NAME, PHONE, ADDRESS) "
+				+ "VALUES(1, ?, ?, ?) ";
+		String CSTNO = DAO.insertAndGetCSTNO(sql, user.getName(), user.getPhone(), user.getAddress());
 		
-		result = DAO.update(sql, user.getmId(), user.getmPw(), user.getmName(), user.getmPhone(), user.getmAddress(), user.getmPoint());
 		
+		if(CSTNO != null) {
+			String insertMembersql = "INSERT INTO MEMBER (MID, MPW, CSTNO) "
+					+ "VALUES(?, ?, ?)";
+			result = DAO.update(insertMembersql, user.getmId(), user.getmPw(), CSTNO);
+		}else {
+			System.out.println("\t고객등록에 실패했습니다.");
+		}
 		return result;
 	}
 
 	// 로그인
 	public int login(String id, String pw) {
-		String sql = "SELECT MPW, MNAME FROM MEMBER WHERE MID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
+		String sql = "SELECT MPW FROM MEMBER WHERE MID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
 		try {
 			conn = DAO.getConnection();;
 			pstm = conn.prepareStatement(sql);
@@ -82,14 +89,15 @@ public class MemberDAO {
 					return 0; 	//비밀번호 불일치
 				}
 			}
-			// 연결과 역순으로 해제
-			DAO.close(rs);
-			DAO.close(pstm);
-			DAO.close(conn);
 			
 			return -1; //아이디가 없음
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			// 연결과 역순으로 해제
+			DAO.close(rs);
+			DAO.close(pstm);
+			DAO.close(conn);
 		}
 		
 		return -2;	//DB오류
@@ -117,13 +125,13 @@ public class MemberDAO {
 				list.add(member);
 			}
 			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			// 연결과 역순으로 해제
 			DAO.close(rs);
 			DAO.close(pstm);
 			DAO.close(conn);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
 		}
 		return list;
 	}
