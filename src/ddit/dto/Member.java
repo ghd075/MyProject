@@ -20,7 +20,7 @@ public class Member extends Customer {
 		this.mPw = mPw;
 	}
 
-	public Member(String name, String phone, String address, String mId, String mPw, int mPoint) {
+	public Member(String mId, String mPw, String name, String phone, String address, int mPoint) {
 		super(name, phone, address);
 		this.mId = mId;
 		this.mPw = mPw;

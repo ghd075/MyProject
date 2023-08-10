@@ -66,7 +66,7 @@ public class Login {
 			
 			// DAO에서 Member 객체들을 가져옴
 			List<Member> list = mDao.memberSelect(inputid);
-			
+			System.out.println(list.toString());
 			for(Member member : list) {
 				loginname = member.getName();	//회원 이름 가져오기
 			}

@@ -103,24 +103,60 @@ public class MemberDAO {
 		return -2;	//DB오류
 	}
 
+    // 고객번호 가져오기
+    public String getCSTNOByMID(String mID) {
+        String cstno = null;
+        
+        String sql = "SELECT CSTNO FROM MEMBER WHERE MID = ?";
+        
+        try {
+            conn = DAO.getConnection();
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, mID);
 
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                cstno = rs.getString("CSTNO");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+			// 연결과 역순으로 해제
+			DAO.close(rs);
+			DAO.close(pstm);
+			DAO.close(conn);
+        }
+
+        return cstno;
+    }
+	
+	
 	//  내 회원정보 조회
 	public List<Member> memberSelect(String id) {
 		List<Member> list = new ArrayList<>(); //반환할 리스트를 위해 list 객체 생성
 		try {
 			conn = DAO.getConnection();
-			String sql = "SELECT mID, mPW, mName, mPhone, mAddress, mPoint FROM MEMBER WHERE MID=?";
+			String sql = "SELECT M.MID 	AS ID " + 
+					" ,   M.MPW       AS PW " + 
+					" ,   CS.NAME 		AS NAME " + 
+					" ,   CS.PHONE 		AS PHONE " + 
+					" ,   CS.ADDRESS 	AS ADDRESS " + 
+					" ,   M.MPOINT    AS POINT " + 
+					" FROM CUSTOMER CS " + 
+					" ,   MEMBER M " + 
+					"WHERE CS.CSTNO = M.CSTNO " + 
+					"AND M.MID = ? ";
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, id);
 			rs = pstm.executeQuery();		//SELECT 문과 같이 여러 개의 행로 결과가 반환될 때 사용
 			
 			while(rs.next()) {			//읽을 행이 있을 때
-				String mID = rs.getString("mID");
-				String mPW = rs.getString("mPW");
-				String mName = rs.getString("mName");
-				String mPhone = rs.getString("mPhone");
-				String mAddress = rs.getString("mAddress");
-				int mPoint = rs.getInt("mPoint");
+				String mID = rs.getString("ID");
+				String mPW = rs.getString("PW");
+				String mName = rs.getString("NAME");
+				String mPhone = rs.getString("PHONE");
+				String mAddress = rs.getString("ADDRESS");
+				int mPoint = rs.getInt("POINT");
 				Member member = new Member(mID, mPW, mName, mPhone, mAddress, mPoint);
 				list.add(member);
 			}
