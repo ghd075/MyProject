@@ -4,6 +4,7 @@ import java.util.List;
 
 import ddit.dto.Member;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,26 +31,25 @@ public class MemberDAO {
 	// 아이디 중복검사
 	public boolean checkId(String id) {
 		String query = "SELECT COUNT(MID) FROM MEMBER WHERE MID = ?";
-		try {
-			conn = DAO.getConnection();
-			pstm = conn.prepareStatement(query);
-			pstm.setString(1, id);
-			rs = pstm.executeQuery();
+	    // 결과를 저장할 리스트를 초기화합니다.
+	    List<Object[]> resultList = DAO.selectList(query, id);
 
-			rs.next(); // 행
-			if (rs.getInt(1)/* 열 */ == 1) {
-				return true;
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 연결과 역순으로 해제
-			DAO.close(rs);
-			DAO.close(pstm);
-			DAO.close(conn);
-		}
-		return false;
+	    // 결과 리스트가 비어있지 않은 경우 실행합니다.
+	    if (!resultList.isEmpty()) {
+	        // 결과 리스트에서 첫 번째 행의 데이터를 가져옵니다.
+	        Object[] row = resultList.get(0);
+
+	        // 첫 번째 열의 값을 가져와서 int로 변환합니다.
+	        int count = ((BigDecimal) row[0]).intValue();
+
+	        // count가 1인 경우 아이디 중복이므로 true를 반환합니다.
+	        if (count == 1) {
+	            return true;
+	        }
+	    }
+
+	    // 결과가 없거나 count가 1이 아닌 경우 아이디 중복이 아니므로 false를 반환합니다.
+	    return false;
 	}
 	
 	// 회원가입
@@ -76,100 +76,65 @@ public class MemberDAO {
 
 	// 로그인
 	public int login(String id, String pw) {
-		String sql = "SELECT MPW FROM MEMBER WHERE MID = ?"; // 실제로 DB에 입력될 명령어를 SQL 문장으로 만듬.
-		try {
-			conn = DAO.getConnection();;
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, id);
-			rs = pstm.executeQuery(); // 어떠한 결과를 받아오는 ResultSet 타입의 rs 변수에 쿼리문을 실행한 결과를 넣어줌 
-			if(rs.next()) {
-				if(rs.getString(1).contentEquals(pw)) {
-					return 1;	//로그인 성공
-				}else {
-					return 0; 	//비밀번호 불일치
-				}
-			}
-			
-			return -1; //아이디가 없음
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			// 연결과 역순으로 해제
-			DAO.close(rs);
-			DAO.close(pstm);
-			DAO.close(conn);
-		}
-		
-		return -2;	//DB오류
+	    String sql = "SELECT MPW FROM MEMBER WHERE MID = ?";
+	    List<Object[]> resultList = DAO.selectList(sql, id);
+
+	    if (!resultList.isEmpty()) {
+	        Object[] row = resultList.get(0);
+	        String storedPw = (String) row[0]; // 데이터베이스에 저장된 비밀번호
+
+	        if (storedPw.equals(pw)) {
+	            return 1; // 로그인 성공
+	        } else {
+	            return 0; // 비밀번호 불일치
+	        }
+	    }
+
+	    return -1; // 아이디가 없음
 	}
 
     // 고객번호 가져오기
     public String getCSTNOByMID(String mID) {
         String cstno = null;
-        
-        String sql = "SELECT CSTNO FROM MEMBER WHERE MID = ?";
-        
-        try {
-            conn = DAO.getConnection();
-            pstm = conn.prepareStatement(sql);
-            pstm.setString(1, mID);
 
-            rs = pstm.executeQuery();
-            if (rs.next()) {
-                cstno = rs.getString("CSTNO");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-			// 연결과 역순으로 해제
-			DAO.close(rs);
-			DAO.close(pstm);
-			DAO.close(conn);
+        String sql = "SELECT CSTNO FROM MEMBER WHERE MID = ?";
+        List<Object[]> resultList = DAO.selectList(sql, mID);
+
+        if (!resultList.isEmpty()) {
+            Object[] row = resultList.get(0);
+            cstno = (String) row[0]; // 결과 리스트의 첫 번째 행의 첫 번째 열 값
         }
 
         return cstno;
     }
 	
-	
 	//  내 회원정보 조회
 	public List<Member> memberSelect(String id) {
-		List<Member> list = new ArrayList<>(); //반환할 리스트를 위해 list 객체 생성
-		try {
-			conn = DAO.getConnection();
-			String sql = "SELECT M.MID 	AS ID " + 
-					" ,   M.MPW       AS PW " + 
-					" ,   CS.NAME 		AS NAME " + 
-					" ,   CS.PHONE 		AS PHONE " + 
-					" ,   CS.ADDRESS 	AS ADDRESS " + 
-					" ,   M.MPOINT    AS POINT " + 
-					" FROM CUSTOMER CS " + 
-					" ,   MEMBER M " + 
-					"WHERE CS.CSTNO = M.CSTNO " + 
-					"AND M.MID = ? ";
-			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, id);
-			rs = pstm.executeQuery();		//SELECT 문과 같이 여러 개의 행로 결과가 반환될 때 사용
-			
-			while(rs.next()) {			//읽을 행이 있을 때
-				String mID = rs.getString("ID");
-				String mPW = rs.getString("PW");
-				String mName = rs.getString("NAME");
-				String mPhone = rs.getString("PHONE");
-				String mAddress = rs.getString("ADDRESS");
-				int mPoint = rs.getInt("POINT");
-				Member member = new Member(mID, mPW, mName, mPhone, mAddress, mPoint);
-				list.add(member);
-			}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			// 연결과 역순으로 해제
-			DAO.close(rs);
-			DAO.close(pstm);
-			DAO.close(conn);
-		}
-		return list;
+		String sql = "SELECT M.MID 	AS ID " + 
+				" ,   M.MPW       AS PW " + 
+				" ,   CS.NAME 		AS NAME " + 
+				" ,   CS.PHONE 		AS PHONE " + 
+				" ,   CS.ADDRESS 	AS ADDRESS " + 
+				" ,   M.MPOINT    AS POINT " + 
+				" FROM CUSTOMER CS " + 
+				" ,   MEMBER M " + 
+				"WHERE CS.CSTNO = M.CSTNO " + 
+				"AND M.MID = ? ";
+		
+		List<Object[]> list = DAO.selectList(sql, id); //반환할 리스트를 위해 list 객체 생성
+		List<Member> members = new ArrayList<>(); // Member 객체를 저장할 리스트 생성
+		 
+        for (Object[] row : list) { //읽을 행이 있을 때
+            String mID = (String) row[0];
+            String mPW = (String) row[1];
+            String mName = (String) row[2];
+            String mPhone = (String) row[3];
+            String mAddress = (String) row[4];
+            int mPoint = ((BigDecimal) row[5]).intValue();
+            Member member = new Member(mID, mPW, mName, mPhone, mAddress, mPoint);
+            members.add(member); // 변환된 Member 객체를 리스트에 추가
+        }
+        return members; // 변환된 Member 객체 리스트 반환
 	}
 
 }

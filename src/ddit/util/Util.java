@@ -12,8 +12,8 @@ import ddit.dao.MemberDAO;
 public class Util {
 	// 한국 주소 유효성 검사를 위한 정규표현식
 	private static final String KOREAN_ADDRESS_PATTERN =
-            "^(?:[가-힣0-9a-zA-Z\\s\\-,]+시)\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+구)\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+[읍면동])\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+[리])?\\s*(?:[가-힣0-9a-zA-Z\\s\\-,]+)$";
-	
+			"^(?:[가-힣]+(?:시|도))\\s*(?:[가-힣]+(?:구|군|시))\\s*(?:[가-힣0-9\\-]+(?:동|읍|면))\\s*(?:[0-9]+)$";
+	  		
     // 이름 유효성 검사를 위한 정규표현식
     private static final String KOREAN_NAME_PATTERN = "^[가-힣]+$";
     // 휴대전화 번호 형식을 나타내는 정규표현식

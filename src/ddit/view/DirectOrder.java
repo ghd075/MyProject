@@ -69,7 +69,7 @@ public class DirectOrder {
 			System.out.println();
 			System.out.println(String.format("\t %s %s"
 					,	Util.convert("누적주문수 :", 3)		
-					, 	Util.convert(store.getStoOrder(),3)		
+					, 	Util.convert(store.getStoOrder()+"",3)		
 					));
 			System.out.println();
 			System.out.println(String.format("\t%s \t%s\t%s"

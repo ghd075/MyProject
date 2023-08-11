@@ -1,5 +1,6 @@
 package ddit.view;
 
+import java.util.Arrays;
 import java.util.List;
 
 import ddit.dao.MunuDAO;
@@ -16,7 +17,6 @@ public class MyMember {
 	private static MemberUI mu = MemberUI.getInstance();
 	private static MunuDAO muDao = MunuDAO.getInstance();
 	private static MyMember instance = null;
-	private static Store selectedStore = null;
 	
 	public MyMember() {	}
 	
@@ -51,151 +51,74 @@ public class MyMember {
 	 * 
 	 * 
 	 */
-	public void orderchoice(Member firstMember) {
-		
-		boolean result = true;
-
-		while(result) {
+    public void orderchoice(Member firstMember) {
+        while (true) {
 			Util.clearScreen();
 			mu.title(MemberUI.ORDER);
 			String myAddress = firstMember.getAddress();
 			System.out.println("\n");
 			System.out.printf("\t[나의 주소: %s]", myAddress);
 			System.out.println("\n\n");
-			System.out.println("\t집 주변 배달집 탐색 결과 입니당!!!>.<");
+
 			/*
 			 * 1. 정규식 활용해서 쿼리로 동 추출
 			 * 2. 해당되는 동 기준으로 가게 탐색
 			 * 3. 메뉴분류 선택 후 진행
 			 * */
 			String address = muDao.addressSelect(myAddress);
-			if (muDao.storeSelect(address) != null && !muDao.storeSelect(address).equals("") ) {
-				String meCode = "";
-				List<Store> list = null;
-				//System.out.println(address);
-				System.out.println("\n\n");
-				System.out.println(String.format("\t%s%s%s%s\t\t%s"
-						,	Util.convert("[1.한식]", 15)		
-						,	Util.convert("[2.중식]", 15)		
-						,	Util.convert("[3.일식/양식]", 15)		
-						,	Util.convert("[4.패스트푸드]", 15)		
-						,	Util.convert("[5.분식]", 15)		
-						));
-//				System.out.println("\t[1.한식]\t [2.중식]\t [3.일식]\t[4.패스트푸드]\t[5.분식]");
-				System.out.println("\n\n");
-				// 리스트 가져오기
-		
-				// for(menu )
-				System.out.print("\t이동할 화면 입력(숫자) : ");
-		
-				String content = Util.sc.nextLine();
-				
-				System.out.println("\n");
-				System.out.println(String.format("\t%s  %s"
-						, Util.convert("점포고유번호", 10)
-						, Util.convert("점포명", 25)));
 
-				System.out.printf("\n\t=====================================================================%n");
-				if (content.equals("1")) {
-					meCode = "Sa";
-					if (muDao.checkStono(meCode, address)) {
-						list = muDao.storeOneSelect(meCode, address);
-						for(Store store : list) {
-							System.out.printf("\n\t   " + Util.convert(store.getStoNo(),10));
-							System.out.printf(Util.convert(store.getStoName(),25));
-							System.out.println();
-							
-							// Store 객체를 변수에 저장
-							selectedStore = store;
-						}
-						System.out.println("\n\n\t	계속하시려면 엔터키를 입력해주세요");
-						Util.sc.nextLine();
-						mu.choose(firstMember, meCode, selectedStore);
-					}else {
-						System.out.println("\n\n\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
-					}
-				} else if (content.equals("2")) {
-					meCode = "Sb";
-					if (muDao.checkStono(meCode, address)) {
-						list = muDao.storeOneSelect(meCode, address);
-						for(Store store : list) {
-							System.out.printf("\n\t  " + Util.convert(store.getStoNo(),10));
-							System.out.printf(Util.convert(store.getStoName(),25));
-							System.out.println();
-							
-							// Store 객체를 변수에 저장
-							selectedStore = store;
-						}
-						System.out.println("\n\n\t	계속하시려면 엔터키를 입력해주세요");
-						Util.sc.nextLine();
-						mu.choose(firstMember, meCode, selectedStore);
-					}else {
-						System.out.println("\n\n\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
-					}
-				} else if (content.equals("3")) {
-					meCode = "Sc";
-					if (muDao.checkStono(meCode, address)) {
-						list = muDao.storeOneSelect(meCode, address);
-						for(Store store : list) {
-							System.out.printf("\t   " + Util.convert(store.getStoNo(),10));
-							System.out.printf(Util.convert(store.getStoName(),25));
-							System.out.println();
-							
-							// Store 객체를 변수에 저장
-							selectedStore = store;
-						}
-						System.out.println("\n\n\t	계속하시려면 엔터키를 입력해주세요");
-						Util.sc.nextLine();
-						mu.choose(firstMember, meCode, selectedStore);
-					}else {
-						System.out.println("\n\n\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
-					}
-				} else if (content.equals("4")) {
-					meCode = "Sd";
-					if (muDao.checkStono(meCode, address)) {
-						list = muDao.storeOneSelect(meCode, address);
-						for(Store store : list) {
-							System.out.printf("\n\t   " + Util.convert(store.getStoNo(),10));
-							System.out.printf(Util.convert(store.getStoName(),25));
-							
-							// Store 객체를 변수에 저장
-							selectedStore = store;
-						}
-						System.out.println("\n\n\t	계속하시려면 엔터키를 입력해주세요");
-						Util.sc.nextLine();
-						mu.choose(firstMember, meCode, selectedStore);
-					}else {
-						System.out.println("\n\n\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
-					}
-				} else if (content.equals("5")) {
-					meCode = "Se";
-					if (muDao.checkStono(meCode, address)) {
-						list = muDao.storeOneSelect(meCode, address);
-						for(Store store : list) {
-							System.out.printf("\n\t   " + Util.convert(store.getStoNo(),10));
-							System.out.printf(Util.convert(store.getStoName(),25));
-							System.out.println();
-							
-							// Store 객체를 변수에 저장
-							selectedStore = store;
-						}
-						System.out.println("\n\n\t	계속하시려면 엔터키를 입력해주세요");
-						Util.sc.nextLine();
-						mu.choose(firstMember, meCode, selectedStore);
-					}else {
-						System.out.println("\n\n\t	해당 종류의 가게가 존재하지 않습니다.>.<" );
-					}
-				} else {
-					System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
-					result = false;
-				}
-			}else {
-				System.out.println("\n\n\t   주변에 가게가 없습니다!!>.<");
-				System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
-				result = false;
-			}
-		}
-	}
+            if (address != null && !address.isEmpty()) {
+                displayStoreOptions(address, firstMember);
+            } else {
+                System.out.println("\n\n\t   주변에 가게가 없습니다!!>.<");
+                System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
+                break;
+            }
+        }
+    }
+
+    private void displayStoreOptions(String address, Member firstMember) {
+        List<String> categories = Arrays.asList("한식", "중식", "일식/양식", "패스트푸드", "분식");
+        System.out.println("\n\n");
+        for (int i = 0; i < categories.size(); i++) {
+        	System.out.print(String.format("\t[%d.%s]\t",  i + 1, categories.get(i)));
+        }
+        System.out.println("\n\n");
+
+        System.out.print("\t이동할 화면 입력(숫자) : ");
+        int categoryChoice = Integer.parseInt(Util.sc.nextLine());
+
+        if (categoryChoice >= 1 && categoryChoice <= categories.size()) {
+            String meCode = "S" + (char) ('a' + categoryChoice - 1);
+            List<Store> storeList = muDao.storeOneSelect(meCode, address);
+
+            if (!storeList.isEmpty()) {
+                displayStores(storeList);
+
+                System.out.println("\n\n\t계속하시려면 엔터키를 입력해주세요");
+                Util.sc.nextLine();
+
+                Store selectedStore = storeList.get(Util.sc.nextInt());
+                mu.choose(firstMember, meCode, selectedStore);
+            } else {
+                System.out.println("\n\n\t   해당 종류의 가게가 존재하지 않습니다.>.<");
+            }
+        } else {
+            System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
+        }
+    }
+
+    private void displayStores(List<Store> storeList) {
+        System.out.println(String.format("\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
+        System.out.printf("\n\t=====================================================================%n");
+
+        for (int i = 0; i < storeList.size(); i++) {
+            Store store = storeList.get(i);
+            System.out.printf("\t   " + Util.convert(store.getStoNo(), 10));
+            System.out.printf(Util.convert(store.getStoName(), 25));
+            System.out.println();
+        }
+    }
 	
 	/**
 	 * 
@@ -219,7 +142,7 @@ public class MyMember {
 			System.out.printf("\t" + Util.convert(store.getsNo(), 5));
 			System.out.printf("\t" + Util.convert(store.getStoNo(),10));
 			System.out.printf("\t" + Util.convert(store.getStoName(),25));
-			System.out.printf(Util.convert(store.getStoOrder(),5));
+			System.out.printf(Util.convert(store.getStoOrder()+"",5));
 			System.out.println();
 		}
 	}// 메소드

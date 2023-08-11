@@ -1,11 +1,13 @@
 package ddit.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * DB 연결 클래스
  * */
@@ -18,7 +20,6 @@ public class DAO {
 	private static Connection conn = null; // 자바와 오라클에 대한 연결 설정
 	private static PreparedStatement pstm = null; // SQL문을 담는 객체 // sql문을 수행하기 위한 객체
 	private static ResultSet rs = null; // statement 동작에 대한 결과로 전달되는 DB의 내용..!
-	private static CallableStatement cstmt;
 	 
 	//싱글톤패턴
 	public static Connection getConnection() {
@@ -67,6 +68,41 @@ public class DAO {
         }
     }	
     
+  //조회 공통모듈
+    public static List<Object[]> selectList(String sql, Object... params) {
+        List<Object[]> resultList = new ArrayList<>();;
+
+        try {
+            conn = DAO.getConnection();
+            pstm = conn.prepareStatement(sql);
+
+            for (int i = 0; i < params.length; i++) {
+            	pstm.setObject(i + 1, params[i]);
+            }
+
+            rs = pstm.executeQuery();
+
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            while (rs.next()) {
+                Object[] row = new Object[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    row[i] = rs.getObject(i + 1);
+                }
+                resultList.add(row);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(rs);
+            close(pstm);
+            close(conn);
+        }
+        return resultList;
+    }
+    
+    //추가, 수정, 삭제 공통모듈
 	public static int update(String sql, Object... param) {
 		// sql => "DELETE FROM JAVA_BOARD WHERE BOARD_NUMBER=?"
 		// sql => "UPDATE JAVA_BOARD SET TITLE='하하' WHERE BOARD_NUMBER=?"
@@ -139,7 +175,7 @@ public class DAO {
 	            }
 	        }
 	    } finally {
-	        close(cstmt);
+	        close(pstm);
 	        close(conn);
 	    }
 	    return CSTNO;

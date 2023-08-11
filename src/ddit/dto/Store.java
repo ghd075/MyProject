@@ -6,25 +6,25 @@ public class Store {
 	private String stoName;  
 	private String stoPhone;  
 	private String stoAddress;
-	private String stoOrder;             
+	private int stoOrder;             
 	private String sNo;
 	
 	public Store() { }
 	
-	public Store(String stoNo, String stoName, String stoOrder) {
+	public Store(String stoNo, String stoName, int stoOrder) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoOrder = stoOrder;
 	}
 	
-	public Store(String sNo, String stoNo, String stoName, String stoOrder) {
+	public Store(String sNo, String stoNo, String stoName, int stoOrder) {
 		this.sNo = sNo;
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoOrder = stoOrder;
 	}
 
-	public Store(String stoNo, String stoName, String stoPhone, String stoAddress, String stoOrder) {
+	public Store(String stoNo, String stoName, String stoPhone, String stoAddress, int stoOrder) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
 		this.stoPhone = stoPhone;
@@ -76,12 +76,12 @@ public class Store {
 
 
 	/**해당 가게 누적 주문수를 불러오는 메소드*/
-	public String getStoOrder() {
+	public int getStoOrder() {
 		return stoOrder;
 	}
 
 	/**해당 가게 누적 주문수를 설정하는 메소드*/
-	public void setStoOrder(String stoOrder) {
+	public void setStoOrder(int stoOrder) {
 		this.stoOrder = stoOrder;
 	}
 	
