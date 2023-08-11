@@ -2,7 +2,7 @@ package ddit.dao;
 
 import java.util.List;
 
-import ddit.dto.MenuPrice;
+import ddit.dto.Menu;
 import ddit.dto.Store;
 
 import java.math.BigDecimal;
@@ -152,8 +152,8 @@ public class MunuDAO {
 
 	
 	// 메뉴정보 조회
-	public List<MenuPrice> meunSelect(String sto) {
-	    List<MenuPrice> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성
+	public List<Menu> meunSelect(String sto) {
+	    List<Menu> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성
 	    String sql = "SELECT ROWNUM AS MNO, MNNAME, PRICE " +
 	                 "FROM MENU " +
 	                 "WHERE STONO = ?";
@@ -166,7 +166,7 @@ public class MunuDAO {
 	            String memeNu = (String) row[1];
 	            BigDecimal priceBigDecimal = (BigDecimal) row[2];
 	            int price = priceBigDecimal != null ? priceBigDecimal.intValue() : 0;
-	            MenuPrice menuPrice = new MenuPrice(mNo, memeNu, price);
+	            Menu menuPrice = new Menu(mNo, memeNu, price);
 	            list.add(menuPrice);
 	        }
 	    } catch (Exception e) {

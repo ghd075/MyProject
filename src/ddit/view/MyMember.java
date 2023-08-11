@@ -41,7 +41,6 @@ public class MyMember {
 
 		mu.pause(MemberUI.INFO);
 		Util.clearScreen();
-		
 	}
 	
 	/**

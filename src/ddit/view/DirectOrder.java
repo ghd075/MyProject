@@ -4,7 +4,7 @@ import java.util.List;
 
 import ddit.dao.MunuDAO;
 import ddit.dto.Member;
-import ddit.dto.MenuPrice;
+import ddit.dto.Menu;
 import ddit.dto.Store;
 import ddit.util.Util;
 
@@ -57,7 +57,7 @@ public class DirectOrder {
 	 */
 	public void OrderStart(Store store, Member member) {
 		String sto = store.getStoNo();
-		List<MenuPrice> list = null;
+		List<Menu> list = null;
 		if (muDao.meunSelect(sto) != null && !muDao.meunSelect(sto).equals("") ) {
 			Util.clearScreen();
 			System.out.println(String.format("\t\t %s%s\r"
@@ -78,12 +78,12 @@ public class DirectOrder {
 					, 	Util.convert("[ PRICE ]",6)		
 					));
 			list = muDao.meunSelect(sto);
-			for(MenuPrice menuPrice : list) {
-				System.out.println(String.format("\t  %s\t%s\t%s"
-						, Util.convert(menuPrice.getmNo()+"", 5)
-						, Util.convert(menuPrice.getMemeNu(), 25)
-						, Util.convert(menuPrice.getPrice()+"", 6)));
-				System.out.println();
+			for(Menu menuPrice : list) {
+//				System.out.println(String.format("\t  %s\t%s\t%s"
+//						, Util.convert(menuPrice.getmNo()+"", 5)
+////						, Util.convert(menuPrice.getMem, 25)
+//						, Util.convert(menuPrice.getPrice()+"", 6)));
+//				System.out.println();
 			}
 			
 			boolean result = true;

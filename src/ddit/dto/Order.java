@@ -1,59 +1,78 @@
 package ddit.dto;
 
+import java.sql.Timestamp;
+
 /**주문 클래스*/
 public class Order {
-	private String stoAccep;
-	private String stoRide;
-	private String stoNo; 
-	private String meCode;
+    private String orderNo;
+    private Timestamp orderDate;
+    private int riderTime;
+    private int totalPrice;
+    private String cstNo;
 	
 	public Order() { }
-
-	public Order(String stoAccep, String stoRide, String stoNo, String meCode) {
-		super();
-		this.stoAccep = stoAccep;
-		this.stoRide = stoRide;
-		this.stoNo = stoNo;
-		this.meCode = meCode;
+	
+	public Order(String orderNo, Timestamp orderDate, int riderTime, int totalPrice, String cstNo) {
+		this.orderNo = orderNo;
+		this.orderDate = orderDate;
+		this.riderTime = riderTime;
+		this.totalPrice = totalPrice;
+		this.cstNo = cstNo;
 	}
 
-	/**가게의 해당주문 수락상태를 불러오는 메소드*/
-	public String getStoAccep() {
-		return stoAccep;
+	/**주문번호를 불러오는 메소드*/
+	public String getOrderNo() {
+		return orderNo;
 	}
 
-	/**가게의 해당주문 수락상태를 설정하는 메소드*/
-	public void setStoAccep(String stoAccep) {
-		this.stoAccep = stoAccep;
+	/**주문번호를 설정하는 메소드*/
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
 	}
 
-	/**라이더의 해당주문 수락상태를 불러오는 메소드*/
-	public String getStoRide() {
-		return stoRide;
+	/**주문일시를 불러오는 메소드*/
+	public Timestamp getOrderDate() {
+		return orderDate;
 	}
 
-	/**라이더의 해당주문 수락상태를 설정하는 메소드*/
-	public void setStoRide(String stoRide) {
-		this.stoRide = stoRide;
+	/**주문일시를 설정하는 메소드*/
+	public void setOrderDate(Timestamp orderDate) {
+		this.orderDate = orderDate;
 	}
 
-	/**해당 가게고유번호를 불러오는 메소드*/
-	public String getStoNo() {
-		return stoNo;
+	/**배달소요시간을 불러오는 메소드*/
+	public int getRiderTime() {
+		return riderTime;
 	}
 
-	/**해당 가게고유번호를 설정하는 메소드*/
-	public void setStoNo(String stoNo) {
-		this.stoNo = stoNo;
+	/**배달소요시간을 설정하는 메소드*/
+	public void setRiderTime(int riderTime) {
+		this.riderTime = riderTime;
 	}
 
-	/**해당 메뉴분류코드를 불러오는 메소드*/
-	public String getMeCode() {
-		return meCode;
+	/**총가격을 불러오는 메소드*/
+	public int getTotalPrice() {
+		return totalPrice;
 	}
 
-	/**해당 메뉴분류코드를 설정하는 메소드*/
-	public void setMeCode(String meCode) {
-		this.meCode = meCode;
+	/**총각격을 설정하는 메소드*/
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	/**고객번호를 불러오는 메소드*/
+	public String getCstNo() {
+		return cstNo;
+	}
+	
+	/**고객번호를 설정하는 메소드*/
+	public void setCstNo(String cstNo) {
+		this.cstNo = cstNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderNo=" + orderNo + ", orderDate=" + orderDate + ", riderTime=" + riderTime + ", totalPrice="
+				+ totalPrice + ", cstNo=" + cstNo + "]";
 	}
 }
