@@ -135,11 +135,13 @@ public class MunuDAO {
 
 	    try {
 	        for (Object[] row : resultList) {
-	            String sNo = (String) row[0];
+	            BigDecimal sNoBigDecimal = (BigDecimal) row[0];
+	            int sNo = sNoBigDecimal != null ? sNoBigDecimal.intValue() : 0;
 	            String stoNo = (String) row[1];
 	            String stoName = (String) row[2];
 	            BigDecimal stoOrderBigDecimal = (BigDecimal) row[3];
 	            int stoOrder = stoOrderBigDecimal != null ? stoOrderBigDecimal.intValue() : 0;
+	            
 	            Store store = new Store(sNo, stoNo, stoName, stoOrder);
 	            list.add(store);
 	        }

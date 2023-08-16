@@ -17,6 +17,7 @@ public class MyMember {
 	private static MemberUI mu = MemberUI.getInstance();
 	private static MunuDAO muDao = MunuDAO.getInstance();
 	private static MyMember instance = null;
+	private static Store selectedStore = null;
 	
 	public MyMember() {	}
 	
@@ -93,12 +94,18 @@ public class MyMember {
 
             if (!storeList.isEmpty()) {
                 displayStores(storeList);
+                
+                for (Store store : storeList) {
 
+                    // Store 객체를 변수에 저장
+                    selectedStore = store;
+                }
+                
                 System.out.println("\n\n\t계속하시려면 엔터키를 입력해주세요");
                 Util.sc.nextLine();
-
-                Store selectedStore = storeList.get(Util.sc.nextInt());
+                // Store 객체를 mu.choose 메서드로 전달
                 mu.choose(firstMember, meCode, selectedStore);
+
             } else {
                 System.out.println("\n\n\t   해당 종류의 가게가 존재하지 않습니다.>.<");
             }
@@ -138,7 +145,7 @@ public class MyMember {
 				, Util.convert("누적주문수", 5)));
 		System.out.printf("\n\t=====================================================================%n");
 		for(Store store : list) {
-			System.out.printf("\t" + Util.convert(store.getsNo(), 5));
+			System.out.printf("\t" + Util.convert(store.getsNo()+"", 5));
 			System.out.printf("\t" + Util.convert(store.getStoNo(),10));
 			System.out.printf("\t" + Util.convert(store.getStoName(),25));
 			System.out.printf(Util.convert(store.getStoOrder()+"",5));

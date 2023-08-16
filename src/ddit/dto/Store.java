@@ -7,7 +7,7 @@ public class Store {
 	private String stoPhone;  
 	private String stoAddress;
 	private int stoOrder;             
-	private String sNo;
+	private int sNo;
 	
 	public Store() { }
 	
@@ -17,7 +17,7 @@ public class Store {
 		this.stoOrder = stoOrder;
 	}
 	
-	public Store(String sNo, String stoNo, String stoName, int stoOrder) {
+	public Store(int sNo, String stoNo, String stoName, int stoOrder) {
 		this.sNo = sNo;
 		this.stoNo = stoNo;
 		this.stoName = stoName;
@@ -86,12 +86,12 @@ public class Store {
 	}
 	
 	/**순번을 설정하는 메소드*/
-	public String getsNo() {
+	public int getsNo() {
 		return sNo;
 	}
 	
 	/**순번을 설정하는 메소드*/
-	public void setsNo(String sNo) {
+	public void setsNo(int sNo) {
 		this.sNo = sNo;
 	}
 
