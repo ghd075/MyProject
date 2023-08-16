@@ -2,14 +2,14 @@ package ddit.view;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.plaf.SliderUI;
 
 import ddit.dao.MunuDAO;
 import ddit.dao.OrderDAO;
 import ddit.dto.Member;
 import ddit.dto.Menu;
+import ddit.dto.OrderItem;
 import ddit.dto.Store;
 import ddit.util.Util;
 
@@ -20,6 +20,7 @@ public class DirectOrder {
 	private static OrderDAO orderDAO = OrderDAO.getInstance();
 	private static DirectOrder instance = null;
 	private static Menu selectedMenu = null;
+	private List<OrderItem> orderItems = null; // 사용자가 입력한 메뉴와 수량을 저장할 리스트
 	
 	public DirectOrder() {	}
 	
@@ -95,19 +96,29 @@ public class DirectOrder {
 				System.out.println();
 				selectedMenu = menuPrice;
 			}
-			int result1 = orderDAO.OrderNew(member);
-			
-			int sum = 0;
-			sum += selectedMenu.getPrice();
+			String ORDERNO = orderDAO.OrderNew(member);
+			//System.out.println(ORDERNO);
 			
 			boolean result = true;
 			while (result) {
-				System.out.print("\t메뉴를 선택해주세요: ");
+				System.out.print("\t메뉴를 선택해주세요 (종료: Q): ");
 				String input3 = Util.sc.nextLine();
 				System.out.println();
+	            if (input3.equalsIgnoreCase("Q")) {
+	                result = false; // 종료 입력 시 루프 종료
+	                continue;
+	            }
 				System.out.print("\t수량을 선택해주세요: ");
 				Integer input4 = Util.sc.nextInt();
+				Util.sc.nextLine(); // 개행 문자 처리
 				System.out.println();
+	            for (Menu menu : list) {
+	                if (input3.equals(menu.getmNo())) {
+	                    selectedMenu = menu;
+	                    break;
+	                }
+	            }
+	            
 				System.out.println(String.format("\t %s %s"
 						,	Util.convert("사용 가능한 포인트 : ", 3)		
 						, 	Util.convert(member.getmPoint()+"",3)		
@@ -119,9 +130,19 @@ public class DirectOrder {
 						, 	Util.convert("[ PRICE ]",6)			
 						));
 				System.out.println();
-				if(input3.equals(selectedMenu.getmNo())) {
-					
-				}
+	            if (selectedMenu != null) {
+	            	orderItems = new ArrayList<OrderItem>();
+	                int totalPrice = selectedMenu.getPrice() * input4;
+	                orderItems.add(new OrderItem(selectedMenu, input4, totalPrice));
+					System.out.println(String.format("\t%s \t%s\t%s"
+							,	Util.convert(selectedMenu.getMnName(), 25)		
+							,	Util.convert(input4+"", 6)		
+							, 	Util.convert(totalPrice+"",6)			
+							));
+					//orderDAO.updateOrderTotalPrice(ORDERNO, member.getCstNo(), totalPrice);	
+	            } else {
+	                System.out.println("\t잘못된 메뉴 번호입니다.");
+	            }
 			}
 		}
 	}
