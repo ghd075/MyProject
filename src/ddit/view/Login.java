@@ -1,5 +1,6 @@
 package ddit.view;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import ddit.dao.MemberDAO;
@@ -36,11 +37,12 @@ public class Login {
 	/**
 	 * 
 	 * 
+	 * @throws SQLException 
 	 * @document 회원의 1번 입력시 나오는 로그인 페이지입니다.
 	 * 
 	 * 
 	 */
-	public void Memberloginmain (){
+	public void Memberloginmain () {
 		
 		boolean loop = true;
 //		Member m = new Member();
@@ -109,10 +111,11 @@ public class Login {
 	/**
 	 * 
 	 * 
+	 * @throws SQLException 
 	 * @document: 로그인 성공시 나오는 주문 페이지입니다. 주문페이지의 선택안 중 하나를 선택합니다.
 	 * 
 	 */	
-	public void SuccessMenu(Member firstMember) {
+	public void SuccessMenu(Member firstMember){
 
 		boolean loop = true;
 

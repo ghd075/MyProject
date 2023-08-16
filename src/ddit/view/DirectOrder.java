@@ -1,17 +1,25 @@
 package ddit.view;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.plaf.SliderUI;
+
 import ddit.dao.MunuDAO;
+import ddit.dao.OrderDAO;
 import ddit.dto.Member;
 import ddit.dto.Menu;
 import ddit.dto.Store;
 import ddit.util.Util;
 
 public class DirectOrder {
+	Connection conn = null; // 자바와 오라클에 대한 연결 설정
 	
 	private static MunuDAO muDao = MunuDAO.getInstance();
+	private static OrderDAO orderDAO = OrderDAO.getInstance();
 	private static DirectOrder instance = null;
+	private static Menu selectedMenu = null;
 	
 	public DirectOrder() {	}
 	
@@ -22,7 +30,8 @@ public class DirectOrder {
 	
 	 /**
 	  * 
-	  * @document 가게 ID를 입력하여 가게를 선택하는 페이지입니다.
+	  * @throws SQLException 
+	 * @document 가게 ID를 입력하여 가게를 선택하는 페이지입니다.
 	  * 
 	  * 
 	  */
@@ -79,12 +88,17 @@ public class DirectOrder {
 					));
 			list = muDao.meunSelect(sto);
 			for(Menu menuPrice : list) {
-//				System.out.println(String.format("\t  %s\t%s\t%s"
-//						, Util.convert(menuPrice.getmNo()+"", 5)
-////						, Util.convert(menuPrice.getMem, 25)
-//						, Util.convert(menuPrice.getPrice()+"", 6)));
-//				System.out.println();
+				System.out.println(String.format("\t  %s\t%s\t%s"
+						, Util.convert(menuPrice.getmNo()+"", 5)
+						, Util.convert(menuPrice.getMnName(), 25)
+						, Util.convert(menuPrice.getPrice()+"", 6)));
+				System.out.println();
+				selectedMenu = menuPrice;
 			}
+			int result1 = orderDAO.OrderNew(member);
+			
+			int sum = 0;
+			sum += selectedMenu.getPrice();
 			
 			boolean result = true;
 			while (result) {
@@ -105,6 +119,9 @@ public class DirectOrder {
 						, 	Util.convert("[ PRICE ]",6)			
 						));
 				System.out.println();
+				if(input3.equals(selectedMenu.getmNo())) {
+					
+				}
 			}
 		}
 	}

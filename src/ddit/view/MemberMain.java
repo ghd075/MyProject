@@ -25,7 +25,7 @@ public class MemberMain {
 	}
 	
 
-	public void memberMain() {
+	public void memberMain(){
 		
 		boolean loop = true;
 		while (loop) {

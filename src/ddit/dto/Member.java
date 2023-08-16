@@ -26,6 +26,13 @@ public class Member extends Customer {
 		this.mPw = mPw;
 		this.mPoint = mPoint;
 	}
+	
+	public Member(String mId, String mPw, String name, String phone, String address, int mPoint, String cstNo) {
+		super(cstNo, name, phone, address);
+		this.mId = mId;
+		this.mPw = mPw;
+		this.mPoint = mPoint;
+	}
 
 	public Member(int cstCls, String name, String phone, String address, String mId, String mPw, int mPoint) {
 		super(cstCls, name, phone, address);

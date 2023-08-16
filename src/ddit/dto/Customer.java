@@ -11,7 +11,6 @@ public class Customer {
 	public Customer() { }
 
 	public Customer(String name, String phone, String address) {
-		super();
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
@@ -19,6 +18,13 @@ public class Customer {
 
 	public Customer(int cstCls, String name, String phone, String address) {
 		this.cstCls = cstCls;
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+	}
+	
+	public Customer(String cstNo, String name, String phone, String address) {
+		this.cstNo = cstNo;
 		this.name = name;
 		this.phone = phone;
 		this.address = address;

@@ -13,18 +13,18 @@ import java.util.ArrayList;
 /**
  * 회원관련 DAO 클래스
  * */
-public class MemberDAO {
+public class OrderDAO {
     Connection conn = null; // 자바와 오라클에 대한 연결 설정
     PreparedStatement pstm = null; // SQL문을 담는 객체 // sql문을 수행하기 위한 객체
     ResultSet rs = null; // statement 동작에 대한 결과로 전달되는 DB의 내용..!
 	
-    private static MemberDAO instance = null;
+    private static OrderDAO instance = null;
     
-    public MemberDAO() {	}
+    public OrderDAO() {	}
 	
     //싱글톤패턴
-	public static MemberDAO getInstance() {
-		if(instance == null) instance = new MemberDAO();
+	public static OrderDAO getInstance() {
+		if(instance == null) instance = new OrderDAO();
 		return instance;
 	}
     
@@ -52,25 +52,20 @@ public class MemberDAO {
 	    return false;
 	}
 	
-	// 회원가입
-	public int join(Member user) {
-		int result = 0;
-		/**
-		CREATE SEQUENCE [시퀀스명]; 을 통하여 자동으로 중복이 되지 않는 시퀀스를 만들어 줍니다.
-		사용은 [시퀀스명].NEXTVAL 로 사용하면 됩니다.
-		*/
-		String sql = "INSERT INTO CUSTOMER (CSTCLS, NAME, PHONE, ADDRESS) "
-				+ "VALUES(1, ?, ?, ?) ";
-		String CSTNO = DAO.insertAndGetCSTNO(sql, user.getName(), user.getPhone(), user.getAddress());
+	// 주문 테이블에 데이터 추가
+	public int OrderNew(Member member) {
+		int result = 0; // 트리거에서 커밋을 수행하므로 여기서 커밋하지 않음 = 0;
+		Connection conn = null;
+		try {
+	        conn = DAO.getConnection(); // 커넥션을 여는 부분
+	        String sql = "INSERT INTO ORDERS (ORDERDATE, CSTNO) VALUES (SYSTIMESTAMP, ?)";
+	        result = DAO.update(conn, sql, member.getCstNo()); // 커넥션을 인자로 전달
+		}catch (Exception e) {
+	        e.printStackTrace();
+		}finally {
+	        DAO.close(conn);
+	    }
 		
-		
-		if(CSTNO != null) {
-			String insertMembersql = "INSERT INTO MEMBER (MID, MPW, CSTNO) "
-					+ "VALUES(?, ?, ?)";
-			result = DAO.update(insertMembersql, user.getmId(), user.getmPw(), CSTNO);
-		}else {
-			System.out.println("\t고객등록에 실패했습니다.");
-		}
 		return result;
 	}
 
@@ -116,7 +111,6 @@ public class MemberDAO {
 				" ,   CS.PHONE 		AS PHONE " + 
 				" ,   CS.ADDRESS 	AS ADDRESS " + 
 				" ,   M.MPOINT    AS POINT " + 
-				" ,   CS.CSTNO    AS CSTNO "  +
 				" FROM CUSTOMER CS " + 
 				" ,   MEMBER M " + 
 				"WHERE CS.CSTNO = M.CSTNO " + 
@@ -132,8 +126,7 @@ public class MemberDAO {
             String mPhone = (String) row[3];
             String mAddress = (String) row[4];
             int mPoint = ((BigDecimal) row[5]).intValue();
-            String cstNo = (String) row[6];
-            Member member = new Member(mID, mPW, mName, mPhone, mAddress, mPoint, cstNo);
+            Member member = new Member(mID, mPW, mName, mPhone, mAddress, mPoint);
             members.add(member); // 변환된 Member 객체를 리스트에 추가
         }
         return members; // 변환된 Member 객체 리스트 반환

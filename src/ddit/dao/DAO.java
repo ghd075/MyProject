@@ -111,8 +111,8 @@ public class DAO {
 		try {
 			conn = DAO.getConnection();
 			pstm = conn.prepareStatement(sql);
-
-			conn.setAutoCommit(false); // 수동 커밋 설정
+//
+////			conn.setAutoCommit(false); // 수동 커밋 설정
 			
 			for (int i = 0; i < param.length; i++) {
 				pstm.setObject(i + 1, param[i]);
@@ -135,6 +135,25 @@ public class DAO {
 		}
 		return result;
 	} 
+	
+	public static int update(Connection conn, String sql, Object... param) {
+	    int result = 0;
+	    PreparedStatement pstm = null;
+	    try {
+	        pstm = conn.prepareStatement(sql);
+
+	        for (int i = 0; i < param.length; i++) {
+	            pstm.setObject(i + 1, param[i]);
+	        }
+
+	        result = pstm.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        close(pstm); // PreparedStatement를 닫음
+	    }
+	    return result;
+	}
 	
 	// 고객번호를 가져오기 위해
 	public static String insertAndGetCSTNO(String sql, Object... param) {

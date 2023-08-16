@@ -1,5 +1,7 @@
 package ddit.view;
 
+import java.sql.SQLException;
+
 import ddit.dto.Member;
 import ddit.dto.Store;
 import ddit.util.Util;
@@ -90,6 +92,7 @@ public class MemberUI {
 	/**
 	 * 
 	 * 
+	 * @throws SQLException 
 	 * @document 주문페이지의 정렬선택 옵션 페이지입니다. 
 	 * 
 	 * 

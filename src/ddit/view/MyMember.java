@@ -1,5 +1,6 @@
 package ddit.view;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class MyMember {
 	/**
 	 * 
 	 * 
+	 * @throws SQLException 
 	 * @document: 회원의 주소에 인접한 가게들의 리스트와 점포 선택 페이지입니다.
 	 * 
 	 * 
