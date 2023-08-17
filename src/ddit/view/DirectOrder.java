@@ -139,16 +139,16 @@ public class DirectOrder {
 			
 			while (result) {
 				System.out.print("\t메뉴를 선택해주세요 (종료: Q): ");
-				String input3 = Util.sc.nextLine();
+				String input3 = Util.sc.nextLine().trim();
 				System.out.println();
 	            
 				if (input3.equalsIgnoreCase("Q")) {
 	                result = false; // 종료 입력 시 루프 종료
 	            }else {
 					System.out.print("\t수량을 선택해주세요: ");
-					Integer input4 = Util.sc.nextInt();
-					Util.sc.nextLine(); // 개행 문자 처리
-					System.out.println();
+					String input4Str = Util.sc.nextLine().trim(); // 개행문자 제거
+					int input4 = Integer.parseInt(input4Str); // 입력 처리 수정
+			        System.out.println();
 					
 					// 메뉴 선택 및 주문 아이템 생성
 					for (Menu menu : list) {
@@ -185,7 +185,6 @@ public class DirectOrder {
 		                
 		            } else {
 						System.out.println("\t주문하실 수 없습니다. 해당하는 음식이 없습니다. .");
-						
 						result = false;
 		            }
 				}
@@ -228,7 +227,7 @@ public class DirectOrder {
 	                        ));
 //	                System.out.println(ORDERNO + ", " + member.getCstNo() + ", " + totalOrderPrice);
 	                orderDAO.updateOrderTotalPrice(ORDERNO, member.getCstNo(), totalOrderPrice);
-	                pU.paychoice();
+	                pU.paychoice(ORDERNO);
 	            }else {
 					System.out.println("\t주문하실 수 없습니다. 15000원이상 주문해주세요.!!");
 					result = false;

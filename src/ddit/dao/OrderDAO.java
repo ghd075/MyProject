@@ -51,5 +51,19 @@ public class OrderDAO {
 		result = DAO.update(sql, totalPrice, ORDERNO, CSTNO);
 		return result;
 	}
+	
+	// 주문내역 삭제
+	public void deleteOrderAndMenu(String orderNo) {
+	    String deleteOrderMenuQuery = "DELETE FROM ORDERMENU WHERE ORDERNO = ?";
+	    String deleteOrderQuery = "DELETE FROM orders WHERE ORDERNO = ?";
+
+	    try {
+	    	DAO.update(deleteOrderMenuQuery, orderNo);
+	        DAO.update(deleteOrderQuery, orderNo);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 
 }

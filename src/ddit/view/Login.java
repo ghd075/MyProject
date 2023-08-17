@@ -118,7 +118,7 @@ public class Login {
 	public void SuccessMenu(Member firstMember){
 
 		boolean loop = true;
-
+		
 		while (loop) {
 
 			mu.order();

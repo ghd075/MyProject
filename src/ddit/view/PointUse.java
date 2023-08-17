@@ -1,10 +1,12 @@
 package ddit.view;
 
+import ddit.dao.OrderDAO;
 import ddit.util.Util;
 
 public class PointUse {
 	
 	private static PointUse instance = null;
+	private static OrderDAO orderDAO = OrderDAO.getInstance();
 	
 	//기본 생성자
 	public PointUse() {	}
@@ -21,23 +23,25 @@ public class PointUse {
 	 * 
 	 * 
 	 */
-	public void paychoice() {
-			
-			
-			boolean result = true;
-			
-			while(result) {
+	public void paychoice(String ORDERNO) {
 				
-				System.out.print("\t결제 하시겠습니까?(y/n)");
-				String input = Util.sc.nextLine();
-				if (input.equals("y")) {
+		boolean result = true;
+		
+		while(result) {
+			
+			System.out.print("\t결제 하시겠습니까?(Y/N) : ");
+			String input = Util.sc.nextLine();
+			if (input.equalsIgnoreCase("Y")) {
 //					payPay();
-				}else {
-					result = false;
-				}
-			}
-						
+			}else if(input.equalsIgnoreCase("N")) {
+				orderDAO.deleteOrderAndMenu(ORDERNO); // 주문 및 주문 내역 삭제 메서드 호출
+				result = false;
+			}else {
+	            System.out.println("\t잘못된 입력입니다. 다시 입력해주세요.");
+//	            Util.sc.nextLine(); // 개행 문자 처리
+	        }
 		}
+	}
 		
 
 	/**

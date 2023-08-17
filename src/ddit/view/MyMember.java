@@ -70,7 +70,10 @@ public class MyMember {
 			String address = muDao.addressSelect(myAddress);
 
             if (address != null && !address.isEmpty()) {
-                displayStoreOptions(address, firstMember);
+                int option = displayStoreOptions(address, firstMember);
+                if (option == 0) {
+                    break; // 0번을 입력하면 루프 종료
+                }
             } else {
                 System.out.println("\n\n\t   주변에 가게가 없습니다!!>.<");
                 System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
@@ -79,18 +82,22 @@ public class MyMember {
         }
     }
 
-    private void displayStoreOptions(String address, Member firstMember) {
+    private int displayStoreOptions(String address, Member firstMember) {
         List<String> categories = Arrays.asList("한식", "중식", "일식/양식", "패스트푸드", "분식");
         System.out.println("\n\n");
         for (int i = 0; i < categories.size(); i++) {
         	System.out.print(String.format("\t[%d.%s]\t",  i + 1, categories.get(i)));
         }
         System.out.println("\n\n");
-
+		System.out.println("\t[뒤로 가기를 원하면 0번을 입력해주세요]");
+		System.out.println("\n\n");
         System.out.print("\t이동할 화면 입력(숫자) : ");
         int categoryChoice = Integer.parseInt(Util.sc.nextLine());
 
-        if (categoryChoice >= 1 && categoryChoice <= categories.size()) {
+        if (categoryChoice == 0) {
+            // 사용자가 0번을 입력하면 뒤로 가기
+            return 0;
+        }else if (categoryChoice >= 1 && categoryChoice <= categories.size()) {
             String meCode = "S" + (char) ('a' + categoryChoice - 1);
             List<Store> storeList = muDao.storeOneSelect(meCode, address);
 
@@ -111,8 +118,10 @@ public class MyMember {
             } else {
                 System.out.println("\n\n\t   해당 종류의 가게가 존재하지 않습니다.>.<");
             }
-        } else {
+            return categoryChoice;
+        }else {
             System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
+            return -1;
         }
     }
 
