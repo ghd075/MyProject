@@ -41,7 +41,7 @@ public class DirectOrder {
 		boolean result = true;
 		while(result) {	
 			System.out.println("\n\n\n\n\n");	
-			System.out.print("\t   가게를 선택해주세요: ");
+			System.out.print("\t가게를 선택해주세요: ");
 			String input = Util.sc.nextLine();
 			System.out.println();
 							
@@ -68,6 +68,7 @@ public class DirectOrder {
 	public void OrderStart(Store store, Member member) {
 		String sto = store.getStoNo();
 		List<Menu> list = null;
+		orderItems = new ArrayList<>(); // 주문 아이템 리스트 초기화
 		if (muDao.meunSelect(sto) != null && !muDao.meunSelect(sto).equals("") ) {
 			Util.clearScreen();
 			System.out.println(String.format("\t\t %s%s\r"
@@ -104,42 +105,58 @@ public class DirectOrder {
 				System.out.print("\t메뉴를 선택해주세요 (종료: Q): ");
 				String input3 = Util.sc.nextLine();
 				System.out.println();
-	            if (input3.equalsIgnoreCase("Q")) {
+	            
+				if (input3.equalsIgnoreCase("Q")) {
 	                result = false; // 종료 입력 시 루프 종료
 	                continue;
 	            }
+	            
 				System.out.print("\t수량을 선택해주세요: ");
 				Integer input4 = Util.sc.nextInt();
 				Util.sc.nextLine(); // 개행 문자 처리
 				System.out.println();
-	            for (Menu menu : list) {
+	            
+				// 메뉴 선택 및 주문 아이템 생성
+				for (Menu menu : list) {
 	                if (input3.equals(menu.getmNo())) {
 	                    selectedMenu = menu;
 	                    break;
 	                }
 	            }
 	            
-				System.out.println(String.format("\t %s %s"
-						,	Util.convert("사용 가능한 포인트 : ", 3)		
-						, 	Util.convert(member.getmPoint()+"",3)		
-						));
-				System.out.println();
-				System.out.println(String.format("\t%s \t%s\t%s"
-						,	Util.convert("[ MENU ]", 25)		
-						,	Util.convert("[ QTY ]", 6)		
-						, 	Util.convert("[ PRICE ]",6)			
-						));
-				System.out.println();
-	            if (selectedMenu != null) {
-	            	orderItems = new ArrayList<OrderItem>();
+		        if (selectedMenu != null) {
 	                int totalPrice = selectedMenu.getPrice() * input4;
-	                orderItems.add(new OrderItem(selectedMenu, input4, totalPrice));
-					System.out.println(String.format("\t%s \t%s\t%s"
-							,	Util.convert(selectedMenu.getMnName(), 25)		
-							,	Util.convert(input4+"", 6)		
-							, 	Util.convert(totalPrice+"",6)			
-							));
-					//orderDAO.updateOrderTotalPrice(ORDERNO, member.getCstNo(), totalPrice);	
+	                OrderItem orderItem = new OrderItem(selectedMenu, input4, totalPrice);
+	                orderItems.add(orderItem);
+
+	                // 사용 가능한 포인트와 메뉴 정보 출력
+	                System.out.println(String.format("\t%s %s"
+	                        ,	Util.convert("사용 가능한 포인트 : ", 3)		
+	                        , 	Util.convert(member.getmPoint()+"",3)		
+	                        ));
+	                System.out.println();
+	                System.out.println(String.format("\t%s \t%s\t%s"
+	                        ,	Util.convert("[ MENU ]", 25)		
+	                        ,	Util.convert("[ QTY ]", 6)		
+	                        , 	Util.convert("[ PRICE ]",6)			
+	                        ));
+	                System.out.println();
+	                
+	                // 주문 아이템 정보 출력
+	                for (OrderItem item : orderItems) {
+	                    System.out.println(item.toString());
+	                }
+
+	                // 총 가격 계산 및 출력
+	                int totalOrderPrice = 0;
+	                for (OrderItem item : orderItems) {
+	                    totalOrderPrice += item.getTotalPrice();
+	                }
+	                System.out.println(String.format("\t%s %s"
+	                        ,	Util.convert("총 가격 : ", 3)		
+	                        , 	Util.convert(totalOrderPrice+"",3)		
+	                        ));
+
 	            } else {
 	                System.out.println("\t잘못된 메뉴 번호입니다.");
 	            }

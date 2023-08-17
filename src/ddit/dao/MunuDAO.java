@@ -164,7 +164,8 @@ public class MunuDAO {
 
 	    try {
 	        for (Object[] row : resultList) {
-	            int mNo = ((BigDecimal) row[0]).intValue();
+	        	BigDecimal mNoBigDecimal = (BigDecimal) row[0];
+	        	String mNo = mNoBigDecimal != null ? mNoBigDecimal.toString() : null;;
 	            String memeNu = (String) row[1];
 	            BigDecimal priceBigDecimal = (BigDecimal) row[2];
 	            int price = priceBigDecimal != null ? priceBigDecimal.intValue() : 0;

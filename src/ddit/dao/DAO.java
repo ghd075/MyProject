@@ -202,41 +202,29 @@ public class DAO {
 	}
 	
 	// 주문번호를 가져오기 위해
-	public static String GetORDERNO(Connection conn, String sql, Object... param) {
-		int result = 0;
+	public static String GetORDERNO(String sql, Object... param) {
 		String ORDERNO = null;
 
 	    try {
 	        conn = DAO.getConnection();
-	        pstm = conn.prepareStatement(sql, new String[]{"ORDERNO"}); // "CSTNO" 컬럼을 반환값으로 설정
-
-	        conn.setAutoCommit(false); // 수동 커밋 설정
+	        pstm = conn.prepareStatement(sql); // "ORDERNO" 컬럼을 반환값으로 설정
 
 	        for (int i = 0; i < param.length; i++) {
 	        	pstm.setObject(i + 1, param[i]);
 	        }
 	        
-	        result = pstm.executeUpdate();
+	        rs = pstm.executeQuery();
 
-	        if(result > 0) {
-	        	rs = pstm.getGeneratedKeys();
-	        	 if (rs.next()) {
-	        		 ORDERNO = rs.getString(1); // CSTNO 값을 가져옴
-                }
+	        if (rs.next()) {
+	            ORDERNO = rs.getString("ORDERNO"); // ORDERNO 값을 가져옴
 	        }
-	        close(rs);
 	        
-	        conn.commit();
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        if (conn != null) {
-	            try {
-	                conn.rollback();
-	            } catch (SQLException sqle) {
-	            }
-	        }
 	    } finally {
+	    	close(rs);
 	        close(pstm);
+	        close(conn);
 	    }
 	    return ORDERNO;
 	}

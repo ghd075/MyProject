@@ -24,7 +24,7 @@ public class LoadingThread extends Thread{
             try {
                 //컴퓨터가 너무 빠르기 때문에 수행결과를 잘 확인 할 수 없어서 
                 // Thread.sleep() 메서드를 이용해서 조금씩 쉬었다가 출력할 수 있게한다. 
-                Thread.sleep(350);
+                Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace(); // e.printStackTrace(); 메소드 getMessage, toString과는 다르게 printStackTrace는 리턴값이 없다. 이 메소드를 호출하면 메소드가 내부적으로 예외 결과를 화면에 출력한다.
             }

@@ -2,7 +2,7 @@ package ddit.dto;
 
 /**메뉴가격 클래스*/
 public class Menu {
-	private int mNo;
+	private String mNo;
     private String mnCode;
     private String mnName;
 	private int price;  
@@ -11,13 +11,17 @@ public class Menu {
 	
 	public Menu() { }
 
-	public Menu(int mNo, String mnName, int price) {
+	public Menu(String mnName) {
+		this.mnName = mnName;
+	}
+
+	public Menu(String mNo, String mnName, int price) {
 		this.mNo = mNo;
 		this.mnName = mnName;
 		this.price = price;
 	}
 
-	public Menu(int mNo, String mnCode, String mnName, int price, String mnctCode, String stono) {
+	public Menu(String mNo, String mnCode, String mnName, int price, String mnctCode, String stono) {
 		this.mNo = mNo;
 		this.mnCode = mnCode;
 		this.mnName = mnName;
@@ -27,12 +31,12 @@ public class Menu {
 	}
 	
 	/**메뉴식별번호를 불러오는 메소드*/
-	public int getmNo() {
+	public String getmNo() {
 		return mNo;
 	}
 
 	/**메뉴식별번호를 설정하는 메소드*/
-	public void setmNo(int mNo) {
+	public void setmNo(String mNo) {
 		this.mNo = mNo;
 	}
 

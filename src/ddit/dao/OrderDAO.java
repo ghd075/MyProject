@@ -28,16 +28,16 @@ public class OrderDAO {
 	// 주문 테이블에 데이터 추가
 	public String OrderNew(Member member) {
 		String ORDERNO = null; // 트리거에서 커밋을 수행하므로 여기서 커밋하지 않음 = 0;
-		Connection conn = null;
+		String insertSql = "INSERT INTO ORDERS (ORDERDATE, CSTNO) VALUES (SYSTIMESTAMP, ?)";
+		String selectSql = "SELECT ORDERNO FROM ORDERS WHERE CSTNO = ?";
 		try {
-	        conn = DAO.getConnection(); // 커넥션을 여는 부분
-	        String sql = "INSERT INTO ORDERS (ORDERDATE, CSTNO) VALUES (SYSTIMESTAMP, ?)";
-	        ORDERNO = DAO.GetORDERNO(conn, sql, member.getCstNo()); // 커넥션을 인자로 전달
+			int result = DAO.update(insertSql, member.getCstNo());
+			if (result > 0) {
+				ORDERNO = DAO.GetORDERNO(selectSql, member.getCstNo()); // 커넥션을 인자로 전달
+			}
 		}catch (Exception e) {
 	        e.printStackTrace();
-		}finally {
-	        DAO.close(conn);
-	    }
+		}
 		
 		return ORDERNO;
 	}
