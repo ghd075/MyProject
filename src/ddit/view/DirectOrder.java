@@ -18,6 +18,7 @@ public class DirectOrder {
 	
 	private static MunuDAO muDao = MunuDAO.getInstance();
 	private static OrderDAO orderDAO = OrderDAO.getInstance();
+	private static PointUse pU = PointUse.getInstance();
 	private static DirectOrder instance = null;
 	private static Menu selectedMenu = null;
 	private List<OrderItem> orderItems = null; // 사용자가 입력한 메뉴와 수량을 저장할 리스트
@@ -53,6 +54,9 @@ public class DirectOrder {
 			} else {
 				OrderStart(store, member);
 			}
+			
+			// OrderStart 메소드가 끝난 후 전 메뉴로 탈출
+			return;
 			
 		}
 	}
@@ -101,6 +105,7 @@ public class DirectOrder {
 			//System.out.println(ORDERNO);
 			
 			boolean result = true;
+			
 			while (result) {
 				System.out.print("\t메뉴를 선택해주세요 (종료: Q): ");
 				String input3 = Util.sc.nextLine();
@@ -108,7 +113,7 @@ public class DirectOrder {
 	            
 				if (input3.equalsIgnoreCase("Q")) {
 	                result = false; // 종료 입력 시 루프 종료
-	                continue;
+	                return;
 	            }
 	            
 				System.out.print("\t수량을 선택해주세요: ");
@@ -156,6 +161,8 @@ public class DirectOrder {
 	                        ,	Util.convert("총 가격 : ", 3)		
 	                        , 	Util.convert(totalOrderPrice+"",3)		
 	                        ));
+	                
+	                pU.paychoice();
 
 	            } else {
 	                System.out.println("\t잘못된 메뉴 번호입니다.");

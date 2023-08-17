@@ -52,6 +52,7 @@ public class Main {
 		      // 메세지를 출력한다
 		      System.out.println(delivery[i]);
 		}
+	    System.out.println();
 	    System.out.println("                         Loading...");
 	    
 		LoadingThread LoadingThread = new LoadingThread("■■■");
