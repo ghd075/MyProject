@@ -227,7 +227,7 @@ public class DirectOrder {
 	                        ));
 //	                System.out.println(ORDERNO + ", " + member.getCstNo() + ", " + totalOrderPrice);
 	                orderDAO.updateOrderTotalPrice(ORDERNO, member.getCstNo(), totalOrderPrice);
-	                pU.paychoice(ORDERNO);
+	                pU.paychoice(member, ORDERNO, totalOrderPrice);
 	            }else {
 					System.out.println("\t주문하실 수 없습니다. 15000원이상 주문해주세요.!!");
 					result = false;

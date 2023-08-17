@@ -66,4 +66,12 @@ public class OrderDAO {
 	    }
 	}
 
+	// 포인트 업데이트
+	public int updateUserPoint (String CSTNO, int userPoint) {
+		int result = 0;
+		String sql = "UPDATE MEMBER SET MPOINT = ? WHERE CSTNO = ?";
+		result = DAO.update(sql, userPoint, CSTNO);
+		return result;
+	}
+	
 }

@@ -129,4 +129,35 @@ public class MemberUI {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * 
+	 * @document 각 페이지 종료시 나오는 다음 메뉴얼 선택 페이지입니다. 
+	 * 
+	 * 
+	 */
+	public void fffinal() {
+		
+		boolean result = true;
+		while(result) {
+			System.out.println("\n\n\n");
+			System.out.println("\t ==어디로 이동할까요? ==");
+			System.out.println();
+			System.out.println("\t1. 주문 정보 보기");
+			System.out.println();
+			System.out.println("\t[뒤로 가기를 원하면 0번을 눌러주세yo]");
+			System.out.println("\n\n");
+			System.out.print("\t이동할 화면 입력(숫자) : ");
+			Integer input = Util.sc.nextInt();
+			System.out.println("\n\n");
+
+			if (input == 1) {
+//				userfinalorderinfo();
+			
+			} else if (input == 0) {
+				result = false;
+			}
+		}
+	}
 }
