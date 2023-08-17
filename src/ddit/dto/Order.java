@@ -2,16 +2,27 @@ package ddit.dto;
 
 import java.sql.Timestamp;
 
+import ddit.util.Util;
+
 /**주문 클래스*/
 public class Order {
     private String orderNo;
     private Timestamp orderDate;
     private int riderTime;
     private int totalPrice;
+    private int price;
+    private String mnName; 
     private String cstNo;
 	
 	public Order() { }
 	
+	public Order(int totalPrice, int riderTime, String mnName, int price) {
+		this.totalPrice = totalPrice;
+		this.riderTime = riderTime;
+		this.mnName = mnName;
+		this.price = price;
+	}
+
 	public Order(String orderNo, Timestamp orderDate, int riderTime, int totalPrice, String cstNo) {
 		this.orderNo = orderNo;
 		this.orderDate = orderDate;
@@ -69,10 +80,31 @@ public class Order {
 	public void setCstNo(String cstNo) {
 		this.cstNo = cstNo;
 	}
+	
+	/**주문한 메뉴 가격을 불러오는 메소드*/	
+	public int getPrice() {
+		return price;
+	}
+
+	/**주문한 메뉴 가격을 설정하는 메소드*/
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	/**주문한 메뉴명을 불러오는 메소드*/	
+	public String getMnName() {
+		return mnName;
+	}
+
+	/**주문한 메뉴명을 설정하는 메소드*/
+	public void setMnName(String mnName) {
+		this.mnName = mnName;
+	}
 
 	@Override
-	public String toString() {
-		return "Order [orderNo=" + orderNo + ", orderDate=" + orderDate + ", riderTime=" + riderTime + ", totalPrice="
-				+ totalPrice + ", cstNo=" + cstNo + "]";
-	}
+    public String toString() {
+        return  String.format("\t%s \t%s원"
+    			,	Util.convert(mnName, 25)		
+    			,	Util.convert(price+"", 6));
+    }
 }

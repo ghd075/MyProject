@@ -1,11 +1,15 @@
 package ddit.dao;
 
 import ddit.dto.Member;
+import ddit.dto.Order;
 import ddit.dto.OrderDetail;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 회원관련 DAO 클래스
@@ -71,6 +75,44 @@ public class OrderDAO {
 		int result = 0;
 		String sql = "UPDATE MEMBER SET MPOINT = ? WHERE CSTNO = ?";
 		result = DAO.update(sql, userPoint, CSTNO);
+		return result;
+	}
+	
+	//주문내역 조회
+	public List<Order> memberSelect(String CSTNO, String orderNo) {
+		String sql = " SELECT O.TOTALPRICE AS TOTALPRICE " + 
+				" ,   O.RIDERTIME AS RIDERTIME " + 
+				" ,   MN.MNNAME AS MNNAME " + 
+				" ,   MN.PRICE * M.CNT AS PRICE " + 
+				" FROM ORDERS O " + 
+				" , ORDERMENU M " + 
+				" , MENU MN " + 
+				" , MEMBER U " + 
+				" WHERE O.ORDERNO = M.ORDERNO " + 
+				" AND M.MNCODE = MN.MNCODE " + 
+				" AND O.CSTNO = U.CSTNO " + 
+				" AND U.CSTNO = ? " + 
+				" AND O.ORDERNO = ? ";
+		
+		List<Object[]> list = DAO.selectList(sql, CSTNO, orderNo); //반환할 리스트를 위해 list 객체 생성
+		List<Order> orders = new ArrayList<>(); // Order 객체를 저장할 리스트 생성
+		 
+        for (Object[] row : list) { //읽을 행이 있을 때
+            int totalPrice = ((BigDecimal) row[0]).intValue();
+            int riderTime = ((BigDecimal) row[1]).intValue();
+            String mnName = (String) row[2];
+            int price = ((BigDecimal) row[3]).intValue();
+            Order order = new Order(totalPrice, riderTime, mnName, price);
+            orders.add(order); // 변환된 Order 객체를 리스트에 추가
+        }
+        return orders; // 변환된 Order 객체 리스트 반환
+	}
+	
+	// 누적주문수 업데이트
+	public int UpdateOrderCount (String stoNo) {
+		int result = 0; 
+		String sql = "UPDATE STORE SET STOORDER = STOORDER + 1 WHERE STONO = ?";
+		result = DAO.update(sql, stoNo);
 		return result;
 	}
 	

@@ -42,6 +42,6 @@ public class OrderItem {
         return  String.format("\t%s \t%s\t%s원"
     			,	Util.convert(menu.getMnName(), 25)		
     			,	Util.convert(quantity+"", 6)		
-    			, 	Util.convert(menu.getPrice()+"",6));
+    			, 	Util.convert(totalPrice+"",6));
     }
 }

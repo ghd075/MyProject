@@ -68,15 +68,16 @@ public class DirectOrder {
 	  * 
 	  * 
 	  */
-	public void dorProcess1(Store store, Member member) {
+	public void dorProcess1(Store store, Member member, String meCode) {
 
 		boolean result = true;
 		while(result) {	
 			String address = muDao.addressSelect(member.getAddress());
-			System.out.println("\n\n\n\n\n");
-			mm.displayNearbyStores(address); // 주변 가게 목록 출력
+			mm.displayNearbyStores(meCode, address); // 주변 가게 목록 출력
+			System.out.println("\n\n\n");
 			System.out.print("\t가게를 선택해주세요: ");
 			String input = Util.sc.nextLine();
+			System.out.println("\n\n\n");
 			System.out.println();
 							
 			if (input.length() < 3 || input.length() > 5) {
@@ -180,7 +181,7 @@ public class DirectOrder {
 		                orderDetail.setCnt(input4);
 		                orderDetail.setOrderNo(ORDERNO);
 		                orderDetail.setMnCode(selectedMenu.getMnCode());
-//		                System.out.println(orderDetail);
+		                System.out.println(orderDetail);
 		                orderDAO.OrderDetailNew(orderDetail);
 		                
 		            } else {
@@ -227,7 +228,7 @@ public class DirectOrder {
 	                        ));
 //	                System.out.println(ORDERNO + ", " + member.getCstNo() + ", " + totalOrderPrice);
 	                orderDAO.updateOrderTotalPrice(ORDERNO, member.getCstNo(), totalOrderPrice);
-	                pU.paychoice(member, ORDERNO, totalOrderPrice);
+	                pU.paychoice(store, member, ORDERNO, totalOrderPrice);
 	            }else {
 					System.out.println("\t주문하실 수 없습니다. 15000원이상 주문해주세요.!!");
 					result = false;

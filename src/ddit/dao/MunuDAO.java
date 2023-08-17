@@ -120,31 +120,6 @@ public class MunuDAO {
 	}
 
 	
-	// 주변 가게 리스트 조회(가게주소받아서)
-	public List<Store> storeOneSelect(String address) {
-	    List<Store> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성
-	    String query = "SELECT STONO, STONAME, STOORDER " +
-	                   "FROM STORE " +
-	                   "WHERE STOADDRESS LIKE ?";
-
-	    List<Object[]> resultList = DAO.selectList(query, "%" + address + "%");
-
-	    try {
-	        for (Object[] row : resultList) {
-	            String stoNo = (String) row[0];
-	            String stoName = (String) row[1];
-	            BigDecimal stoOrderBigDecimal = (BigDecimal) row[2];
-	            int stoOrder = stoOrderBigDecimal != null ? stoOrderBigDecimal.intValue() : 0;
-	            Store store = new Store(stoNo, stoName, stoOrder);
-	            list.add(store);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return list;
-	}
-	
 	// 누적 주문량 순으로 조회
 	public List<Store> storeRankSelect(String stono, String address) {
 	    List<Store> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성

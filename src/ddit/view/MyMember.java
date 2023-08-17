@@ -137,9 +137,9 @@ public class MyMember {
         }
     }
     
-    public void displayNearbyStores(String address) {
+    public void displayNearbyStores(String meCode, String address) {
     	Util.clearScreen();
-    	List<Store> storeList = muDao.storeOneSelect(address);
+    	List<Store> storeList = muDao.storeOneSelect(meCode, address);
     	System.out.println("\n\n\t\t주변 가게 목록\n");
     	System.out.println(String.format("\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
         System.out.printf("\n\t=====================================================================%n");

@@ -1,8 +1,11 @@
 package ddit.view;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import ddit.dao.OrderDAO;
 import ddit.dto.Member;
+import ddit.dto.Order;
 import ddit.dto.Store;
 import ddit.util.Util;
 
@@ -17,6 +20,7 @@ public class MemberUI {
 	public final static int ORDERINFO = 3;
 	private static MyMember mm = MyMember.getInstance();
 	private static DirectOrder dor = DirectOrder.getInstance();
+	private static OrderDAO orderDAO = OrderDAO.getInstance();
 	
 	private static MemberUI instance = null;
 	
@@ -119,7 +123,7 @@ public class MemberUI {
 				mm.accumlateList(member, meCode);
 				dor.dorProcess(store, member);
 			} else if (input == 2) {
-				dor.dorProcess1(store, member);
+				dor.dorProcess1(store, member, meCode);
 				//result = false; // 바로 주문하기를 선택했을 때 메뉴 선택 루프 종료
 				//dor.dorProcess(store, member);
 			} else if (input == 0) {
@@ -137,10 +141,11 @@ public class MemberUI {
 	 * 
 	 * 
 	 */
-	public void fffinal() {
+	public void fffinal(Member member, int UsedP, int usedPoint, String ORDERNO) {
 		
 		boolean result = true;
 		while(result) {
+			Util.clearScreen();
 			System.out.println("\n\n\n");
 			System.out.println("\t ==어디로 이동할까요? ==");
 			System.out.println();
@@ -153,11 +158,54 @@ public class MemberUI {
 			System.out.println("\n\n");
 
 			if (input == 1) {
-//				userfinalorderinfo();
-			
+				userfinalorderinfo(member, UsedP, usedPoint, ORDERNO);
 			} else if (input == 0) {
-				result = false;
+				result = false; // 0을 입력하면 루프 종료
 			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @document  회원의 기존 정보에 대한 페이지입니다. 
+	 * 
+	 * 
+	 */
+	private void userfinalorderinfo(Member member, int UsedP, int usedPoint, String ORDERNO) {
+		Util.clearScreen();
+		System.out.printf("\t\t\t[%s 님이 신청하신 주문 내역을 불러옵니다.]\r\n\r\n",member.getName());
+		List<Order> orders = orderDAO.memberSelect(member.getCstNo(), ORDERNO); // 주문번호를 실제로 어떻게 가져올지에 따라 수정 필요
+		
+		boolean result = true;
+		while(result) {
+			System.out.println("\t이름: " + member.getName());
+			System.out.println();
+			System.out.println("\t배달할 주소: " + member.getAddress());
+			System.out.println();
+			System.out.println("\t사용할 포인트: " + UsedP);
+			System.out.println();
+			System.out.println("\t적립한 포인트: " + usedPoint);
+			System.out.println();
+		
+            System.out.println(String.format("\t%s \t%s"
+                    ,	Util.convert("[ MENU ]", 25)		
+                    , 	Util.convert("[ PRICE ]",6)			
+                    ));
+            System.out.println();
+            // 주문 아이템 정보 출력
+            for (Order order : orders) {
+                System.out.println(order.toString());
+            }
+            int totalOrderPrice = orders.stream().mapToInt(Order::getPrice).sum();
+            System.out.println();
+			System.out.println("\t총 주문 금액: " + totalOrderPrice);
+			System.out.println();
+			System.out.println("\t현재 상태: 대기중..");
+			System.out.println();
+			System.out.println("\t배달시간 : 30분");
+			
+			result = false;
+			pause(3);
 		}
 	}
 }

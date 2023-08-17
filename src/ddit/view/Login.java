@@ -128,6 +128,7 @@ public class Login {
 			
 			if (input.equals("0")) {
 				loop = false;
+			//주문페이지 이동
 			}else if(input.equals("1")) {
 				ms.orderchoice(firstMember);
 			//회원 정보 보기
