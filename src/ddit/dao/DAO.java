@@ -204,25 +204,29 @@ public class DAO {
 	// 주문번호를 가져오기 위해
 	public static String GetORDERNO(String sql, Object... param) {
 		String ORDERNO = null;
+		int result = 0;
 
 	    try {
 	        conn = DAO.getConnection();
-	        pstm = conn.prepareStatement(sql); // "ORDERNO" 컬럼을 반환값으로 설정
+	        pstm = conn.prepareStatement(sql, new String[]{"ORDERNO"}); // "ORDERNO" 컬럼을 반환값으로 설정
 
 	        for (int i = 0; i < param.length; i++) {
 	        	pstm.setObject(i + 1, param[i]);
 	        }
 	        
-	        rs = pstm.executeQuery();
+	        result = pstm.executeUpdate();
 
-	        if (rs.next()) {
-	            ORDERNO = rs.getString("ORDERNO"); // ORDERNO 값을 가져옴
+	        if(result > 0) {
+	        	rs = pstm.getGeneratedKeys();
+	        	 if (rs.next()) {
+	        		 ORDERNO = rs.getString(1); // CSTNO 값을 가져옴
+                }
 	        }
+	        close(rs);
 	        
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    } finally {
-	    	close(rs);
 	        close(pstm);
 	        close(conn);
 	    }

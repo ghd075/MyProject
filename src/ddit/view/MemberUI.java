@@ -119,7 +119,9 @@ public class MemberUI {
 				mm.accumlateList(member, meCode);
 				dor.dorProcess(store, member);
 			} else if (input == 2) {
-	//			dor.dorProcess(store);
+				dor.dorProcess1(store, member);
+				//result = false; // 바로 주문하기를 선택했을 때 메뉴 선택 루프 종료
+				//dor.dorProcess(store, member);
 			} else if (input == 0) {
 				result = false;
 			}else {

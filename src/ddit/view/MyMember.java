@@ -127,6 +127,21 @@ public class MyMember {
             System.out.println();
         }
     }
+    
+    public void displayNearbyStores(String address) {
+    	Util.clearScreen();
+    	List<Store> storeList = muDao.storeOneSelect(address);
+    	System.out.println("\n\n\t\t주변 가게 목록\n");
+    	System.out.println(String.format("\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
+        System.out.printf("\n\t=====================================================================%n");
+
+        for (int i = 0; i < storeList.size(); i++) {
+            Store store = storeList.get(i);
+            System.out.printf("\t   " + Util.convert(store.getStoNo(), 10));
+            System.out.printf(Util.convert(store.getStoName(), 25));
+            System.out.println();
+        }
+    }
 	
 	/**
 	 * 

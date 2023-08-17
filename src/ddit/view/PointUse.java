@@ -36,8 +36,7 @@ public class PointUse {
 					result = false;
 				}
 			}
-			
-			
+						
 		}
 		
 

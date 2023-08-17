@@ -1,6 +1,7 @@
 package ddit.dao;
 
 import ddit.dto.Member;
+import ddit.dto.OrderDetail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,17 +30,18 @@ public class OrderDAO {
 	public String OrderNew(Member member) {
 		String ORDERNO = null; // 트리거에서 커밋을 수행하므로 여기서 커밋하지 않음 = 0;
 		String insertSql = "INSERT INTO ORDERS (ORDERDATE, CSTNO) VALUES (SYSTIMESTAMP, ?)";
-		String selectSql = "SELECT ORDERNO FROM ORDERS WHERE CSTNO = ?";
-		try {
-			int result = DAO.update(insertSql, member.getCstNo());
-			if (result > 0) {
-				ORDERNO = DAO.GetORDERNO(selectSql, member.getCstNo()); // 커넥션을 인자로 전달
-			}
-		}catch (Exception e) {
-	        e.printStackTrace();
-		}
+		ORDERNO = DAO.GetORDERNO(insertSql, member.getCstNo()); // 커넥션을 인자로 전달
 		
 		return ORDERNO;
+	}
+	
+	// 주문 테이블에 데이터 추가
+	public int OrderDetailNew(OrderDetail orderDetail) {
+		int result = 0;
+		String insertSql = "INSERT INTO ORDERMENU (ORDERPRICE,CNT,ORDERNO,MNCODE) VALUES (?, ?, ?, ?)";
+		result = DAO.update(insertSql, orderDetail.getOrderPrice(), orderDetail.getCnt(), orderDetail.getOrderNo(), orderDetail.getMnCode());
+
+		return result;
 	}
 	
 	// 총가격 업데이트

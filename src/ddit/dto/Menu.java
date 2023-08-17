@@ -15,10 +15,11 @@ public class Menu {
 		this.mnName = mnName;
 	}
 
-	public Menu(String mNo, String mnName, int price) {
+	public Menu(String mNo, String mnName, int price, String mnCode) {
 		this.mNo = mNo;
 		this.mnName = mnName;
 		this.price = price;
+		this.mnCode = mnCode;
 	}
 
 	public Menu(String mNo, String mnCode, String mnName, int price, String mnctCode, String stono) {
