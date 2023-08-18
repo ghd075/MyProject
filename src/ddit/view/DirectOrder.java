@@ -176,7 +176,7 @@ public class DirectOrder {
 			//System.out.println(ORDERNO);
 			
 			boolean result = true;
-			
+			int input4 = 0;
 			while (result) {
 				System.out.print("\t메뉴를 선택해주세요 (종료: Q): ");
 				String input3 = Util.sc.nextLine().trim();
@@ -191,8 +191,15 @@ public class DirectOrder {
 	                }
 					System.out.print("\t수량을 선택해주세요: ");
 					String input4Str = Util.sc.nextLine().trim(); // 개행문자 제거
-					int input4 = Integer.parseInt(input4Str); // 입력 처리 수정
-			        System.out.println();
+					try {
+					    input4 = Integer.parseInt(input4Str);
+					    // 숫자로 변환 가능한 경우, input4 변수에 숫자가 저장됨
+					    System.out.println();
+					} catch (NumberFormatException e) {
+					    System.out.println("\n\t잘못된 입력입니다. 숫자를 입력해주세요.");
+					    // 숫자로 변환할 수 없는 경우, 오류 메시지 출력
+					    // 이 곳에서 사용자에게 다시 입력을 받을 수 있도록 코드를 작성할 수 있습니다.
+					}
 					
 					// 메뉴 선택 및 주문 아이템 생성
 					for (Menu menu : list) {

@@ -9,6 +9,15 @@ public class Customer {
 	private String address;
 	
 	public Customer() { }
+	
+	//비회원
+	public Customer(String cstNo, int cstCls, String name, String phone, String address) {
+		this.cstNo = cstNo;
+		this.cstCls = cstCls;
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+	}
 
 	public Customer(String name, String phone, String address) {
 		this.name = name;

@@ -73,11 +73,16 @@ public class OrderListCheck {
 			System.out.println();
 			System.out.println("\t[뒤로 가기를 원하면 0번을 입력해주세yo]");
 			System.out.println();
-			System.out.print("\t이동할 화면 입력(숫자) : ");
+			System.out.println("\t--------------------------------------------------\n");
+			System.out.println("\t▶▶▶추가 주문이 필요할 경우 1번 입력\n");
+			System.out.println("\t▶▶▶프로그램을 종료할 경우 0번 입력\n\n");
+			System.out.print("\t입력 : ");
 			String input = Util.sc.nextLine();
 			
 			if (input.equals("0")) {
-				loop = false;
+				Util.clearScreen();
+				System.out.println("\t[대덕의 민족]을 종료합니다....감사합니다.");
+				System.exit(0);
 			}
 			else if(input.equals("1")) {
 				ms.orderchoice(firstMember);

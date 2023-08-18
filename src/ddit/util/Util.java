@@ -1,5 +1,6 @@
 package ddit.util;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,7 +65,7 @@ public class Util {
 		boolean loop = true;
 		while (loop) {
 
-			System.out.print("\t비밀 번호 : ");
+			System.out.print("\n\n\t   ✔ 비밀 번호 : ");
 			memberPW = Util.sc.nextLine();
 
 			int cnt1=0;
@@ -82,10 +83,10 @@ public class Util {
 			
 			//PW 길이가 4 ~ 15자 이내의 아이디만 입력할 수 있도록
 			if(memberPW.length() < 4 || memberPW.length() > 15) {
-				System.out.println("\t4~15자 이내의 아이디만 가능합니다");
+				System.out.println("\n\t4~15자 이내의 아이디만 가능합니다");
 			//영문자와 숫자를 혼용해서 입력할 수 있도록
 			}else if(cnt1==0 || cnt2==0) {
-				System.out.println("\t비밀번호은 영문자와 숫자를 혼용해서 만들어주세요.");
+				System.out.println("\n\t비밀번호은 영문자와 숫자를 혼용해서 만들어주세요.");
 				System.out.println();
 			}else {
 				loop = false;
@@ -109,11 +110,11 @@ public class Util {
 		boolean loop = true;
 		while (loop) {
 
-			System.out.print("\t이름 : ");
+			System.out.print("\n\n\t   ✔ 이름 : ");
 			name = sc.nextLine();
 
 			if (!isValidKoreanName(name)) {
-				System.out.println("\t이름이 유효하지 않습니다. 한글로 입력해주세요.");
+				System.out.println("\n\t이름이 유효하지 않습니다. 한글로 입력해주세요.");
 				System.out.println();
 			} else {
 			loop = false;
@@ -139,12 +140,12 @@ public class Util {
 		boolean loop = true;
 		while (loop) {
 
-			System.out.print("\t전화번호 ('-' 포함) : ");
+			System.out.print("\n\n\t   ✔ 전화번호 ('-' 포함): ");
 			memberPhone = sc.nextLine();
 
 			if (!isValidMobilePhoneNumber(memberPhone)) {
-				System.out.println("\t전화번호가 유효하지 않습니다. 올바른 전화번호를 입력해주세요.");
-				System.out.println("\tex)010-0000-0000형태로 입력해주세요.");
+				System.out.println("\n\t전화번호가 유효하지 않습니다. 올바른 전화번호를 입력해주세요.");
+				System.out.println("\n\tex)010-0000-0000형태로 입력해주세요.");
 				System.out.println();
 			} else {
 				loop = false;
@@ -166,11 +167,11 @@ public class Util {
 		
 		boolean loop = true;
 		while (loop) {
-			System.out.print("\t주소 : ");
+			System.out.print("\n\n\t   ✔ 주소 : ");
 			memberAddress = sc.nextLine();
 			if (!isValidKoreanAddress(memberAddress)) {
-				System.out.println("\t주소가 유효하지 않습니다. 올바른 주소를 입력해주세요.");
-				System.out.println("\tex)서울특별시 강남구 역삼동 123-45 형태로 입력해주세요.");
+				System.out.println("\n\t주소가 유효하지 않습니다. 올바른 주소를 입력해주세요.");
+				System.out.println("\n\tex)서울특별시 강남구 역삼동 123-45 형태로 입력해주세요.");
 				System.out.println();
 			} else {
 				loop = false;
@@ -224,7 +225,7 @@ public class Util {
 		boolean loop = true;
 		while (loop) {
 
-			System.out.print("\t사용할 아이디 : ");
+			System.out.print("\n\n\t   ✔ 사용할 아이디 : ");
 			memberID = sc.nextLine();
 			
 			int cnt1=0;
@@ -243,14 +244,14 @@ public class Util {
 			//중복ID 체크
 			if(mDao.checkId(memberID)) {
 				System.out.println();
-				System.out.println("\t중복된 아이디입니다.");
+				System.out.println("\n\t중복된 아이디입니다.");
 				System.out.println();
 			//ID 길이가 5 ~ 15자 이내의 아이디만 입력할 수 있도록
 			}else if(memberID.length() < 5 || memberID.length() > 15) {
-				System.out.println("\t5~15자 이내의 아이디만 가능합니다");
+				System.out.println("\n\t5~15자 이내의 아이디만 가능합니다");
 			//영문자와 숫자를 혼용해서 입력할 수 있도록
 			}else if(cnt1==0 || cnt2==0) {
-				System.out.println("\t아이디는 영문자와 숫자를 혼용해서 만들어주세요.");
+				System.out.println("\n\t아이디는 영문자와 숫자를 혼용해서 만들어주세요.");
 				System.out.println();
 			}else {
 				loop = false;
@@ -283,4 +284,16 @@ public class Util {
 			return word; // 일단은 원래 단어 그대로 반환하는 예시입니다.
 		}
 	}
+	
+	//숫자 -> 천자리마다 콤마를 찍어줌
+    public static String formatPrice(int price) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###원");
+        return decimalFormat.format(price);
+    }
+    
+    public static int parsePrice(String formattedPrice) {
+        // 포맷팅된 가격을 문자열로 변환 후 ,와 원을 제거하여 숫자만 추출 후 int로 변환
+        String priceStr = formattedPrice.replace(",", "").replace("원", "");
+        return Integer.parseInt(priceStr);
+    }
 }

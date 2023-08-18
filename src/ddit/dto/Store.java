@@ -6,11 +6,39 @@ public class Store {
 	private String stoName;  
 	private String stoPhone;  
 	private String stoAddress;
+	private String mnctCode;
 	private int stoOrder;             
 	private int sNo;
 	
+	public static final String KOR_FOOD = "MC001";
+	public static final String CHI_FOOD = "MC002";
+	public static final String JAP_FOOD = "MC003";
+	public static final String FAST_FOOD = "MC004";
+	public static final String SNACK_FOOD = "MC005";
+	
 	public Store() { }
 	
+	public Store(String stoNo, String stoName, String stoAddress) {
+		this.stoNo = stoNo;
+		this.stoName = stoName;
+		this.stoAddress = stoAddress;
+	}
+
+	public Store(String stoNo, String stoName, String stoAddress, String mnctCode) {
+		this.stoNo = stoNo;
+		this.stoName = stoName;
+		this.stoAddress = stoAddress;
+		this.mnctCode = mnctCode;
+	}
+
+
+	public Store(String stoNo, String stoName, String stoAddress, int stoOrder) {
+		this.stoNo = stoNo;
+		this.stoName = stoName;
+		this.stoAddress = stoAddress;
+		this.stoOrder = stoOrder;
+	}
+
 	public Store(String stoNo, String stoName, int stoOrder) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
@@ -24,14 +52,13 @@ public class Store {
 		this.stoOrder = stoOrder;
 	}
 
-	public Store(String stoNo, String stoName, String stoPhone, String stoAddress, int stoOrder) {
+	public Store(String stoNo, String stoName, String stoAddress, String mnctCode, int stoOrder) {
 		this.stoNo = stoNo;
 		this.stoName = stoName;
-		this.stoPhone = stoPhone;
 		this.stoAddress = stoAddress;
+		this.mnctCode = mnctCode;
 		this.stoOrder = stoOrder;
 	}
-
 
 	/**해당 가게고유번호를 불러오는 메소드*/
 	public String getStoNo() {
@@ -93,6 +120,14 @@ public class Store {
 	/**순번을 설정하는 메소드*/
 	public void setsNo(int sNo) {
 		this.sNo = sNo;
+	}
+	
+	public String getMnctCode() {
+		return mnctCode;
+	}
+
+	public void setMnctCode(String mnctCode) {
+		this.mnctCode = mnctCode;
 	}
 
 	@Override

@@ -74,11 +74,11 @@ public class MyMember {
                 if (option == 0) {
                     break; // 0번을 입력하면 루프 종료
                 }
-                return;	//orderchoice 종료
+//                return;	//orderchoice 종료
             } else {
                 System.out.println("\n\n\t   주변에 가게가 없습니다!!>.<");
                 System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
-                break;
+//                break;
             }
         }
     }
@@ -116,9 +116,8 @@ public class MyMember {
                 // Store 객체를 mu.choose 메서드로 전달
                 mu.choose(firstMember, meCode, selectedStore);
 
-            } else {
-                System.out.println("\n\n\t   해당 종류의 가게가 존재하지 않습니다.>.<");
-            }
+            } 
+            
             return categoryChoice;
         }else {
             System.out.println("\n\n\t   다시 선택해주세요 !\n\n");

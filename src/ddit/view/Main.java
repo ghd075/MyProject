@@ -83,7 +83,8 @@ public class Main {
 				mUi.memberMain();
 			//비회원
 			} else if (selNum.equals("2")) {
-			
+			    NoMemberMain noMem = NoMemberMain.getInstance();
+			    noMem.noMemberMain(selNum);
 			//종료
 			} else if (selNum.equals("0")) {
 				Util.clearScreen();

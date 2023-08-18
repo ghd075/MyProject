@@ -5,14 +5,29 @@ public class Menu {
 	private String mNo;
     private String mnCode;
     private String mnName;
-	private int price;  
+	private int price;
+	private String formattedPrice; // 가격을 포맷팅된 문자열로 저장
     private String mnctCode;
     private String stono;
-	
+    private String rowNum;
+    
 	public Menu() { }
 
 	public Menu(String mnName) {
 		this.mnName = mnName;
+	}
+	
+	public Menu(String mnCode, String mnName, String formattedPrice, String mnctCode, String rowNum) {
+		this.mnCode = mnCode;
+		this.mnName = mnName;
+		this.formattedPrice = formattedPrice;
+		this.mnctCode = mnctCode;
+		this.rowNum = rowNum;
+	}
+
+	public Menu(String mnName, String formattedPrice) {
+		this.mnName = mnName;
+		this.formattedPrice = formattedPrice;
 	}
 
 	public Menu(String mNo, String mnName, int price, String mnCode) {
@@ -89,6 +104,22 @@ public class Menu {
 	/**해당 가게 코드를 설정하는 메소드*/
 	public void setStono(String stono) {
 		this.stono = stono;
+	}
+	
+	public String getRowNum() {
+		return rowNum;
+	}
+	
+	public void setRowNum(String rowNum) {
+		this.rowNum = rowNum;
+	}
+	
+	public String getFormattedPrice() {
+		return formattedPrice;
+	}
+
+	public void setFormattedPrice(String formattedPrice) {
+		this.formattedPrice = formattedPrice;
 	}
 
 	@Override
