@@ -138,7 +138,7 @@ public class MyMember {
         }
     }
     
-    public void displayNearbyStores(String meCode, String address) {
+    public List<Store> displayNearbyStores(String meCode, String address) {
     	Util.clearScreen();
     	List<Store> storeList = muDao.storeOneSelect(meCode, address);
     	System.out.println("\n\n\t\t\t== 주변 가게 목록 ==\n");
@@ -151,6 +151,8 @@ public class MyMember {
             System.out.printf(Util.convert(store.getStoName(), 25));
             System.out.println();
         }
+        
+        return storeList;
     }
 	
 	/**
@@ -160,7 +162,7 @@ public class MyMember {
 	 * 
 	 * 
 	 */
-	public void accumlateList(Member firstMember, String meCode) {
+	public List<Store> accumlateList(Member firstMember, String meCode) {
 		String address = muDao.addressSelect(firstMember.getAddress());
 		List<Store> list = muDao.storeRankSelect(meCode, address);
 //		System.out.println(list);
@@ -178,5 +180,7 @@ public class MyMember {
 			System.out.printf(Util.convert(store.getStoOrder()+"",5));
 			System.out.println();
 		}
+		
+		return list;
 	}// 메소드
 }

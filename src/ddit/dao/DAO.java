@@ -112,7 +112,7 @@ public class DAO {
 			conn = DAO.getConnection();
 			pstm = conn.prepareStatement(sql);
 //
-////			conn.setAutoCommit(false); // 수동 커밋 설정
+			conn.setAutoCommit(false); // 수동 커밋 설정
 			
 			for (int i = 0; i < param.length; i++) {
 				pstm.setObject(i + 1, param[i]);

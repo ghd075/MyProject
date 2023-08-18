@@ -44,7 +44,6 @@ public class PointUse {
 			}else {
 	            System.out.println("\n\t잘못된 입력입니다. 다시 입력해주세요.");
 	            Util.sc.nextLine(); // 개행 문자 처리
-	            result = false;
 	        }	
 		}
 	}
@@ -81,7 +80,7 @@ public class PointUse {
 					System.out.println(finalprice);
 					 // 사용한 포인트 차감 및 적립
 					userPoint -= usedPoint;
-					UsedP = totalOrderPrice*10/110;
+					UsedP = totalOrderPrice*2/100;
 					userPoint += UsedP;
 					System.out.println("\n\t포인트 적립 후 사용 가능 포인트: " + userPoint);
 					orderDAO.updateUserPoint(member.getCstNo(), userPoint);
@@ -111,7 +110,6 @@ public class PointUse {
 			}else {
 	            System.out.println("\t잘못된 입력입니다. 다시 입력해주세요.");
 	            Util.sc.nextLine(); // 개행 문자 처리
-				result = false;
 			}
 		}
 	}

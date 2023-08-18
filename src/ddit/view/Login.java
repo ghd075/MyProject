@@ -121,7 +121,6 @@ public class Login {
 		boolean loop = true;
 		
 		while (loop) {
-			Util.clearScreen();
 			mu.order();
 			String input = Util.sc.nextLine();
 			System.out.println("\n\n");
@@ -139,8 +138,8 @@ public class Login {
 			}else if(input.equals("3")) {
 				ol.orderlistcheck(firstMember);
 			}
-				
 		}
+		Util.clearScreen();
 	} // SuccessMenu
 	
 	/**

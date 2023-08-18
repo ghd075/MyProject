@@ -103,7 +103,7 @@ public class Order {
 
 	@Override
     public String toString() {
-        return  String.format("\t\t\t%s \t%s원"
+        return  String.format("\n\t\t\t%s \t%s원"
     			,	Util.convert(mnName, 25)		
     			,	Util.convert(price+"", 6));
     }

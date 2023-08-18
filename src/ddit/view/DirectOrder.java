@@ -39,24 +39,42 @@ public class DirectOrder {
 	  * 
 	  * 
 	  */
-	public void dorProcess(Store store, Member member) {
+	public void dorProcess(Member member, List<Store> storeList) {
 
 		boolean result = true;
 		while(result) {	
 			System.out.println("\n\n\n\n\n");
 			System.out.print("\t가게를 선택해주세요: ");
 			String input = Util.sc.nextLine();
+			System.out.println("\n\n\n");
 			System.out.println();
-							
+			
+	        // 첫 번째 문자를 대문자로 변경
+	        String formattedInput = input.substring(0, 1).toUpperCase() + input.substring(1);
+			
 			if (input.length() < 3 || input.length() > 5) {
 				System.out.println("\n\n\t   재조회후 다시 선택해주세요 !\n\n");
 				System.out.println("\n\n\t   계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
 				result = false;
 			} else {
-				OrderStart(store, member);
-				// OrderStart 메소드가 끝난 후 전 메뉴로 탈출
-				result = false; // 탈출을 위해 result 값을 false로 변경
+	            Store selectedStore = null;
+	            for (Store store : storeList) {
+	                if (store.getStoNo().equals(formattedInput)) {
+	                    selectedStore = store;
+	                    break;
+	                }
+	            }
+	            
+	            if (selectedStore != null) {
+	                OrderStart(selectedStore, member);
+	                result = false; // 탈출을 위해 result 값을 false로 변경
+	            } else {
+	                System.out.println("\n\n\t   선택한 가게가 없습니다. 다시 선택해주세요.\n\n");
+	                System.out.println("\n\n\t   계속하시려면 엔터키를 입력해주세요");
+	                Util.sc.nextLine();
+	                result = false;
+	            }
 			}
 		}
 	}
@@ -68,27 +86,48 @@ public class DirectOrder {
 	  * 
 	  * 
 	  */
-	public void dorProcess1(Store store, Member member, String meCode) {
+	public void dorProcess1(Member member, String meCode) {
 
 		boolean result = true;
 		while(result) {	
 			String address = muDao.addressSelect(member.getAddress());
-			mm.displayNearbyStores(meCode, address); // 주변 가게 목록 출력
+			List<Store> storeList = mm.displayNearbyStores(meCode, address); // 주변 가게 목록 출력
 			System.out.println("\n\n\n");
 			System.out.print("\t가게를 선택해주세요: ");
 			String input = Util.sc.nextLine();
 			System.out.println("\n\n\n");
 			System.out.println();
-							
+			
+			 // 첫 번째 문자를 대문자로 변경
+			String formattedInput = input.substring(0, 1).toUpperCase() + input.substring(1);
+			
 			if (input.length() < 3 || input.length() > 5) {
 				System.out.println("\n\n\t   재조회후 다시 선택해주세요 !\n\n");
 				System.out.println("\n\n\t   계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
 				result = false;
 			} else {
-				OrderStart(store, member);
-				// OrderStart 메소드가 끝난 후 전 메뉴로 탈출
-				result = false; // 탈출을 위해 result 값을 false로 변경
+				Store selectedStore = null;
+	            for (Store store : storeList) {
+	                if (store.getStoNo().equals(formattedInput)) {
+	                    selectedStore = store;
+	                    break;
+	                }
+	            }
+	            
+	            if (selectedStore != null) {
+	            	Store store = new Store();
+	                store.setStoNo(selectedStore.getStoNo());
+	                store.setStoName(selectedStore.getStoName());
+
+	                OrderStart(store, member);
+	                result = false;
+	            } else {
+	                System.out.println("\n\n\t   선택한 가게가 없습니다. 다시 선택해주세요.\n\n");
+	                System.out.println("\n\n\t   계속하시려면 엔터키를 입력해주세요");
+	                Util.sc.nextLine();
+	                result = false;
+	            }
 			}
 		}
 	}
@@ -107,7 +146,7 @@ public class DirectOrder {
 		orderItems = new ArrayList<>(); // 주문 아이템 리스트 초기화
 		if (muDao.meunSelect(sto) != null && !muDao.meunSelect(sto).equals("") ) {
 			Util.clearScreen();
-			System.out.println(String.format("\t\t %s%s\r"
+			System.out.println(String.format("\t\t\t %s%s\r"
 					,	Util.convert("==안녕하세요! ", 10)		
 					, 	Util.convert(store.getStoName()+"입니다 ==\r",25)		
 					));
@@ -121,15 +160,15 @@ public class DirectOrder {
 			System.out.println();
 			System.out.println(String.format("\t%s \t%s\t%s"
 					,	Util.convert("[ NO ]", 5)		
-					,	Util.convert("[ MENU ]", 25)		
-					, 	Util.convert("[ PRICE ]",6)		
+					,	Util.convert("[ MENU ]", 30)		
+					, 	Util.convert("[ PRICE ]",10)		
 					));
 			list = muDao.meunSelect(sto);
 			for(Menu menuPrice : list) {
 				System.out.println(String.format("\t  %s\t%s\t%s"
 						, Util.convert(menuPrice.getmNo()+"", 5)
-						, Util.convert(menuPrice.getMnName(), 25)
-						, Util.convert(menuPrice.getPrice()+"", 6)));
+						, Util.convert(menuPrice.getMnName(), 30)
+						, Util.convert(menuPrice.getPrice()+"", 10)));
 				System.out.println();
 				selectedMenu = menuPrice;
 			}
@@ -144,9 +183,12 @@ public class DirectOrder {
 				System.out.println();
 	            
 				if (input3.equalsIgnoreCase("Q")) {
-//	                result = false; // 종료 입력 시 루프 종료
-					return;
+	                result = false; // 종료 입력 시 루프 종료
 	            }else {
+	                if (input3.isEmpty()) {
+	                    System.out.println("\n\t잘못된 입력입니다. 메뉴를 선택하거나 종료하려면 'Q'를 입력해주세요.\n\n");
+	                    continue; // 잘못된 입력일 경우 루프의 처음으로 돌아감
+	                }
 					System.out.print("\t수량을 선택해주세요: ");
 					String input4Str = Util.sc.nextLine().trim(); // 개행문자 제거
 					int input4 = Integer.parseInt(input4Str); // 입력 처리 수정

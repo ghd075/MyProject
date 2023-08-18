@@ -12,7 +12,7 @@ import ddit.dao.MemberDAO;
 public class Util {
 	// 한국 주소 유효성 검사를 위한 정규표현식
 	private static final String KOREAN_ADDRESS_PATTERN =
-			"^(?:[가-힣]+(?:시|도))\\s*(?:[가-힣]+(?:구|군|시))\\s*(?:[가-힣0-9\\-]+(?:동|읍|면))\\s*(?:[0-9]+)$";
+			"^(?:[가-힣]+(?:시|도))\\s*(?:[가-힣]+(?:구|군|시))\\s*(?:[가-힣0-9\\-]+(?:동|읍|면))\\s*(?:\\d+[가-힣]*\\s*)?\\d+(?:\\-\\d+)?$";
 	  		
     // 이름 유효성 검사를 위한 정규표현식
     private static final String KOREAN_NAME_PATTERN = "^[가-힣]+$";

@@ -115,23 +115,24 @@ public class MemberUI {
 			System.out.println("\t[뒤로 가기를 원하면 0번을 눌러주세yo]");
 			System.out.println("\n\n");
 			System.out.print("\t이동할 화면 입력(번호) : ");
-			Integer input = Integer.parseInt(Util.sc.nextLine());
+//			Integer input = Integer.parseInt(Util.sc.nextLine());
+			String inputStr = Util.sc.nextLine().trim(); // 공백 제거 후 문자열 받기
 			System.out.println();
 
-			if (input == 1) {
+			if (inputStr.equals("1")) {
 				System.out.println("\n\n\n\n\n\n\n");
-				mm.accumlateList(member, meCode);
-				dor.dorProcess(store, member);
+				List<Store> list = mm.accumlateList(member, meCode);
+				dor.dorProcess(member, list);
 				return;		// choose 메서드 종료
-			} else if (input == 2) {
-				dor.dorProcess1(store, member, meCode);
+			} else if (inputStr.equals("2")) {
+				dor.dorProcess1(member, meCode);
 				//result = false; // 바로 주문하기를 선택했을 때 메뉴 선택 루프 종료
 				//dor.dorProcess(store, member);
 				return;		// choose 메서드 종료
-			} else if (input == 0) {
+			} else if (inputStr.equals("0")) {
 				result = false;
 			}else {
-				result = false;
+				System.out.println("\n\t잘못된 입력입니다. 번호를 올바르게 입력해주세요.\n\n");
 			}
 		}
 	}
@@ -177,19 +178,20 @@ public class MemberUI {
 	 */
 	private void userfinalorderinfo(Member member, int UsedP, int usedPoint, String ORDERNO) {
 		Util.clearScreen();
-		System.out.printf("\t\t\t[%s 님이 신청하신 주문 내역을 불러옵니다.]\r\n\r\n",member.getName());
+		System.out.println("\n\t\t\t▼ ▼ ▼ ▼ ▼고객님, 주문이 완료되었습니다▼ ▼ ▼ ▼ ▼\n\n");
+		System.out.printf("\t\t\t▼ ▼ ▼ [%s 님이 신청하신 주문 내역을 불러옵니다.]▼ ▼ ▼ \r\n\r\n",member.getName());
 		List<Order> orders = orderDAO.memberSelect(member.getCstNo(), ORDERNO); // 주문번호를 실제로 어떻게 가져올지에 따라 수정 필요
 		
 		System.out.println("\t\t\t이름: " + member.getName());
-		System.out.println();
+		System.out.println("\n");
 		System.out.println("\t\t\t배달할 주소: " + member.getAddress());
-		System.out.println();
+		System.out.println("\n");
 		System.out.println("\t\t\t사용할 포인트: " + usedPoint);
-		System.out.println();
+		System.out.println("\n");
 		System.out.println("\t\t\t적립한 포인트: " + UsedP);
-		System.out.println();
+		System.out.println("\n");
 	
-        System.out.println(String.format("\t\t\t%s \t%s"
+        System.out.println(String.format("\t\t\t%s \t%s\n"
                 ,	Util.convert("[ MENU ]", 25)		
                 , 	Util.convert("[ PRICE ]",6)			
                 ));
@@ -204,7 +206,7 @@ public class MemberUI {
 		System.out.println();
 		System.out.println("\t\t\t현재 상태: 대기중..");
 		System.out.println();
-		System.out.println("\t\t\t배달시간 : 30분");
+		System.out.println("\t\t\t배달시간 : 30분\n");
 		
 		pause(3);
 	}

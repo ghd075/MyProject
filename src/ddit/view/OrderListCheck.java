@@ -51,8 +51,8 @@ public class OrderListCheck {
 			System.out.printf("\t번호 : %s\r\n\r\n", myphonenum);
 			System.out.printf("\t\t\t== 배달내역 == \r\n\r\n");
             System.out.println(String.format("\t%s \t%s \t%s \t%s"
-                    ,	Util.convert("[ STORE ]", 10)		
-                    , 	Util.convert("[ MENU ]",10)
+                    ,	Util.convert("[ STORE ]", 25)		
+                    , 	Util.convert("[ MENU ]", 25)
                     ,	Util.convert("[ PRICE ]", 10)		
                     , 	Util.convert("[ TOTAL PRICE ]",10)	
                     ));

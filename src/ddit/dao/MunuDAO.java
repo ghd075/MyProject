@@ -50,11 +50,11 @@ public class MunuDAO {
 	// 가게정보 조회
 	public List<Store> storeSelect(String etc) {
 	    List<Store> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성
-	    String sql = "SELECT STONO, STONAME, STOPHONE, STOADDRESS, STOORDER " +
-	                 "FROM STORE " +
-	                 "WHERE 1 = 1 " +
-	                 "AND STOADDRESS LIKE ? " + 
-	                " ORDER BY STONO ASC ";
+	    String sql = " SELECT STONO, STONAME, STOPHONE, STOADDRESS, STOORDER " +
+	                 " FROM STORE " +
+	                 " WHERE 1 = 1 " +
+	                 " AND STOADDRESS LIKE ? " + 
+	                 " ORDER BY TO_NUMBER(REGEXP_SUBSTR(STONO, '\\d+')), STONO";
 
 	    List<Object[]> resultList = DAO.selectList(sql, "%" + etc + "%");
 
@@ -84,7 +84,7 @@ public class MunuDAO {
 	                   " FROM STORE " +
 	                   " WHERE STONO LIKE ? " +
 	                   " AND STOADDRESS LIKE ? " + 
-	                   " ORDER BY STONO ASC ";
+	                   " ORDER BY TO_NUMBER(REGEXP_SUBSTR(STONO, '\\d+')), STONO";
 
 	    List<Object[]> resultList = DAO.selectList(query, "%" + stono + "%", "%" + address + "%");
 
@@ -108,13 +108,20 @@ public class MunuDAO {
 	// 누적 주문량 순으로 조회
 	public List<Store> storeRankSelect(String stono, String address) {
 	    List<Store> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성
-	    String query = "SELECT DENSE_RANK() OVER (ORDER BY STOORDER DESC) AS SNO, " +
-	                   "       STONO, " +
-	                   "       STONAME, " +
-	                   "       STOORDER " +
-	                   "FROM STORE " +
-	                   "WHERE STONO LIKE ? " +
-	                   "AND STOADDRESS LIKE ?";
+	    String query = " SELECT SNO , " + 
+	    		"       STONO , " + 
+	    		"       STONAME , " + 
+	    		"       STOORDER " + 
+	    		" FROM ( " + 
+	    		"    SELECT DENSE_RANK() OVER (ORDER BY STOORDER DESC) AS SNO, " + 
+	    		"           STONO, " + 
+	    		"           STONAME, " + 
+	    		"           STOORDER " + 
+	    		"    FROM STORE " + 
+	    		"    WHERE STONO LIKE ? " + 
+	    		"    AND STOADDRESS LIKE ? " + 
+	    		" ) RANKED " + 
+	    		" ORDER BY SNO ASC, TO_NUMBER(REGEXP_SUBSTR(STONO, '\\d+')), STONO ";
 
 	    List<Object[]> resultList = DAO.selectList(query, "%" + stono + "%", "%" + address + "%");
 
