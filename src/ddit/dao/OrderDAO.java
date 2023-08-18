@@ -3,6 +3,7 @@ package ddit.dao;
 import ddit.dto.Member;
 import ddit.dto.Order;
 import ddit.dto.OrderDetail;
+import ddit.dto.OrderInfo;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -117,4 +118,61 @@ public class OrderDAO {
 		return result;
 	}
 	
+	// 회원정보 조회
+	public static List<Member> MemberInfo(String memberId) {
+	    String memberQuery = " SELECT C.NAME " + 
+	    		" ,   C.ADDRESS " + 
+	    		" ,   C.PHONE " + 
+	    		" ,   M.MPOINT " + 
+	    		" FROM MEMBER M " + 
+	    		" ,   CUSTOMER C " + 
+	    		" WHERE M.CSTNO = C.CSTNO " + 
+	    		" AND M.MID = ? ";
+	    List<Object[]> memberResult = DAO.selectList(memberQuery, memberId); //반환할 리스트를 위해 list 객체 생성
+
+	    List<Member> memberInfos = new ArrayList<>();  // Member 객체를 저장할 리스트 생성
+
+	    for (Object[] row : memberResult) {		//읽을 행이 있을 때
+	        String name = (String) row[0];
+	        String address = (String) row[1];
+	        String phone = (String) row[2];
+	        int mpoint = ((BigDecimal) row[3]).intValue();
+	        Member memberInfo = new Member(name, address, phone, mpoint);
+	        memberInfos.add(memberInfo);	// 변환된 Member 객체를 리스트에 추가
+	    }
+
+	    return memberInfos;			// 변환된 Order 객체 리스트 반환  		
+	
+	}
+	
+	//배달내역 조회
+	public static List<OrderInfo> OrderInfo(String customerId) {
+	    String orderQuery = " SELECT S.STONAME " + 
+	    		" ,   M.MNNAME " + 
+	    		" ,   OM.ORDERPRICE * OM.CNT AS ORDERPRICE " + 
+	    		" ,   O.TOTALPRICE " + 
+	    		" FROM MENU M " + 
+	    		" ,   STORE S " + 
+	    		" , ORDERMENU OM " + 
+	    		" , ORDERS O " + 
+	    		" WHERE M.MNCODE  = OM.MNCODE " + 
+	    		" AND M.STONO = S.STONO " + 
+	    		" AND OM.ORDERNO = O.ORDERNO " + 
+	    		" AND O.CSTNO = ? ";
+
+	    List<Object[]> orderResult = DAO.selectList(orderQuery, customerId);  //반환할 리스트를 위해 list 객체 생성
+
+	    List<OrderInfo> orderInfos = new ArrayList<>();		// OrderInfo 객체를 저장할 리스트 생성
+
+	    for (Object[] row : orderResult) {				//읽을 행이 있을 때
+	        String storeName = (String) row[0];
+	        String menuName = (String) row[1];
+	        int orderPrice = ((BigDecimal) row[2]).intValue();
+	        int totalPrice = ((BigDecimal) row[3]).intValue();
+	        OrderInfo orderInfo = new OrderInfo(storeName, menuName, orderPrice, totalPrice);
+	        orderInfos.add(orderInfo);		// 변환된 OrderInfo 객체를 리스트에 추가
+	    }
+
+	    return orderInfos;		// 변환된 OrderInfo 객체 리스트 반환
+	}
 }

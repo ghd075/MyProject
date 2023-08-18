@@ -19,6 +19,11 @@ public class Member extends Customer {
 		this.mId = mId;
 		this.mPw = mPw;
 	}
+	
+	public Member(String name, String address, String phone, int mPoint) {
+		super(name, phone, address);
+		this.mPoint = mPoint;
+	}
 
 	public Member(String mId, String mPw, String name, String phone, String address, int mPoint) {
 		super(name, phone, address);

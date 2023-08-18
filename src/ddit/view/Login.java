@@ -24,6 +24,7 @@ public class Login {
 	private static MemberDAO mDao = MemberDAO.getInstance();
 	private static MemberUI mu = MemberUI.getInstance();
 	private static MyMember ms = MyMember.getInstance();
+	private static OrderListCheck ol = OrderListCheck.getInstance();
 	
 	//기본 생성자
 	public Login() {	}
@@ -120,9 +121,8 @@ public class Login {
 		boolean loop = true;
 		
 		while (loop) {
-
+			Util.clearScreen();
 			mu.order();
-			
 			String input = Util.sc.nextLine();
 			System.out.println("\n\n");
 			
@@ -135,8 +135,9 @@ public class Login {
 			//회원 정보 보기
 			}else if(input.equals("2")) {
 				ms.myPage(firstMember);
+			//지난 배달 내역보기
 			}else if(input.equals("3")) {
-//				ol.orderlistcheck();
+				ol.orderlistcheck(firstMember);
 			}
 				
 		}

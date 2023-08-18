@@ -180,16 +180,16 @@ public class MemberUI {
 		System.out.printf("\t\t\t[%s 님이 신청하신 주문 내역을 불러옵니다.]\r\n\r\n",member.getName());
 		List<Order> orders = orderDAO.memberSelect(member.getCstNo(), ORDERNO); // 주문번호를 실제로 어떻게 가져올지에 따라 수정 필요
 		
-		System.out.println("\t이름: " + member.getName());
+		System.out.println("\t\t\t이름: " + member.getName());
 		System.out.println();
-		System.out.println("\t배달할 주소: " + member.getAddress());
+		System.out.println("\t\t\t배달할 주소: " + member.getAddress());
 		System.out.println();
-		System.out.println("\t사용할 포인트: " + usedPoint);
+		System.out.println("\t\t\t사용할 포인트: " + usedPoint);
 		System.out.println();
-		System.out.println("\t적립한 포인트: " + UsedP);
+		System.out.println("\t\t\t적립한 포인트: " + UsedP);
 		System.out.println();
 	
-        System.out.println(String.format("\t%s \t%s"
+        System.out.println(String.format("\t\t\t%s \t%s"
                 ,	Util.convert("[ MENU ]", 25)		
                 , 	Util.convert("[ PRICE ]",6)			
                 ));
@@ -200,11 +200,11 @@ public class MemberUI {
         }
         int totalOrderPrice = orders.stream().mapToInt(Order::getPrice).sum();
         System.out.println();
-		System.out.println("\t총 주문 금액: " + totalOrderPrice);
+		System.out.println("\t\t\t총 주문 금액: " + totalOrderPrice + "원");
 		System.out.println();
-		System.out.println("\t현재 상태: 대기중..");
+		System.out.println("\t\t\t현재 상태: 대기중..");
 		System.out.println();
-		System.out.println("\t배달시간 : 30분");
+		System.out.println("\t\t\t배달시간 : 30분");
 		
 		pause(3);
 	}

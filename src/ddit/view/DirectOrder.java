@@ -144,7 +144,8 @@ public class DirectOrder {
 				System.out.println();
 	            
 				if (input3.equalsIgnoreCase("Q")) {
-	                result = false; // 종료 입력 시 루프 종료
+//	                result = false; // 종료 입력 시 루프 종료
+					return;
 	            }else {
 					System.out.print("\t수량을 선택해주세요: ");
 					String input4Str = Util.sc.nextLine().trim(); // 개행문자 제거
