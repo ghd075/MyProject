@@ -181,7 +181,7 @@ public class DirectOrder {
 		                orderDetail.setCnt(input4);
 		                orderDetail.setOrderNo(ORDERNO);
 		                orderDetail.setMnCode(selectedMenu.getMnCode());
-		                System.out.println(orderDetail);
+//		                System.out.println(orderDetail);
 		                orderDAO.OrderDetailNew(orderDetail);
 		                
 		            } else {
@@ -197,9 +197,9 @@ public class DirectOrder {
 						,	Util.convert("==안녕하세요! ", 10)		
 						, 	Util.convert(store.getStoName()+"입니다 ==\r",25)	
 						));
-				System.out.println("\t==[주문한 메뉴]==");
+				System.out.println("\t\t\t==[주문한 메뉴]==\n\n");
 	            // 사용 가능한 포인트와 메뉴 정보 출력
-	            System.out.println(String.format("\t%s%s %s"
+	            System.out.println(String.format("\t%s %s %s"
 	            		,	Util.convert(member.getName(), 5)
 	                    ,	Util.convert("회원님의 사용 가능한 포인트 : ", 3)		
 	                    , 	Util.convert(member.getmPoint()+"",3)		
@@ -222,7 +222,7 @@ public class DirectOrder {
 	                for (OrderItem item : orderItems) {
 	                    System.out.println(item.toString());
 	                }
-	                System.out.println(String.format("\t%s %s"
+	                System.out.println(String.format("\n\n\t%s %s"
 	                        ,	Util.convert("총 가격 : ", 3)		
 	                        , 	Util.convert(totalOrderPrice+"",3)		
 	                        ));

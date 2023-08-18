@@ -50,10 +50,12 @@ public class MemberMain {
 			} else if (input.equals("1")) {
 				Login lUi = Login.getInstance();
 				lUi.Memberloginmain();
+				return;			// memberMain 메서드 종료
 			// 회원가입 페이지로 이동
 			} else if (input.equals("2")) {
 				NewMember newUi = NewMember.getInstance();
 				newUi.NewMembermain();
+				return;			// memberMain 메서드 종료
 			}
 	
 		} // loop

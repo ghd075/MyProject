@@ -62,12 +62,12 @@ public class MemberUI {
 	public void title(int n) {
 		System.out.println("\n\n");
 		if (n == MemberUI.ORDER) {
-			System.out.println("\t\t[주문 페이지]");
+			System.out.println("\t\t [주문 페이지]");
 		} else if (n == MemberUI.INFO) {
 			System.out.println("\t\t [회원 정보 보기]");
 			System.out.println("\n");
 		}else if(n== MemberUI.ORDERINFO) {
-			System.out.println("\t\t[지난 배달 내역 보기]");
+			System.out.println("\t\t [지난 배달 내역 보기]");
 		}
 	}
 	
@@ -79,16 +79,16 @@ public class MemberUI {
 	 */
 	public void pause(int n) {
 		if (n == MemberUI.ORDER) {
-			System.out.println("\n\n\n");
-			System.out.println("\t주문이 정상 접수되었습니다.\r\n\r\n\t계속 하시려면 엔터를 입력하세요.");
+			System.out.println("\n\n");
+			System.out.println("\t\t\t주문이 정상 접수되었습니다.\r\n\r\n\t\t\t계속 하시려면 엔터를 입력하세요.");
 			Util.sc.nextLine();
 		} else if (n == MemberUI.INFO) {
-			System.out.println("\n\n\n");
-			System.out.println("\t\t 회원님의 정보입니다.\n\n\t\t 계속 하시려면 엔터를 입력하세요.");
+			System.out.println("\n\n");
+			System.out.println("\t\t회원님의 정보입니다.\n\n\t\t계속 하시려면 엔터를 입력하세요.");
 			Util.sc.nextLine();
 		}else if(n == MemberUI.ORDERINFO) {
-			System.out.println("\n\n\n");
-			System.out.println("\t\t회원님의 주문 정보입니다.\n\n\t\t계속 하시려면 엔터를 입력하세요.");
+			System.out.println("\n\n");
+			System.out.println("\t\t\t회원님의 주문 정보입니다.\n\n\t\t\t누르신 키에 상관없이 처음으로 돌아갑니다.");
 			Util.sc.nextLine();
 		}
 	}
@@ -122,10 +122,12 @@ public class MemberUI {
 				System.out.println("\n\n\n\n\n\n\n");
 				mm.accumlateList(member, meCode);
 				dor.dorProcess(store, member);
+				return;		// choose 메서드 종료
 			} else if (input == 2) {
 				dor.dorProcess1(store, member, meCode);
 				//result = false; // 바로 주문하기를 선택했을 때 메뉴 선택 루프 종료
 				//dor.dorProcess(store, member);
+				return;		// choose 메서드 종료
 			} else if (input == 0) {
 				result = false;
 			}else {
@@ -154,12 +156,14 @@ public class MemberUI {
 			System.out.println("\t[뒤로 가기를 원하면 0번을 눌러주세yo]");
 			System.out.println("\n\n");
 			System.out.print("\t이동할 화면 입력(숫자) : ");
-			Integer input = Util.sc.nextInt();
+			
+			String input = Util.sc.nextLine(); // 개행 문자 소비
 			System.out.println("\n\n");
 
-			if (input == 1) {
+			if (input.equals("1")) {
 				userfinalorderinfo(member, UsedP, usedPoint, ORDERNO);
-			} else if (input == 0) {
+				return;			// fffinal 메서드 종료
+			} else if (input.equals("0")) {
 				result = false; // 0을 입력하면 루프 종료
 			}
 		}
@@ -176,36 +180,32 @@ public class MemberUI {
 		System.out.printf("\t\t\t[%s 님이 신청하신 주문 내역을 불러옵니다.]\r\n\r\n",member.getName());
 		List<Order> orders = orderDAO.memberSelect(member.getCstNo(), ORDERNO); // 주문번호를 실제로 어떻게 가져올지에 따라 수정 필요
 		
-		boolean result = true;
-		while(result) {
-			System.out.println("\t이름: " + member.getName());
-			System.out.println();
-			System.out.println("\t배달할 주소: " + member.getAddress());
-			System.out.println();
-			System.out.println("\t사용할 포인트: " + UsedP);
-			System.out.println();
-			System.out.println("\t적립한 포인트: " + usedPoint);
-			System.out.println();
+		System.out.println("\t이름: " + member.getName());
+		System.out.println();
+		System.out.println("\t배달할 주소: " + member.getAddress());
+		System.out.println();
+		System.out.println("\t사용할 포인트: " + usedPoint);
+		System.out.println();
+		System.out.println("\t적립한 포인트: " + UsedP);
+		System.out.println();
+	
+        System.out.println(String.format("\t%s \t%s"
+                ,	Util.convert("[ MENU ]", 25)		
+                , 	Util.convert("[ PRICE ]",6)			
+                ));
+        System.out.println();
+        // 주문 아이템 정보 출력
+        for (Order order : orders) {
+            System.out.println(order.toString());
+        }
+        int totalOrderPrice = orders.stream().mapToInt(Order::getPrice).sum();
+        System.out.println();
+		System.out.println("\t총 주문 금액: " + totalOrderPrice);
+		System.out.println();
+		System.out.println("\t현재 상태: 대기중..");
+		System.out.println();
+		System.out.println("\t배달시간 : 30분");
 		
-            System.out.println(String.format("\t%s \t%s"
-                    ,	Util.convert("[ MENU ]", 25)		
-                    , 	Util.convert("[ PRICE ]",6)			
-                    ));
-            System.out.println();
-            // 주문 아이템 정보 출력
-            for (Order order : orders) {
-                System.out.println(order.toString());
-            }
-            int totalOrderPrice = orders.stream().mapToInt(Order::getPrice).sum();
-            System.out.println();
-			System.out.println("\t총 주문 금액: " + totalOrderPrice);
-			System.out.println();
-			System.out.println("\t현재 상태: 대기중..");
-			System.out.println();
-			System.out.println("\t배달시간 : 30분");
-			
-			result = false;
-			pause(3);
-		}
+		pause(3);
 	}
 }

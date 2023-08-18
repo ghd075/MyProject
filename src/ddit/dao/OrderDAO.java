@@ -92,7 +92,8 @@ public class OrderDAO {
 				" AND M.MNCODE = MN.MNCODE " + 
 				" AND O.CSTNO = U.CSTNO " + 
 				" AND U.CSTNO = ? " + 
-				" AND O.ORDERNO = ? ";
+				" AND O.ORDERNO = ? " +
+				" ORDER BY M.ORDERNUNO ASC ";
 		
 		List<Object[]> list = DAO.selectList(sql, CSTNO, orderNo); //반환할 리스트를 위해 list 객체 생성
 		List<Order> orders = new ArrayList<>(); // Order 객체를 저장할 리스트 생성

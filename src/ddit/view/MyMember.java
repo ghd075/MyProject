@@ -74,6 +74,7 @@ public class MyMember {
                 if (option == 0) {
                     break; // 0번을 입력하면 루프 종료
                 }
+                return;	//orderchoice 종료
             } else {
                 System.out.println("\n\n\t   주변에 가게가 없습니다!!>.<");
                 System.out.println("\n\n\t   다시 선택해주세요 !\n\n");
@@ -126,7 +127,7 @@ public class MyMember {
     }
 
     private void displayStores(List<Store> storeList) {
-        System.out.println(String.format("\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
+        System.out.println(String.format("\n\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
         System.out.printf("\n\t=====================================================================%n");
 
         for (int i = 0; i < storeList.size(); i++) {
@@ -140,7 +141,7 @@ public class MyMember {
     public void displayNearbyStores(String meCode, String address) {
     	Util.clearScreen();
     	List<Store> storeList = muDao.storeOneSelect(meCode, address);
-    	System.out.println("\n\n\t\t주변 가게 목록\n");
+    	System.out.println("\n\n\t\t\t== 주변 가게 목록 ==\n");
     	System.out.println(String.format("\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
         System.out.printf("\n\t=====================================================================%n");
 

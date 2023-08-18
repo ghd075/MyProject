@@ -53,7 +53,8 @@ public class MunuDAO {
 	    String sql = "SELECT STONO, STONAME, STOPHONE, STOADDRESS, STOORDER " +
 	                 "FROM STORE " +
 	                 "WHERE 1 = 1 " +
-	                 "AND STOADDRESS LIKE ?";
+	                 "AND STOADDRESS LIKE ? " + 
+	                " ORDER BY STONO ASC ";
 
 	    List<Object[]> resultList = DAO.selectList(sql, "%" + etc + "%");
 
@@ -76,30 +77,14 @@ public class MunuDAO {
 	}
 
 	
-	// 가게 분류 체크
-	public boolean checkStono(String stono, String address) {
-	    boolean flag = false;
-	    String query = "SELECT COUNT(STONO) FROM STORE WHERE STONO LIKE ? AND STOADDRESS LIKE ?";
-	    
-	    List<Object[]> resultList = DAO.selectList(query, "%" + stono + "%", "%" + address + "%");
-
-	    if (!resultList.isEmpty()) {
-	        Object[] row = resultList.get(0);
-	        int count = ((BigDecimal) row[0]).intValue();
-	        flag = count > 0;
-	    }
-
-	    return flag;
-	}
-
-	
 	// 주변 가게 리스트 조회(가게고유번호, 가게주소받아서)
 	public List<Store> storeOneSelect(String stono, String address) {
 	    List<Store> list = new ArrayList<>(); // 반환할 리스트를 위해 list 객체 생성
-	    String query = "SELECT STONO, STONAME, STOORDER " +
-	                   "FROM STORE " +
-	                   "WHERE STONO LIKE ? " +
-	                   "AND STOADDRESS LIKE ?";
+	    String query = " SELECT STONO, STONAME, STOORDER " +
+	                   " FROM STORE " +
+	                   " WHERE STONO LIKE ? " +
+	                   " AND STOADDRESS LIKE ? " + 
+	                   " ORDER BY STONO ASC ";
 
 	    List<Object[]> resultList = DAO.selectList(query, "%" + stono + "%", "%" + address + "%");
 

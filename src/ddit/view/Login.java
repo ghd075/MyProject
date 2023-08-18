@@ -131,6 +131,7 @@ public class Login {
 			//주문페이지 이동
 			}else if(input.equals("1")) {
 				ms.orderchoice(firstMember);
+				return;		// SuccessMenu 메서드 종료
 			//회원 정보 보기
 			}else if(input.equals("2")) {
 				ms.myPage(firstMember);
