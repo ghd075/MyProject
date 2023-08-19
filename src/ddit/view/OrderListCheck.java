@@ -52,7 +52,7 @@ public class OrderListCheck {
 			System.out.printf("\t\t\t▒▒▒▒▒ 배달내역 ▒▒▒▒▒ \r\n\r\n");
 
 			int itemsPerPage = 5; // 한 페이지에 보여줄 아이템 수
-			int totalPages = (orderInfos.size() + itemsPerPage - 1) / itemsPerPage;  // 총 페이지 수
+			int totalPages = (orderInfos.size() + itemsPerPage - 1) / itemsPerPage; // 총 페이지 수
 			int currentPage = totalPages > 0 ? 1 : 0; ;   // 현재 페이지 번호
 			// 총 페이지가 0이면 현재 페이지도 0
 
@@ -60,13 +60,13 @@ public class OrderListCheck {
 			while (loop1) {
 			    String prevPageInfo = "[P]이전 페이지";
 			    String nextPageInfo = "[N]다음 페이지";
-			    String quitInfo = "[Q]종료";
+			    String quitInfo = "[Q]메뉴선택창";
 			    String fixInfo = " : ";
 			    
-		        if (orderInfos.isEmpty() || currentPage <= 0) {
+		        if (orderInfos.isEmpty() || (currentPage <= 1 && totalPages <= 1)) {
 		            prevPageInfo = "";
 		            nextPageInfo = "";
-		            quitInfo = "\t\t    PRESS ENTER TO CONTUNUE...";
+		            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
 		            fixInfo = "";
 		        } else if (currentPage == 1) {
 		            prevPageInfo = "";
@@ -106,7 +106,7 @@ public class OrderListCheck {
 			    }
 			    options += "  " + quitInfo;
 
-		        if (totalPages >= 1) {
+		        if (totalPages > 1) {
 		            options = prevPageInfo + "  " + options + fixInfo;
 		        }
 		        
@@ -123,8 +123,10 @@ public class OrderListCheck {
 			        }
 			    } else if (input.equals("q")) {
 			    	loop = false;  // 종료
-			    } else if ((orderInfos.isEmpty() || totalPages <= 1) && input.isEmpty()) {
-			        loop1 = false; 
+			    } else if (orderInfos.isEmpty() || totalPages <= 1) {
+			    	if(input.isEmpty()) {
+			    		loop1 = false; 
+			    	}
 			    }
 			}
 			

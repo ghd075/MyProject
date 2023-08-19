@@ -152,15 +152,15 @@ public class MyMember {
 		while (loop) {
 		    String prevPageInfo = "[P]이전 페이지";
 		    String nextPageInfo = "[N]다음 페이지";
-		    String quitInfo = "[Q]종료";
+		    String quitInfo = "[Q]메뉴선택창";
 		    String fixInfo = " : ";
 		    
-	        if (currentPage <= 1 && totalPages <= 1) {
+		    if (storeList.isEmpty() || (currentPage <= 1 && totalPages <= 1)) {
 	            prevPageInfo = "";
 	            nextPageInfo = "";
 	            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
 	            fixInfo = "";
-	        } else if (currentPage == 1) {
+	        }  else if (currentPage == 1) {
 	            prevPageInfo = "";
 	        } else if (currentPage == totalPages) {
 	            nextPageInfo = "";
@@ -188,14 +188,17 @@ public class MyMember {
 			    System.out.printf("\n\t=====================================================================%n");
 		    }
 		    
-		    String options = prevPageInfo;
+		    String options = "";
+	        if (!prevPageInfo.isEmpty()) {
+	            options += prevPageInfo + "  ";
+	        }
 		    if (!nextPageInfo.isEmpty()) {
-		        options += "  " + nextPageInfo;
+		        options += prevPageInfo + "  ";
 		    }
-		    options += "  " + quitInfo;
+		    options += quitInfo;
 
 	        if (totalPages > 1) {
-	            options = prevPageInfo + "  " + options + fixInfo;
+	        	options = options + fixInfo;
 	        }
 	        
 		    System.out.print("\n\t\t\t    " + options);
@@ -205,11 +208,9 @@ public class MyMember {
 		        if (currentPage > 1) {
 		            currentPage--;
 		        }
-		    } else if (input.equals("n") && !nextPageInfo.isEmpty()) {
-		        if (endIndex < storeList.size()) {
-		            currentPage++;
-		        }
-		    } else if (input.equals("q")) {
+		    } else if (input.equals("n") && !nextPageInfo.isEmpty() && endIndex < storeList.size()) {
+	            currentPage++;
+	        } else if (input.equals("q")) {
 		    	loop = false;  // 종료
 		    } else if ((storeList.isEmpty() || totalPages <= 1) && input.isEmpty()) {
 		        loop = false; 
@@ -229,10 +230,10 @@ public class MyMember {
 		while (loop) {
 		    String prevPageInfo = "[P]이전 페이지";
 		    String nextPageInfo = "[N]다음 페이지";
-		    String quitInfo = "[Q]종료";
+		    String quitInfo = "[Q]메뉴선택창";
 		    String fixInfo = " : ";
 		    
-		    if (currentPage <= 1 && totalPages <= 1) {
+		    if (storeList.isEmpty() || (currentPage <= 1 && totalPages <= 1)) {
 	            prevPageInfo = "";
 	            nextPageInfo = "";
 	            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
@@ -288,8 +289,11 @@ public class MyMember {
 		        }
 		    } else if (input.equals("q")) {
 		    	loop = false;  // 종료
-		    } else if ((storeList.isEmpty() || totalPages <= 1) && input.isEmpty()) {
-		    	loop = false; // 페이지가 하나이면서 엔터키를 입력하면 종료
+		    } else if (storeList.isEmpty() || totalPages <= 1) {
+		    	if(input.isEmpty()) {
+		    		loop = false; 
+		    	}
+		    	// 페이지가 하나이면서 엔터키를 입력하면 종료
 	        }
 		}
         return storeList;
@@ -315,10 +319,10 @@ public class MyMember {
 		while (loop) {
 		    String prevPageInfo = "[P]이전 페이지";
 		    String nextPageInfo = "[N]다음 페이지";
-		    String quitInfo = "[Q]종료";
+		    String quitInfo = "[Q]메뉴선택창";
 		    String fixInfo = " : ";
 		    
-		    if (currentPage <= 1 && totalPages <= 1) {
+		    if (list.isEmpty() || (currentPage <= 1 && totalPages <= 1)) {
 	            prevPageInfo = "";
 	            nextPageInfo = "";
 	            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
@@ -382,8 +386,11 @@ public class MyMember {
 		        }
 		    } else if (input.equals("q")) {
 		    	loop = false;  // 종료
-		    } else if ((list.isEmpty() || totalPages <= 1) && input.isEmpty()) {
-		    	loop = false; // 페이지가 하나이면서 엔터키를 입력하면 종료
+		    } else if (list.isEmpty() || totalPages <= 1) {
+		    	if(input.isEmpty()) {
+		    		loop = false; 
+		    	}
+		    	// 페이지가 하나이면서 엔터키를 입력하면 종료
 	        }
 		}
 

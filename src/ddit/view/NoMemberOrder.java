@@ -125,7 +125,7 @@ public class NoMemberOrder {
 		noOrdDao.insertOrder(totalPrice, orderAmount, NoMemberDAO.cstNo, NoMemberMenu.sto.getStoNo(), mnCode);
 		
 		Util.clearScreen();
-		System.out.println("\n\n\n\t\t            ✿✿결제가 완료되었습니다!✿✿\n\n\n");
+		System.out.println("\n\n\n\t\t            ⊙⊙결제가 완료되었습니다!⊙⊙\n\n\n");
 	    System.out.println(" ######   #######  ##     ## ########  ##       ######## ######## ########    #### \r\n" + 
 	    		"##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##          #### \r\n" + 
 	    		"##       ##     ## #### #### ##     ## ##       ##          ##    ##          #### \r\n" + 
@@ -143,8 +143,8 @@ public class NoMemberOrder {
 		Util.clearScreen();
 		System.out.println("\t▒▒▒▒▒▒▒▒▒▒▒▒▒고객님, 주문이 완료되었습니다▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\t\n\n");
 		System.out.println("\t--------------------------------------------------");
-		System.out.println("\t✿ 고객이름 : "+mnName+"\n");
-		System.out.println("\t✿ 배달지 : "+address+"\n\n");
+		System.out.println("\t   ⊙ 고객이름 : "+mnName+"\n");
+		System.out.println("\t   ⊙ 배달지 : "+address+"\n\n");
 		System.out.println(String.format("\t  %s \t%s \t%s\n"
 				, Util.convert("[주문한 메뉴]", 42)
 				, Util.convert("[수량]", 10)
@@ -155,9 +155,9 @@ public class NoMemberOrder {
 				, Util.convert(orderAmount+"", 10)
 				, Util.convert(Util.formatPrice(totalPrice), 5)));
 		System.out.println("\n\n");
-		System.out.println("\t✿ 현재 상태 : 대기\n");
-		System.out.println("\t✿ 배달 시간 : 30분\n");
-		System.out.println("\t✿ 고객님의 비회원 번호는 \""+cstNo+"\"입니다.");
+		System.out.println("\t   ⊙ 현재 상태 : 대기\n");
+		System.out.println("\t   ⊙ 배달 시간 : 30분\n");
+		System.out.println("\t   ⊙ 고객님의 비회원 번호는 \""+cstNo+"\"입니다.");
 		System.out.println("\t--------------------------------------------------\n");
 		System.out.println("\t▶▶▶추가 주문이 필요할 경우 1번 입력\n");
 		System.out.println("\t▶▶▶프로그램을 종료할 경우 0번 입력\n\n");

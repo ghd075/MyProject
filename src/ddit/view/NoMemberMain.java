@@ -43,10 +43,10 @@ public class NoMemberMain {
 			System.out.println("\t==================[비회원정보]==========================\n\n");
 			System.out.println("\t\t              기본 정보를 입력해주세yo~!\n\n");
 			noMemVo.setCstCls(Integer.parseInt(cstCls));
-			System.out.print("\n\n\n\t   ✔ 고객이름 : ");
+			System.out.print("\n\n\n\t   ⊙ 고객이름 : ");
 			noMemVo.setName(sc.nextLine());
 			noMemVo.setPhone(Util.phonenumber());  
-			System.out.print("\n\n\t   ✔ 배송지 : "); 
+			System.out.print("\n\n\t   ⊙ 배송지 : "); 
 			noMemVo.setAddress(sc.nextLine());
 			
 			int result = noDAO.insertNoMember(noMemVo);
