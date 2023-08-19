@@ -51,10 +51,9 @@ public class Login {
 		while (loop) {
 			
 			Util.clearScreen();
-			System.out.println("\n\n");
 			System.out.println("\t\t안녕하세요. 회원님!\r\n ");
 			System.out.println();
-			System.out.println("\t\t▒▒▒▒▒[ 회원 로그인 화면 입니다. ]▒▒▒▒▒\r\n\r\n");
+			System.out.println("\t\t[ 회원 로그인 화면 입니다. ]\r\n\r\n");
 
 			System.out.print("\tID : ");
 			String inputid = Util.sc.nextLine();
@@ -84,7 +83,6 @@ public class Login {
 			
 			if (result1 == 1){ // 로그인 정보가 맞으면 실행
 				Util.clearScreen();
-				System.out.println("\n\n");
 				System.out.printf("\t\t[반갑습니다. %s님!]\r\n", loginname);
 				System.out.println();
 				System.out.println("\t()()       () ()      () ()");
@@ -94,14 +92,12 @@ public class Login {
 				loop = false; 
 			} else if (result1 == 0){ 	//비밀번호가 틀리면
 				Util.clearScreen();
-				System.out.println("\n\n");
 				System.out.println("\t비밀번호가 틀립니다.");
 				System.out.println();
 				System.out.println("\t계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
 			} else {  					//아이디와 비밀번호 둘 다 일치하지 않으면
 				Util.clearScreen();
-				System.out.println("\n\n");
 				System.out.println("\t존재하지 않는 아이디입니다.");
 				System.out.println();
 				System.out.println("\t계속하시려면 엔터키를 입력해주세요");
@@ -134,6 +130,7 @@ public class Login {
 			//주문페이지 이동
 			}else if(input.equals("1")) {
 				ms.orderchoice(firstMember);
+				return;		// SuccessMenu 메서드 종료
 			//회원 정보 보기
 			}else if(input.equals("2")) {
 				ms.myPage(firstMember);
@@ -142,7 +139,7 @@ public class Login {
 				ol.orderlistcheck(firstMember);
 			}
 		}
-//		Util.clearScreen();
+		Util.clearScreen();
 	} // SuccessMenu
 	
 	/**
@@ -159,7 +156,6 @@ public class Login {
 		int result = 1;
 	
 		Util.clearScreen();
-		System.out.println("\n\n\n\n");
 		System.out.println("\t1. 다시 로그인 하기\r\n");
 		System.out.println("\t[뒤로 가기를 원하시면 0번을 입력하세요.]");
 		System.out.println("\n");

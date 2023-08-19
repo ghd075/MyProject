@@ -56,6 +56,7 @@ public class MyMember {
     public void orderchoice(Member firstMember) {
     	Util.clearScreen();
         while (true) {
+			Util.clearScreen();
 			mu.title(MemberUI.ORDER);
 			String myAddress = firstMember.getAddress();
 			System.out.println("\n\n");
@@ -127,7 +128,6 @@ public class MyMember {
                     System.out.println("\n\n\t   해당 카테고리에 가게 목록이 없습니다.\n\n");
                     System.out.println("\n\n\t   계속하시려면 엔터키를 입력해주세요");
                     Util.sc.nextLine();
-                	Util.clearScreen();
                     return -1; // 루프 재실행을 위해 -1 반환
                 }
                 
@@ -136,7 +136,6 @@ public class MyMember {
                 // 다시 선택할 수 있도록 루프를 계속 유지
                 System.out.println("\n\n\t   계속하시려면 엔터키를 입력해주세요");
                 Util.sc.nextLine();
-            	Util.clearScreen();
                 return -1; // 루프 재실행을 위해 -1 반환
             }
         }
@@ -144,21 +143,19 @@ public class MyMember {
 
     private void displayStores(List<Store> storeList) {
 		int itemsPerPage = 5; // 한 페이지에 보여줄 아이템 수
-		int totalPages = (storeList.size() + itemsPerPage - 1) / itemsPerPage;  // 총 페이지 수
-		int currentPage = totalPages > 0 ? 1 : 0; ;   // 현재 페이지 번호
-		// 총 페이지가 0이면 현재 페이지도 0
+		int totalPages = (storeList.size() + itemsPerPage - 1) / itemsPerPage; // 총 페이지 수
+		int currentPage = 1;   // 현재 페이지 번호
 		
-		boolean loop = true;
-		while (loop) {
+		while (true) {
 		    String prevPageInfo = "[P]이전 페이지";
 		    String nextPageInfo = "[N]다음 페이지";
 		    String quitInfo = "[Q]종료";
 		    String fixInfo = " : ";
 		    
-	        if (currentPage <= 1 && totalPages <= 1) {
+	        if (currentPage == 1 && totalPages == 1) {
 	            prevPageInfo = "";
 	            nextPageInfo = "";
-	            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
+	            quitInfo = "\t\t\t    PRESS ENTER TO CONTUNUE...";
 	            fixInfo = "";
 	        } else if (currentPage == 1) {
 	            prevPageInfo = "";
@@ -167,26 +164,20 @@ public class MyMember {
 	        }
 	        
 		    System.out.printf("\n\t=====================================================================%n");
-		    if (!storeList.isEmpty() && currentPage > 0) {
-		        System.out.printf("\n\t\t\t    [ 현재 페이지 %d / 총 페이지 %d ]\n\n", currentPage, totalPages);
-		    }
+		    System.out.printf("\n\t\t\t    [ 현재 페이지 %d / 총 페이지 %d ]\n\n", currentPage, totalPages);
+		    System.out.println(String.format("\n\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
+		    System.out.println("\n");
 
 		    int startIndex = (currentPage - 1) * itemsPerPage;
 		    int endIndex = Math.min(startIndex + itemsPerPage, storeList.size());
 
-		    // 출력할 가게 정보
-		    if (storeList.isEmpty()) {
-		    	 System.out.println("\n\t\t\t    주문 정보가 없습니다.\n");
-		    }else {
-			    System.out.println(String.format("\n\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
-			    System.out.println("\n");
-			    for (int i = startIndex; i < endIndex; i++) {
-		            Store store = storeList.get(i);
-		            System.out.println(String.format("\n\t%s  %s", Util.convert(store.getStoNo(), 10), Util.convert(store.getStoName(), 25)));
-		            System.out.println();
-			    }
-			    System.out.printf("\n\t=====================================================================%n");
+		    // 출력할 주문 아이템 정보
+		    for (int i = startIndex; i < endIndex; i++) {
+	            Store store = storeList.get(i);
+	            System.out.println(String.format("\n\t%s  %s", Util.convert(store.getStoNo(), 10), Util.convert(store.getStoName(), 25)));
+	            System.out.println();
 		    }
+		    System.out.printf("\n\t=====================================================================%n");
 		    
 		    String options = prevPageInfo;
 		    if (!nextPageInfo.isEmpty()) {
@@ -210,10 +201,10 @@ public class MyMember {
 		            currentPage++;
 		        }
 		    } else if (input.equals("q")) {
-		    	loop = false;  // 종료
-		    } else if ((storeList.isEmpty() || totalPages <= 1) && input.isEmpty()) {
-		        loop = false; 
-		    }
+		        break; // 종료
+		    } else if (totalPages == 1 && input.isEmpty()) {
+	            break; // 페이지가 하나이면서 엔터키를 입력하면 종료
+	        }
 		}
     }
     
@@ -223,19 +214,18 @@ public class MyMember {
     	System.out.println("\n\n\t\t\t▒▒▒▒▒ 주변 가게 목록 ▒▒▒▒▒\n");
 		int itemsPerPage = 5; // 한 페이지에 보여줄 아이템 수
 		int totalPages = (storeList.size() + itemsPerPage - 1) / itemsPerPage; // 총 페이지 수
-		int currentPage = totalPages > 0 ? 1 : 0; ;   // 현재 페이지 번호
+		int currentPage = 1;   // 현재 페이지 번호
 		
-		boolean loop = true;
-		while (loop) {
+		while (true) {
 		    String prevPageInfo = "[P]이전 페이지";
 		    String nextPageInfo = "[N]다음 페이지";
 		    String quitInfo = "[Q]종료";
 		    String fixInfo = " : ";
 		    
-		    if (currentPage <= 1 && totalPages <= 1) {
+	        if (currentPage == 1 && totalPages == 1) {
 	            prevPageInfo = "";
 	            nextPageInfo = "";
-	            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
+	            quitInfo = "\t\t\t    PRESS ENTER TO CONTUNUE...";
 	            fixInfo = "";
 	        } else if (currentPage == 1) {
 	            prevPageInfo = "";
@@ -244,26 +234,20 @@ public class MyMember {
 	        }
 	        
 		    System.out.printf("\n\t=====================================================================%n");
-		    if (!storeList.isEmpty() && currentPage > 0) {
-		        System.out.printf("\n\t\t\t    [ 현재 페이지 %d / 총 페이지 %d ]\n\n", currentPage, totalPages);
-		    }
+		    System.out.printf("\n\t\t\t    [ 현재 페이지 %d / 총 페이지 %d ]\n\n", currentPage, totalPages);
+		    System.out.println(String.format("\n\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
+		    System.out.println("\n");
 
 		    int startIndex = (currentPage - 1) * itemsPerPage;
 		    int endIndex = Math.min(startIndex + itemsPerPage, storeList.size());
 
-		    // 출력할 가게정보
-		    if (storeList.isEmpty()) {
-		    	 System.out.println("\n\t\t\t    주문 정보가 없습니다.\n");
-		    }else {
-			    System.out.println(String.format("\n\t%s  %s", Util.convert("점포고유번호", 10), Util.convert("점포명", 25)));
-			    System.out.println("\n");
-			    for (int i = startIndex; i < endIndex; i++) {
-		            Store store = storeList.get(i);
-		            System.out.println(String.format("\n\t%s  %s", Util.convert(store.getStoNo(), 10), Util.convert(store.getStoName(), 25)));
-		            System.out.println();
-			    }
-			    System.out.printf("\n\t=====================================================================%n");
+		    // 출력할 주문 아이템 정보
+		    for (int i = startIndex; i < endIndex; i++) {
+	            Store store = storeList.get(i);
+	            System.out.println(String.format("\n\t%s  %s", Util.convert(store.getStoNo(), 10), Util.convert(store.getStoName(), 25)));
+	            System.out.println();
 		    }
+		    System.out.printf("\n\t=====================================================================%n");
 		    
 		    String options = prevPageInfo;
 		    if (!nextPageInfo.isEmpty()) {
@@ -287,9 +271,9 @@ public class MyMember {
 		            currentPage++;
 		        }
 		    } else if (input.equals("q")) {
-		    	loop = false;  // 종료
-		    } else if ((storeList.isEmpty() || totalPages <= 1) && input.isEmpty()) {
-		    	loop = false; // 페이지가 하나이면서 엔터키를 입력하면 종료
+		        break; // 종료
+		    } else if (totalPages == 1 && input.isEmpty()) {
+	            break; // 페이지가 하나이면서 엔터키를 입력하면 종료
 	        }
 		}
         return storeList;
@@ -307,86 +291,21 @@ public class MyMember {
 		List<Store> list = muDao.storeRankSelect(meCode, address);
 //		System.out.println(list);
 		Util.clearScreen();
-		int itemsPerPage = 5; // 한 페이지에 보여줄 아이템 수
-		int totalPages = (list.size() + itemsPerPage - 1) / itemsPerPage; // 총 페이지 수
-		int currentPage = totalPages > 0 ? 1 : 0; ;   // 현재 페이지 번호
-		
-		boolean loop = true;
-		while (loop) {
-		    String prevPageInfo = "[P]이전 페이지";
-		    String nextPageInfo = "[N]다음 페이지";
-		    String quitInfo = "[Q]종료";
-		    String fixInfo = " : ";
-		    
-		    if (currentPage <= 1 && totalPages <= 1) {
-	            prevPageInfo = "";
-	            nextPageInfo = "";
-	            quitInfo = "\t\t PRESS ENTER TO CONTUNUE...";
-	            fixInfo = "";
-	        } else if (currentPage == 1) {
-	            prevPageInfo = "";
-	        } else if (currentPage == totalPages) {
-	            nextPageInfo = "";
-	        }
-		    
-		    System.out.printf("\n\t=====================================================================%n");
-		    if (!list.isEmpty() && currentPage > 0) {
-		        System.out.printf("\n\t\t\t    [ 현재 페이지 %d / 총 페이지 %d ]\n\n", currentPage, totalPages);
-		    }
-		    
-		    int startIndex = (currentPage - 1) * itemsPerPage;
-		    int endIndex = Math.min(startIndex + itemsPerPage, list.size());
-
-		    // 출력할 가게정보
-		    if (list.isEmpty()) {
-		    	 System.out.println("\n\t\t\t    주문 정보가 없습니다.\n");
-		    }else {
-				System.out.println(String.format("\n\n\n\n\n\n\t%s\t%s\t%s%s"
-						, Util.convert("순번", 5)
-						, Util.convert("점포고유번호", 10)
-						, Util.convert("점포명", 25)
-						, Util.convert("누적주문수", 5)));
-				System.out.printf("\n\t=====================================================================%n");
-			    for (int i = startIndex; i < endIndex; i++) {
-		            Store store = list.get(i);
-					System.out.println(String.format("\n\t%s\t%s\t%s%s"
-							, Util.convert(store.getsNo()+"", 5)
-							, Util.convert(store.getStoNo(), 10)
-							, Util.convert(store.getStoName(), 25)
-							, Util.convert(store.getStoOrder()+"", 5)));
-					System.out.println("\n\n");
-			    }
-			    System.out.printf("\n\t=====================================================================%n");
-		    }
-		    
-		    String options = prevPageInfo;
-		    if (!nextPageInfo.isEmpty()) {
-		        options += "  " + nextPageInfo;
-		    }
-		    options += "  " + quitInfo;
-
-	        if (totalPages > 1) {
-	            options = prevPageInfo + "  " + options + fixInfo;
-	        }
-	        
-		    System.out.print("\n\t\t\t    " + options);
-		    String input = Util.sc.nextLine().trim().toLowerCase();
-
-		    if (input.equals("p")) {
-		        if (currentPage > 1) {
-		            currentPage--;
-		        }
-		    } else if (input.equals("n") && !nextPageInfo.isEmpty()) {
-		        if (endIndex < list.size()) {
-		            currentPage++;
-		        }
-		    } else if (input.equals("q")) {
-		    	loop = false;  // 종료
-		    } else if ((list.isEmpty() || totalPages <= 1) && input.isEmpty()) {
-		    	loop = false; // 페이지가 하나이면서 엔터키를 입력하면 종료
-	        }
+		System.out.println(String.format("\n\n\n\n\n\n\t%s\t%s\t%s%s"
+				, Util.convert("순번", 5)
+				, Util.convert("점포고유번호", 10)
+				, Util.convert("점포명", 25)
+				, Util.convert("누적주문수", 5)));
+		System.out.printf("\n\t=====================================================================%n");
+		for(Store store : list) {
+			System.out.println(String.format("\n\t%s\t%s\t%s%s"
+					, Util.convert(store.getsNo()+"", 5)
+					, Util.convert(store.getStoNo(), 10)
+					, Util.convert(store.getStoName(), 25)
+					, Util.convert(store.getStoOrder()+"", 5)));
+			System.out.println("\n\n");
 		}
-
+		
 		return list;
 	}// 메소드
 }

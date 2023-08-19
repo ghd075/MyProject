@@ -284,12 +284,6 @@ public class DirectOrder {
 				}
 	        }else {
 	            System.out.println("\t선택한 메뉴가 없습니다.");
-	            try {
-					Thread.sleep(450);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} // 450밀리초 동안 일시 중지 // 450밀리초 동안 일시 중지
 	        }
 		}
 	}

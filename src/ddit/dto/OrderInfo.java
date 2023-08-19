@@ -50,8 +50,8 @@ public class OrderInfo {
 	@Override
 	public String toString() {
 		return String.format("\t%s \t%s \t%s \t%s"
-                ,	Util.convert(storeName, 25)		
-                , 	Util.convert(menuName, 25)
+                ,	Util.convert(storeName, 45)		
+                , 	Util.convert(menuName, 45)
                 ,	Util.convert(orderPrice+"원", 10)		
                 , 	Util.convert(totalPrice+"원",10)	
                 );

@@ -34,15 +34,11 @@ public class Main {
 		     
 	    };
 	    
-	    int consoleWidth = 90; // 예시로 가로 폭을 80으로 가정합니다
-	    System.out.println("\n\n");
-	    
-	    for (String line : delivery) {
-            int padding = (consoleWidth - line.length()) / 2;
-            String centeredLine = Util.repeatString(" ", padding) + line;;
-            // 메세지를 출력한다
-            System.out.println(centeredLine);
-            Thread.sleep(450); // 450밀리초 동안 일시 중지 // 450밀리초 동안 일시 중지
+	    for (int i = 0; i < delivery.length; i++) {
+		      // 초 간 중지한다
+		      Thread.sleep(450);
+		      // 메세지를 출력한다
+		      System.out.println(delivery[i]);
 		}
 	    System.out.println();
 	    System.out.println("                         Loading...");
@@ -57,7 +53,6 @@ public class Main {
 		boolean loop = true;
 		while(loop) {
 			Util.clearScreen();
-			System.out.println("\n\n\n\n");
 			System.out.println("┌--------------------------------------------------------------------------------┐");
 			System.out.println("│                                                                                │");
 			System.out.println("│                                  1. 회원                                       │");               
@@ -81,24 +76,15 @@ public class Main {
 			//종료
 			} else if (selNum.equals("0")) {
 				Util.clearScreen();
-				System.out.println("\n\n");
-			    System.out.println(" ######   #######  ##     ## ########  ##       ######## ######## ########    #### \r\n" + 
-			    		"##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##          #### \r\n" + 
-			    		"##       ##     ## #### #### ##     ## ##       ##          ##    ##          #### \r\n" + 
-			    		"##       ##     ## ## ### ## ########  ##       ######      ##    ######       ##  \r\n" + 
-			    		"##       ##     ## ##     ## ##        ##       ##          ##    ##               \r\n" + 
-			    		"##    ## ##     ## ##     ## ##        ##       ##          ##    ##          #### \r\n" + 
-			    		" ######   #######  ##     ## ##        ######## ########    ##    ########    #### ");
-				System.out.println("\n\n\t\t\t  [대덕의 민족]을 종료합니다....감사합니다.");
+				System.out.println("\n\n\t\t\t  종료");
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				loop = false;
 			//잘못입력시
 			} else {
 				Util.clearScreen();
-				System.out.println("\n\n");
-				System.out.println("\t\t   올바르지 않은 접근입니다.");
+				System.out.println("\t\t올바르지 않은 접근입니다.");
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-				System.out.println("\t\t   계속하시려면 엔터키를 입력해주세요");
+				System.out.println("\t   계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
 			}
 		}

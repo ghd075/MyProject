@@ -71,7 +71,7 @@ public class NewMember {
 				Util.sc.nextLine();
 				loop = false;
 			}else {
-				System.out.println("\n\n\t회원가입에 실패했습니다.");
+				System.out.println("\n\n\t회원가입에 실패했습니다.");;
 			}
 
 		} // loop

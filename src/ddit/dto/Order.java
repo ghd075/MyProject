@@ -11,16 +11,18 @@ public class Order {
     private int riderTime;
     private int totalPrice;
     private int price;
+    private int cnt;
     private String mnName; 
     private String cstNo;
 	
 	public Order() { }
 	
-	public Order(int totalPrice, int riderTime, String mnName, int price) {
+	public Order(int totalPrice, int riderTime, String mnName,  int price, int cnt) {
 		this.totalPrice = totalPrice;
 		this.riderTime = riderTime;
 		this.mnName = mnName;
 		this.price = price;
+		this.cnt = cnt;
 	}
 
 	public Order(String orderNo, Timestamp orderDate, int riderTime, int totalPrice, String cstNo) {
@@ -66,7 +68,7 @@ public class Order {
 		return totalPrice;
 	}
 
-	/**총각격을 설정하는 메소드*/
+	/**총가격을 설정하는 메소드*/
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
@@ -91,6 +93,16 @@ public class Order {
 		this.price = price;
 	}
 
+	/**주문한 메뉴 수량을 불러오는 메소드*/
+	public int getCnt() {
+		return cnt;
+	}
+
+	/**주문한 메뉴 수량을 설정하는 메소드*/
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	/**주문한 메뉴명을 불러오는 메소드*/	
 	public String getMnName() {
 		return mnName;
@@ -103,8 +115,9 @@ public class Order {
 
 	@Override
     public String toString() {
-        return  String.format("\n\t\t\t%s \t%s원"
-    			,	Util.convert(mnName, 25)		
-    			,	Util.convert(price+"", 6));
+        return  String.format("\t\t\t%s \t%s \t%s\n"
+                ,	Util.convert(mnName, 42)
+                ,	Util.convert(cnt+"", 10)
+                , 	Util.convert(Util.formatPrice(price),10));
     }
 }
