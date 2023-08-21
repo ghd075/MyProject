@@ -1,4 +1,4 @@
-package ddit.view;
+package ddit.test;
 
 import java.sql.Connection;
 

@@ -1,4 +1,4 @@
-package ddit.view;
+package ddit.test;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
