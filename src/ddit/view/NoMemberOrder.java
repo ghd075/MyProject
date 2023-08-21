@@ -38,6 +38,7 @@ public class NoMemberOrder {
 		
 		while(run) {
 			Util.clearScreen();
+			System.out.println("\n\n\n\n");
 			System.out.println("\n\n\t▒▒▒▒▒▒▒▒▒▒▒▒ 안녕하세요yo! ["+NoMemberMenu.sto.getStoName()+" "+NoMemberMenu.sto.getStoAddress()+"]입니다. ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 			System.out.println("\n\t *최소 주문금액 : 15,000원\n\n\n");
 			System.out.println(String.format("\t     %s \t%s \t%s\n"
@@ -97,6 +98,7 @@ public class NoMemberOrder {
 		totalPrice = price * orderAmount;
 		
 		Util.clearScreen();
+		System.out.println("\n\n\n\n");
 		System.out.println("\n\n\t===============[ 결제 페이지 입니다 ]====================\n\n\n");
 		System.out.println(String.format("\t  %s \t%s \t%s\n"
 				, Util.convert("[주문한 메뉴]", 43)
@@ -141,6 +143,7 @@ public class NoMemberOrder {
 	
 	private void orderDedails(String mnName, int orderAmount, int totalPrice, String cstNo) {
 		Util.clearScreen();
+		System.out.println("\n\n\n\n");
 		System.out.println("\t▒▒▒▒▒▒▒▒▒▒▒▒▒고객님, 주문이 완료되었습니다▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒\t\n\n");
 		System.out.println("\t--------------------------------------------------");
 		System.out.println("\t   ⊙ 고객이름 : "+mnName+"\n");
@@ -160,7 +163,7 @@ public class NoMemberOrder {
 		System.out.println("\t   ⊙ 고객님의 비회원 번호는 \""+cstNo+"\"입니다.");
 		System.out.println("\t--------------------------------------------------\n");
 		System.out.println("\t▶▶▶추가 주문이 필요할 경우 1번 입력\n");
-		System.out.println("\t▶▶▶프로그램을 종료할 경우 0번 입력\n\n");
+		System.out.println("\t▶▶▶첫화면으로 돌아갈 경우 0번 입력\n\n");
 		System.out.print("\t입력 : ");
 		String input = sc.nextLine();
 		
@@ -170,8 +173,11 @@ public class NoMemberOrder {
 			System.out.println("\t 잘못된 입력입니다.(1 또는 0 입력)");
 		}
 		Util.clearScreen();
-		System.out.println("\t[대덕의 민족]을 종료합니다....감사합니다.");
-		System.exit(0);
+		try {
+			Main.main(new String[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 

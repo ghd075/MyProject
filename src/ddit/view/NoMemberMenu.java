@@ -35,6 +35,7 @@ public class NoMemberMenu {
 		address = noMemVo.getAddress();
 		
 		while(run) {
+		System.out.println("\n\n\n\n");
 		System.out.println("\n\n\t================[배달 카테고리를 선택하세요]=====================\n\n\n");
 		System.out.println("\t[1.한식]    [2.중식]    [3.일식/양식]    [4.패스트푸드]    [5.분식]\n\n");
 		System.out.println("\t\t     (0을 입력하시면 뒤로 이동합니다.)\n\n");
@@ -89,6 +90,7 @@ public class NoMemberMenu {
 		
 		while(run) {
 		Util.clearScreen();
+		System.out.println("\n\n\n\n");
 		System.out.println("\t=================[옵션 선택]=========================\n\n\n");
 		System.out.println("\t\t       1.바로 주문하기\n");
 		System.out.println("\t\t     2.누적 주문 순으로 보기\n");
@@ -100,6 +102,7 @@ public class NoMemberMenu {
 		
 		switch(input) {
 		case "1" : 
+		System.out.println("\n\n\n\n");
 		System.out.println("\n\n\t=================[바로 주문하기]=======================");
 		System.out.println("\n\t*집주변 기준 가게입니다.\n\n\n");
 		System.out.println(String.format("\t%s \t%s \t%s\n"
@@ -117,6 +120,7 @@ public class NoMemberMenu {
 		} break;
 		case "2" :
 		Util.clearScreen();
+		System.out.println("\n\n\n\n");
 		System.out.println("\n\n\t=================[누적 주문순으로 보기]=======================\n\n\n");
 		System.out.println(String.format("\t\t%s \t%s \t%s\n"
 				, Util.convert("[가게코드]", 16)
@@ -141,9 +145,8 @@ public class NoMemberMenu {
 		System.out.print("\t\t     가게코드 입력 : ");
 		input = sc.nextLine();
 		if(input.equals("0")) {  continue;  }
-		Util.clearScreen();
-		
-		noMemberOrder.noMemberMenu(input, address);
+		String stonNoStr = input.substring(0, 1).toUpperCase() + input.substring(1);
+		noMemberOrder.noMemberMenu(stonNoStr, address);
 		}
 	}
 }

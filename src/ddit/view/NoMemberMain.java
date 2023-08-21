@@ -25,6 +25,7 @@ public class NoMemberMain {
 		
 		while(run) {
 			Util.clearScreen();
+			System.out.println("\n\n\n\n");
 			System.out.println("\t=============[ 안녕하세yo, 비회원님 :) ]================\n\n");
 			System.out.println("\t\t\t 1.주문하기\n");
 			System.out.println("\t\t   (0을 입력하시면 뒤로 이동합니다.)\n\n\n");
@@ -40,14 +41,16 @@ public class NoMemberMain {
 			}
 			//비회원 고객 정보입력
 			Util.clearScreen();
+			System.out.println("\n\n\n\n");
 			System.out.println("\t==================[비회원정보]==========================\n\n");
 			System.out.println("\t\t              기본 정보를 입력해주세yo~!\n\n");
 			noMemVo.setCstCls(Integer.parseInt(cstCls));
 			System.out.print("\n\n\n\t   ⊙ 고객이름 : ");
 			noMemVo.setName(sc.nextLine());
 			noMemVo.setPhone(Util.phonenumber());  
-			System.out.print("\n\n\t   ⊙ 배송지 : "); 
-			noMemVo.setAddress(sc.nextLine());
+//			System.out.print("\n\n\t   ⊙ 배송지 : ");
+//			noMemVo.setAddress(sc.nextLine());
+			noMemVo.setAddress(Util.NoMemberAddress());
 			
 			int result = noDAO.insertNoMember(noMemVo);
 	

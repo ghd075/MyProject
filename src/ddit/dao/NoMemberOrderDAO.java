@@ -30,6 +30,7 @@ public class NoMemberOrderDAO {
 		String sql = "SELECT ROWNUM, MNCODE, MNNAME, PRICE, "
 				+ "MNCTCODE, STONO FROM MENU WHERE STONO = ?";
 		
+		
 		try {
 			conn = DAO.getConnection();
 			pstm = conn.prepareStatement(sql);
