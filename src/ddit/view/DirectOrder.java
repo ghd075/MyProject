@@ -240,6 +240,7 @@ public class DirectOrder {
 				}
 				if (!orderItems.isEmpty()) {
 					Util.clearScreen();
+					System.out.println("\n\n\n\n");
 					System.out.println(String.format("\t\t %s%s\r"
 						,	Util.convert("▒▒▒▒▒안녕하세요! ", 10)		
 						, 	Util.convert(store.getStoName()+"입니다 ▒▒▒▒▒\r",25)	

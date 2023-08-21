@@ -183,6 +183,7 @@ public class MemberUI {
 	 */
 	private void userfinalorderinfo(Member member, int UsedP, int usedPoint, String ORDERNO) {
 		int totalOrderPrice = 0;
+		System.out.println("\n\n");
 		System.out.println("\n\n\t\t\t\t▒▒▒▒▒고객님, 주문이 완료되었습니다▒▒▒▒▒\n\n");
 		System.out.printf("\t\t\t▒▒▒▒▒[%s 님이 신청하신 주문 내역을 불러옵니다.]▒▒▒▒▒\r\n\r\n",member.getName());
 		List<Order> orders = orderDAO.orderSelect(member.getCstNo(), ORDERNO); // 주문번호를 실제로 어떻게 가져올지에 따라 수정 필요
