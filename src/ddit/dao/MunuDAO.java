@@ -175,5 +175,24 @@ public class MunuDAO {
 	    return list;
 	}
 
+	
+	// 메뉴카테고리 매칭
+	public String menucategorySelect(String stono) {
+	    String sql = " SELECT DISTINCT MC.MNCTNAME " + 
+	    		" FROM MENUCATEGORY MC " + 
+	    		" , STORE S " + 
+	    		" WHERE MC.MNCTCODE = S.MNCTCODE " + 
+	    		" AND S.STONO LIKE ? ";
+	    
+	    List<Object[]> resultList = DAO.selectList(sql, "%" + stono + "%");
+
+	    if (!resultList.isEmpty()) {
+	        Object[] row = resultList.get(0);
+	        String category = (String) row[0]; // 결과 리스트의 첫 번째 행의 첫 번째 열 값
+	        return category; // search 성공
+	    }
+
+	    return null; // DB 오류
+	}
 
 }

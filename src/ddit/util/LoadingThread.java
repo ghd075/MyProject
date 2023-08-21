@@ -5,22 +5,20 @@ import java.io.OutputStreamWriter;
 
 public class LoadingThread extends Thread{
 
-    String str; 
-    
     FormattedWriter out = new FormattedWriter(
             new BufferedWriter(
-                new OutputStreamWriter(System.out)), true, 90,//50만큼공간을 준다
+                new OutputStreamWriter(System.out)), true, 90,//150만큼공간을 준다
                        FormattedWriter.CENTER_JUSTIFIED);
 
-    public LoadingThread(String str){ // 생성자
-        this.str = str;
+    public LoadingThread(){ // 생성자
     }
 
     public void run(){ // run 메서드는 수행 흐름이 하나 더 생겼을 때의 메서드이다. 
-    	
+    	String loadingBar = "■■■";
+
     	for(int i = 0; i <22; i ++){
         	
-        	System.out.print(str);
+    		System.out.print(loadingBar);
             try {
                 //컴퓨터가 너무 빠르기 때문에 수행결과를 잘 확인 할 수 없어서 
                 // Thread.sleep() 메서드를 이용해서 조금씩 쉬었다가 출력할 수 있게한다. 
@@ -39,22 +37,50 @@ public class LoadingThread extends Thread{
 	    			 ,	"│                   대덕의 민족                                                  │"
 	    			 ,	"│                                     Created By 대덕 on 2023.08.10              │"
 	    			 ,	"└--------------------------------------------------------------------------------┘"
-	    			 ,	"\n\n\n\t\t\t배 달\n\n"
-	    			 ,	"\r\n\n\n\t\t어서와.. 배달은 처음이지..?\n\n"
 	    	 };
     	 
  	   for (int i = 0; i < strings.length; i++) {
 		   out.println();
 		   out.print(strings[i]);
 	    }
- 	   
- 	   	out.flush();
-	   	out.println("\n\n\t   계속하시려면 엔터를 입력해주세요)");
-	   	out.flush();
-	   	Util.sc.nextLine();
-		out.println("\t        PRESS ENTER TO CONTUNUE...");
-		out.flush();
-		Util.sc.nextLine();
+ 	   out.flush();
+       
+       // 아스키 아트 문자열 생성
+       // 아스키 아트 문자열 생성
+       String asciiArt = "      _        _  _                           \n" +
+                         "     | |      | |(_)                          \n" +
+                         "   __| |  ___ | | _ __   __  ___  _ __  _   _ \n" +
+                         "  / _` | / _ \\| || |\\ \\ / / / _ \\| '__|| | | |\n" +
+                         " | (_| ||  __/| || | \\ V / |  __/| |   | |_| |\n" +
+                         "  \\__,_| \\___||_||_|  \\_/   \\___||_|    \\__, |\n" +
+                         "                                         __/ |\n" +
+                         "                                        |___/ ";
+
+       // 아스키 아트 문자열을 각 줄로 분할
+       String[] lines = asciiArt.split("\n");
+
+       // 화면의 가로 중앙 위치 계산
+       int screenWidth = 80; // 예시로 화면 가로 길이를 80으로 가정합니다.
+       int maxLength = lines[0].length(); // 첫 번째 줄의 길이로 초기화
+       for (String line : lines) {
+           maxLength = Math.max(maxLength, line.length());
+       }
+       int paddingCount = (screenWidth - maxLength) / 2;
+
+       System.out.println("\r\n\n\n");
+       // 중앙 정렬하여 출력
+       for (String line : lines) {
+           String padding = new String(new char[paddingCount]).replace('\0', ' ');
+           System.out.println(padding + line);
+       }
+       System.out.println("\r\n\n\n\t\t어서와.. 배달은 처음이지..?\n\n");
+       out.flush();
+       out.println("\n\n\t   계속하시려면 엔터를 입력해주세요)");
+       out.flush();
+       Util.sc.nextLine();
+       out.println("\t        PRESS ENTER TO CONTUNUE...");
+       out.flush();
+       Util.sc.nextLine();
 
     }
 	

@@ -39,9 +39,9 @@ public class OrderItem {
 
 	@Override
     public String toString() {
-        return  String.format("\n\t%s \t%s\t%s원"
-    			,	Util.convert(menu.getMnName(), 25)		
-    			,	Util.convert(quantity+"", 6)		
-    			, 	Util.convert(totalPrice+"",6));
+        return  String.format("\n\t%s \t%s\t%s"
+    			,	Util.convert(menu.getMnName(), 45)		
+    			,	Util.convert(quantity+"", 10)		
+    			, 	Util.convert(Util.formatPrice(totalPrice),10));
     }
 }

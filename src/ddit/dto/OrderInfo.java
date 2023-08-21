@@ -52,8 +52,8 @@ public class OrderInfo {
 		return String.format("\t%s \t%s \t%s \t%s"
                 ,	Util.convert(storeName, 45)		
                 , 	Util.convert(menuName, 45)
-                ,	Util.convert(orderPrice+"원", 10)		
-                , 	Util.convert(totalPrice+"원",10)	
+                ,	Util.convert(Util.formatPrice(orderPrice), 10)		
+                , 	Util.convert(Util.formatPrice(totalPrice),10)	
                 );
 	}
     

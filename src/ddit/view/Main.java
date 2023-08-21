@@ -45,9 +45,10 @@ public class Main {
             Thread.sleep(450); // 450밀리초 동안 일시 중지 // 450밀리초 동안 일시 중지
 		}
 	    System.out.println();
+
 	    System.out.println("                         Loading...");
 	    
-		LoadingThread LoadingThread = new LoadingThread("■■■");
+		LoadingThread LoadingThread = new LoadingThread();
 		LoadingThread.start(); // 로딩바
 		LoadingThread.join();
 	    
@@ -89,14 +90,15 @@ public class Main {
 			    		"##       ##     ## ##     ## ##        ##       ##          ##    ##               \r\n" + 
 			    		"##    ## ##     ## ##     ## ##        ##       ##          ##    ##          #### \r\n" + 
 			    		" ######   #######  ##     ## ##        ######## ########    ##    ########    #### ");
-				System.out.println("\n\n\t\t\t  [대덕의 민족]을 종료합니다....감사합니다.");
+				System.out.println("\n\n\t\t\t  [대덕의 민족]을 종료합니다....감사합니다. ＼(^0^)/ ");
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				loop = false;
 			//잘못입력시
 			} else {
 				Util.clearScreen();
-				System.out.println("\n\n");
-				System.out.println("\t\t   올바르지 않은 접근입니다.");
+				System.out.println("\n\n\n\n");
+				System.out.println("\t\t   올바르지 않은 접근입니다.  ");
+				System.out.println("\t\t\t   (○Ａ○)?!");
 				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 				System.out.println("\t\t   계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();

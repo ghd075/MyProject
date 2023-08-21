@@ -51,9 +51,9 @@ public class Login {
 		while (loop) {
 			
 			Util.clearScreen();
-			System.out.println("\n\n");
-			System.out.println("\t\t안녕하세요. 회원님!\r\n ");
-			System.out.println();
+			System.out.println("\n\n\n\n");
+			System.out.println("\t\t안녕하세요. 회원님! \r\n ");
+			System.out.println("\n\t\t\t\t (￣▽￣)ノ \r\n");
 			System.out.println("\t\t▒▒▒▒▒[ 회원 로그인 화면 입니다. ]▒▒▒▒▒\r\n\r\n");
 
 			System.out.print("\tID : ");
@@ -84,25 +84,25 @@ public class Login {
 			
 			if (result1 == 1){ // 로그인 정보가 맞으면 실행
 				Util.clearScreen();
-				System.out.println("\n\n");
-				System.out.printf("\t\t[반갑습니다. %s님!]\r\n", loginname);
-				System.out.println();
-				System.out.println("\t()()       () ()      () ()");
-				System.out.println("\t(..)       (o.o)      (x x)");
-				System.out.println("\t(  )       (   )      (   )");
+				System.out.println("\n\n\n\n");
+				System.out.printf("\t\t[반갑습니다. %s님!]  \r\n", loginname);
+				System.out.println("\n\t\t\tㄴ(*^▽^*)a \r\n");
+				System.out.println("\t\t()()       () ()      () ()");
+				System.out.println("\t\t(..)       (o.o)      (x x)");
+				System.out.println("\t\t(  )       (   )      (   )");
 				SuccessMenu(firstMember);
 				loop = false; 
 			} else if (result1 == 0){ 	//비밀번호가 틀리면
 				Util.clearScreen();
-				System.out.println("\n\n");
-				System.out.println("\t비밀번호가 틀립니다.");
+				System.out.println("\n\n\n\n");
+				System.out.println("\t비밀번호가 틀립니다. (◞ ˛ ◟) ");
 				System.out.println();
 				System.out.println("\t계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
 			} else {  					//아이디와 비밀번호 둘 다 일치하지 않으면
 				Util.clearScreen();
-				System.out.println("\n\n");
-				System.out.println("\t존재하지 않는 아이디입니다.");
+				System.out.println("\n\n\n\n");
+				System.out.println("\t존재하지 않는 아이디입니다. (◞ ˛ ◟) ");
 				System.out.println();
 				System.out.println("\t계속하시려면 엔터키를 입력해주세요");
 				Util.sc.nextLine();
@@ -129,6 +129,7 @@ public class Login {
 			String input = Util.sc.nextLine();
 			System.out.println("\n\n");
 			
+			//뒤로가기
 			if (input.equals("0")) {
 				loop = false;
 			//주문페이지 이동
@@ -136,6 +137,7 @@ public class Login {
 				ms.orderchoice(firstMember);
 			//회원 정보 보기
 			}else if(input.equals("2")) {
+				Util.clearScreen();
 				ms.myPage(firstMember);
 			//지난 배달 내역보기
 			}else if(input.equals("3")) {
@@ -160,7 +162,7 @@ public class Login {
 	
 		Util.clearScreen();
 		System.out.println("\n\n\n\n");
-		System.out.println("\t1. 다시 로그인 하기\r\n");
+		System.out.println("\t1. 다시 로그인 하기 (≡^∇^≡) \r\n");
 		System.out.println("\t[뒤로 가기를 원하시면 0번을 입력하세요.]");
 		System.out.println("\n");
 		System.out.print("\t이동할 화면 입력(숫자) : ");

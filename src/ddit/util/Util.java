@@ -83,10 +83,10 @@ public class Util {
 			
 			//PW 길이가 4 ~ 15자 이내의 아이디만 입력할 수 있도록
 			if(memberPW.length() < 4 || memberPW.length() > 15) {
-				System.out.println("\n\t   4~15자 이내의 비밀번호만 가능합니다");
+				System.out.println("\n\t   4~15자 이내의 비밀번호만 가능합니다. (◞ ˛ ◟) ");
 			//영문자와 숫자를 혼용해서 입력할 수 있도록
 			}else if(cnt1==0 || cnt2==0) {
-				System.out.println("\n\t   비밀번호은 영문자와 숫자를 혼용해서 만들어주세요.");
+				System.out.println("\n\t   비밀번호은 영문자와 숫자를 혼용해서 만들어주세요. (◞ ˛ ◟) ");
 				System.out.println();
 			}else {
 				loop = false;
@@ -114,7 +114,7 @@ public class Util {
 			name = sc.nextLine();
 
 			if (!isValidKoreanName(name)) {
-				System.out.println("\t   이름이 유효하지 않습니다. 한글로 입력해주세요.");
+				System.out.println("\n\t   이름이 유효하지 않습니다. 한글로 입력해주세요. (◞ ˛ ◟) ");
 				System.out.println();
 			} else {
 				loop = false;
@@ -144,7 +144,7 @@ public class Util {
 			memberPhone = sc.nextLine();
 
 			if (!isValidMobilePhoneNumber(memberPhone)) {
-				System.out.println("\n\t   전화번호가 유효하지 않습니다. 올바른 전화번호를 입력해주세요.");
+				System.out.println("\n\t   전화번호가 유효하지 않습니다. 올바른 전화번호를 입력해주세요. (◞ ˛ ◟) ");
 				System.out.println("\n\t   ex)010-0000-0000형태로 입력해주세요.");
 				System.out.println();
 			} else {
@@ -158,7 +158,7 @@ public class Util {
 	/**
 	 * 
 	 * 
-	 * @document 주소입력하는 페이지입니다.
+	 * @document 회원주소입력하는 페이지입니다.
 	 * 
 	 * 
 	 */
@@ -170,7 +170,35 @@ public class Util {
 			System.out.print("\n\n\t   ⊙ 주소 : ");
 			memberAddress = sc.nextLine();
 			if (!isValidKoreanAddress(memberAddress)) {
-				System.out.println("\n\t   주소가 유효하지 않습니다. 올바른 주소를 입력해주세요.");
+				System.out.println("\n\t   주소가 유효하지 않습니다. 올바른 주소를 입력해주세요. (◞ ˛ ◟) ");
+				System.out.println("\n\t   ex)서울특별시 강남구 역삼동 123-45 형태로 입력해주세요.");
+				System.out.println();
+			} else {
+				loop = false;
+			}
+
+		}
+
+		return memberAddress;
+		
+	}//Address
+	
+	/**
+	 * 
+	 * 
+	 * @document 비회원주소입력하는 페이지입니다.
+	 * 
+	 * 
+	 */
+	public static String NoMemberAddress() {
+		String memberAddress = "";
+		
+		boolean loop = true;
+		while (loop) {
+			System.out.print("\n\n\t   ⊙ 배송지 : "); 
+			memberAddress = sc.nextLine();
+			if (!isValidKoreanAddress(memberAddress)) {
+				System.out.println("\n\t   배송지가 유효하지 않습니다. 배송지를 정확하게 입력해주세요. (◞ ˛ ◟) ");
 				System.out.println("\n\t   ex)서울특별시 강남구 역삼동 123-45 형태로 입력해주세요.");
 				System.out.println();
 			} else {
@@ -244,14 +272,14 @@ public class Util {
 			//중복ID 체크
 			if(mDao.checkId(memberID)) {
 				System.out.println();
-				System.out.println("\n\t   중복된 아이디입니다.");
+				System.out.println("\n\t   중복된 아이디입니다. (◞ ˛ ◟) ");
 				System.out.println();
 			//ID 길이가 5 ~ 15자 이내의 아이디만 입력할 수 있도록
 			}else if(memberID.length() < 5 || memberID.length() > 15) {
-				System.out.println("\n\t5~15자 이내의 아이디만 가능합니다");
+				System.out.println("\n\t   5~15자 이내의 아이디만 가능합니다. (◞ ˛ ◟) ");
 			//영문자와 숫자를 혼용해서 입력할 수 있도록
 			}else if(cnt1==0 || cnt2==0) {
-				System.out.println("\n\t   아이디는 영문자와 숫자를 혼용해서 만들어주세요.");
+				System.out.println("\n\t   아이디는 영문자와 숫자를 혼용해서 만들어주세요. (◞ ˛ ◟) ");
 				System.out.println();
 			}else {
 				loop = false;

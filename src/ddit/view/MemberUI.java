@@ -40,7 +40,7 @@ public class MemberUI {
 	 * 
 	 */
 	public void order() {
-		System.out.println("\n\n");
+		System.out.println("\n\n\n\n");
 		System.out.println("\t1. 주문페이지 ");
 		System.out.println();
 		System.out.println("\t2. 회원 정보 보기 ");
@@ -60,7 +60,7 @@ public class MemberUI {
 	 * 
 	 */
 	public void title(int n) {
-		System.out.println("\n\n");
+		System.out.println("\n\n\n\n");
 		if (n == MemberUI.ORDER) {
 			System.out.println("\t\t ▒▒▒▒▒[주문 페이지]▒▒▒▒▒");
 		} else if (n == MemberUI.INFO) {
@@ -82,14 +82,17 @@ public class MemberUI {
 			System.out.println("\n\n");
 			System.out.println("\t\t\t주문이 정상 접수되었습니다.\r\n\r\n\t\t\t계속 하시려면 엔터를 입력하세요.");
 			Util.sc.nextLine();
+			Util.clearScreen();
 		} else if (n == MemberUI.INFO) {
 			System.out.println("\n\n");
 			System.out.println("\t\t▒▒▒▒▒회원님의 정보입니다.▒▒▒▒▒\n\n\t\t계속 하시려면 엔터를 입력하세요.");
 			Util.sc.nextLine();
+			Util.clearScreen();
 		}else if(n == MemberUI.ORDERINFO) {
 			System.out.println("\n\n");
-			System.out.println("\t\t\t▒▒▒▒▒회원님의 주문 정보입니다.▒▒▒▒▒\n\n\t\t\t누르신 키에 상관없이 처음으로 돌아갑니다.");
+			System.out.println("\t\t\t▒▒▒▒▒회원님의 주문 정보입니다.▒▒▒▒▒\n\n\t\t\t누르신 키에 상관없이 첫화면으로 돌아갑니다.");
 			Util.sc.nextLine();
+			Util.clearScreen();
 		}
 	}
 	
@@ -105,7 +108,7 @@ public class MemberUI {
 		boolean result = true;
 		while(result) {
 			Util.clearScreen();
-			System.out.println("\n\n");
+			System.out.println("\n\n\n\n");
 			System.out.println("\t\t\t\t▒▒▒▒▒정렬선택▒▒▒▒▒");
 			System.out.println("\n");
 			System.out.println("\t1. 누적 주문 순으로 보기");
@@ -120,7 +123,7 @@ public class MemberUI {
 			System.out.println();
 
 			if (inputStr.equals("1")) {
-				System.out.println("\n\n\n\n\n\n\n");
+				System.out.println("\n\n");
 				List<Store> list = mm.accumlateList(member, meCode);
 				dor.dorProcess(member, list);
 				return;		// choose 메서드 종료
@@ -130,9 +133,10 @@ public class MemberUI {
 				//dor.dorProcess(store, member);
 				return;		// choose 메서드 종료
 			} else if (inputStr.equals("0")) {
+				Util.clearScreen();
 				result = false;
 			}else {
-				System.out.println("\n\t잘못된 입력입니다. 번호를 올바르게 입력해주세요.\n\n");
+				System.out.println("\n\t잘못된 입력입니다. 번호를 올바르게 입력해주세요. ( ͡°- ͡°) \n\n");
 			}
 		}
 	}
@@ -148,8 +152,8 @@ public class MemberUI {
 		
 		boolean result = true;
 		while(result) {
-			Util.clearScreen();
-			System.out.println("\n\n\n");
+//			Util.clearScreen();
+			System.out.println("\n\n\n\n");
 			System.out.println("\t▒▒▒▒▒어디로 이동할까요?▒▒▒▒▒");
 			System.out.println();
 			System.out.println("\t1. 주문 정보 보기");
@@ -162,6 +166,7 @@ public class MemberUI {
 			System.out.println("\n\n");
 
 			if (input.equals("1")) {
+				Util.clearScreen();
 				userfinalorderinfo(member, UsedP, usedPoint, ORDERNO);
 				return;			// fffinal 메서드 종료
 			} else if (input.equals("0")) {
@@ -177,9 +182,8 @@ public class MemberUI {
 	 * 
 	 */
 	private void userfinalorderinfo(Member member, int UsedP, int usedPoint, String ORDERNO) {
-		Util.clearScreen();
 		int totalOrderPrice = 0;
-		System.out.println("\n\n\t\t\t▒▒▒▒▒고객님, 주문이 완료되었습니다▒▒▒▒▒\n\n");
+		System.out.println("\n\n\t\t\t\t▒▒▒▒▒고객님, 주문이 완료되었습니다▒▒▒▒▒\n\n");
 		System.out.printf("\t\t\t▒▒▒▒▒[%s 님이 신청하신 주문 내역을 불러옵니다.]▒▒▒▒▒\r\n\r\n",member.getName());
 		List<Order> orders = orderDAO.orderSelect(member.getCstNo(), ORDERNO); // 주문번호를 실제로 어떻게 가져올지에 따라 수정 필요
 		
@@ -204,12 +208,17 @@ public class MemberUI {
             totalOrderPrice = order.getTotalPrice();
         }
         System.out.println();
-		System.out.println("\t\t\t⊙ 총 주문 금액: " + totalOrderPrice + "원");
+		System.out.println("\t\t\t⊙ 총 주문 금액: " + Util.formatPrice(totalOrderPrice));
 		System.out.println();
 		System.out.println("\t\t\t⊙ 현재 상태: 대기중..");
 		System.out.println();
 		System.out.println("\t\t\t⊙ 배달시간 : 30분\n");
 		
 		pause(3);
+		try {
+			Main.main(new String[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

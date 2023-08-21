@@ -42,7 +42,7 @@ public class PointUse {
 				orderDAO.deleteOrderAndMenu(ORDERNO); // 주문 및 주문 내역 삭제 메서드 호출
 				result = false;
 			}else {
-	            System.out.println("\n\t잘못된 입력입니다. 다시 입력해주세요.");
+	            System.out.println("\n\t잘못된 입력입니다. 다시 입력해주세요. ( ͡°- ͡°) ");
 	            Util.sc.nextLine(); // 개행 문자 처리
 	        }	
 		}
@@ -77,10 +77,10 @@ public class PointUse {
 					System.out.println();
 					System.out.print("\t결제할 최종 금액: ");
 					finalprice = totalOrderPrice - usedPoint;
-					System.out.println(finalprice);
+					System.out.println(Util.formatPrice(finalprice));
 					 // 사용한 포인트 차감 및 적립
 					userPoint -= usedPoint;
-					UsedP = totalOrderPrice*2/100;
+					UsedP = (int) (totalOrderPrice * 0.02);
 					userPoint += UsedP;
 					System.out.println("\n\t포인트 적립 후 사용 가능 포인트: " + userPoint);
 					orderDAO.updateUserPoint(member.getCstNo(), userPoint);
@@ -90,15 +90,15 @@ public class PointUse {
 					mu.fffinal(member, UsedP, usedPoint, ORDERNO);
 					return; // payPay 메서드 종료
 				}else if(usedPoint > member.getmPoint()) {
-					System.out.println("\n\t포인트가 부족합니다. 다시 입력해주세요.");
+					System.out.println("\n\t포인트가 부족합니다. 다시 입력해주세요. ◎_◎ ");
 					result = false;
 				}
 			}else if(input.equalsIgnoreCase("N")) {
 				System.out.println();
 				System.out.print("\t결제할 최종 금액: ");
-				System.out.println(totalOrderPrice);
+				System.out.println(Util.formatPrice(totalOrderPrice));
 				 // 사용한 포인트 차감 및 적립
-				UsedP = totalOrderPrice*2/100;
+				UsedP = (int) (totalOrderPrice * 0.02);
 				userPoint += UsedP;
 				System.out.println("\n\t포인트 적립 후 사용 가능 포인트: " + userPoint);
 				orderDAO.updateUserPoint(member.getCstNo(), userPoint);
@@ -108,7 +108,7 @@ public class PointUse {
 				mu.fffinal(member, UsedP, usedPoint, ORDERNO);
 				return; // payPay 메서드 종료
 			}else {
-	            System.out.println("\t잘못된 입력입니다. 다시 입력해주세요.");
+	            System.out.println("\t잘못된 입력입니다. 다시 입력해주세요. ( ͡°- ͡°) ");
 	            Util.sc.nextLine(); // 개행 문자 처리
 			}
 		}

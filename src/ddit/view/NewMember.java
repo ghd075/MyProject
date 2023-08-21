@@ -36,15 +36,15 @@ public class NewMember {
 		while (loop) {
 
 			Util.clearScreen();
-			System.out.println("\n\n");
+			System.out.println("\n\n\n\n");
 			System.out.println("\t--------------------------------------------------\n");
-			System.out.println("\t회원가입을 위해 정보를 입력해주세요!\n\n\n");
+			System.out.println("\t▒▒▒▒▒[회원가입을 위해 정보를 입력해주세요!]▒▒▒▒▒\n\n\n");
 
 			memberdata.setName(Util.nameCheck());
 
 			memberdata.setmId(Util.createid());;
 
-			System.out.println("\t사용가능한 아이디 입니다.");
+			System.out.println("\n\t   사용가능한 아이디 입니다.");
 			System.out.println();
 
 //			System.out.print("\t비밀 번호 : ");
@@ -65,13 +65,13 @@ public class NewMember {
 			int result = mDao.join(memberdata);
 
 			if(result!=0) {
-				System.out.println("\n\n\t회원가입이 완료되었습니다.");
+				System.out.println("\n\n\t   회원가입이 완료되었습니다. o(^^o) (o^^)o ");
 				System.out.println();
-				System.out.println("\n\t        PRESS ENTER TO CONTUNUE...");
+				System.out.println("\n\t   PRESS ENTER TO CONTUNUE...");
 				Util.sc.nextLine();
 				loop = false;
 			}else {
-				System.out.println("\n\n\t회원가입에 실패했습니다.");
+				System.out.println("\n\n\t   회원가입에 실패했습니다. ( ͡°- ͡°) ");
 			}
 
 		} // loop
